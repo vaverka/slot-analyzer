@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V4.1 (взаимосвязанный, с графиками)
+#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V4.4 (полный, надежный и понятный)
 # ==============================================================================
 import json
 import math
@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
-# --- Класс-калькулятор (остается почти без изменений, только в функциях визуализации) ---
+# --- Класс-калькулятор с надежной инициализацией ---
 sns.set_theme(style="whitegrid", palette="viridis")
 
 class SlotProbabilityCalculator:
@@ -18,9 +18,14 @@ class SlotProbabilityCalculator:
         self.min_bet, self.max_bet, self.max_win, self.avg_win = None, None, None, None
         self.min_bankroll_formula, self.min_bankroll_calculation = "", ""
         self.volatility = self.config.get('game_config', {}).get('volatility', 'medium')
+        # Все базовые расчеты теперь происходят при создании объекта
         self.calculate_all()
 
     def calculate_all(self):
+        """Запускает все базовые расчеты в правильном порядке."""
+        # Сначала рассчитываем параметры ставок, так как они нужны другим методам
+        self.calculate_min_bankroll()
+        # Затем рассчитываем вероятности
         self.calculate_win_probabilities()
 
     def calculate_win_probabilities(self):
@@ -66,43 +71,22 @@ class SlotProbabilityCalculator:
             min_bank_advice.append(f"✅ Ваш банкролл (${personal_bankroll:,.2f}) достаточен для игры в этот слот (минимум: ${min_bankroll:,.2f}).")
         risk_profiles = {'low': {'bet_percent': 0.5, 'stop_loss': 0.25, 'win_goal': 0.4},'medium': {'bet_percent': 1.0, 'stop_loss': 0.4, 'win_goal': 0.6},'high': {'bet_percent': 2.0, 'stop_loss': 0.5, 'win_goal': 1.0}}
         profile = risk_profiles.get(risk_level, risk_profiles['medium'])
-        
-        # <-- ИЗМЕНЕНИЕ: Учет max_bet -->
         theoretical_bet = personal_bankroll * profile['bet_percent'] / 100
-        bet_per_spin = min(theoretical_bet, self.max_bet) # Ограничиваем ставку максимумом слота
-
+        bet_per_spin = min(theoretical_bet, self.max_bet)
         base_win_prob, rtp = float(self.config.get('probabilities', {}).get('base_win_probability', 0.25)), self.config.get('game_config', {}).get('rtp', 0.96)
         harsh_truths = [f"Вероятность любого выигрыша за спин: **{base_win_prob*100:.1f}%**. Это означает, что в среднем **~{10 - int(base_win_prob * 10)} из 10 спинов будут проигрышными**.", f"**RTP {rtp*100:.1f}%** означает, что на каждый поставленный $1,000, казино в среднем оставляет себе **${1000 * (1 - rtp):.2f}**."]
         optimal_strategy = [f"**Ставка**: Ваша рекомендуемая ставка **${bet_per_spin:.2f}**. Начинайте с минимальной ставки **${self.min_bet:.2f}**.", f"**Управление ставками**: Увеличивайте ставку до **${bet_per_spin:.2f}** ТОЛЬКО после активации бонусной функции или крупного выигрыша.", f"**Стоп-лосс (железное правило)**: Немедленно прекратите игру, если ваш банк опустится до **${personal_bankroll * (1-profile['stop_loss']):.2f}** (потеря ${personal_bankroll * profile['stop_loss']:.2f}).", f"**Цель выигрыша**: Зафиксируйте прибыль и прекратите игру, если ваш банк достигнет **${personal_bankroll * (1+profile['win_goal']):.2f}** (прибыль ${personal_bankroll * profile['win_goal']:.2f}).", "**Психология**: **НИКОГДА** не пытайтесь 'отыграться'. Каждый спин независим. После крупного выигрыша или проигрыша сделайте перерыв."]
         return {'min_bank_advice': min_bank_advice, 'harsh_truths': harsh_truths, 'optimal_strategy': optimal_strategy, 'bet_per_spin': bet_per_spin}
-    
-    # <-- ИЗМЕНЕНИЕ: Новая, корректная модель расчета вероятности достижения цели -->
-    def estimate_goal_chance(self, personal_bankroll, desired_win, bet_per_spin):
+
+    def estimate_goal_chance(self, personal_bankroll, desired_win):
         rtp = self.config.get('game_config', {}).get('rtp', 0.96)
-        if rtp >= 1.0 or bet_per_spin <= 0: return {"probability": 1.0, "expected_spins": float('inf')}
-        
-        # Рассчитываем соотношение "проигрыша" к "выигрышу" на основе RTP
-        q_over_p = (1 - rtp) / rtp
-        
-        # Переводим денежные суммы в "игровые единицы", где 1 единица = 1 ставка
-        start_units = personal_bankroll / bet_per_spin
-        target_units = (personal_bankroll + desired_win) / bet_per_spin
+        if desired_win <= 0: return {"probability": 1.0}
+        if personal_bankroll <= 0: return {"probability": 0.0}
+        target_amount = personal_bankroll + desired_win
+        effective_bankroll = personal_bankroll * rtp
+        probability = effective_bankroll / target_amount
+        return {"probability": probability}
 
-        try:
-            # P(успеха) = (1 - (q/p)^i) / (1 - (q/p)^N)
-            # где i - начальный капитал в ставках, N - целевой капитал в ставках
-            numerator = 1 - (q_over_p ** start_units)
-            denominator = 1 - (q_over_p ** target_units)
-            probability = numerator / denominator if denominator != 0 else 0.0
-        except (ValueError, OverflowError):
-            probability = 0.0 # Если числа слишком большие, вероятность стремится к нулю
-
-        # <-- ИЗМЕНЕНИЕ: Улучшенный расчет ожидаемого количества спинов -->
-        net_loss_per_spin = bet_per_spin * (1 - rtp)
-        expected_spins = personal_bankroll / net_loss_per_spin if net_loss_per_spin > 0 else float('inf')
-
-        return {"probability": probability, "expected_spins": int(expected_spins)}
-        
     def visualize_win_probabilities(self, level='base'):
         if not self.win_probabilities: return None
         level_data = self.win_probabilities.get(level)
@@ -132,7 +116,7 @@ class SlotProbabilityCalculator:
             'Символ': df_sorted['name'],
             'Чистая вероятность (%)': df_sorted['pure_probability'].apply(lambda x: f"{x*100:.2f}%"),
             'Вероятность комбинации (с Wild, %)': df_sorted['combo_probability'].apply(lambda x: f"{x*100:.2f}%"),
-            'Спинов для 99% шанса': df_sorted['spins_for_99_prob'].apply(lambda x: f"{x:,.0f}" if x != float('inf') else "∞")
+            'Спинов для 99% шанса': df_sorted['spins_for_99_prob'].apply(lambda x: f"{int(x)}" if x != float('inf') else "∞")
         })
         return df_display
 
@@ -143,45 +127,46 @@ def main():
     with st.sidebar:
         st.title("🎰 Параметры Анализа")
         uploaded_file = st.file_uploader("1. Загрузите JSON-конфигурацию слота", type="json")
-        
-        # Поля для ввода появляются только после загрузки файла
+        personal_bankroll, desired_win, risk_level, analyze_button = 0, 0, 'medium', False
         if uploaded_file:
             personal_bankroll = st.number_input("2. Ваш стартовый банкролл ($)", min_value=1.0, value=200.0, step=10.0, format="%.2f")
             desired_win = st.number_input("3. Ваш желаемый чистый выигрыш ($)", min_value=1.0, value=500.0, step=10.0, format="%.2f")
             risk_level = st.selectbox("4. Ваш уровень риска", options=['low', 'medium', 'high'], index=1).lower()
             analyze_button = st.button("🚀 Провести полный анализ", type="primary", use_container_width=True)
-        else:
-            analyze_button = False # Кнопка неактивна, если файл не загружен
 
     st.title("Универсальный анализатор вероятностей слотов")
     st.markdown("Этот инструмент поможет вам понять реальные шансы и разработать стратегию для любого слота, основываясь на его математических параметрах.")
 
     if analyze_button and uploaded_file:
         try:
+            uploaded_file.seek(0)
             config = json.load(uploaded_file)
             calculator = SlotProbabilityCalculator(config)
             game_config = config.get('game_config', {})
             
-            # <-- ИЗМЕНЕНИЕ: Логика теперь едина и последовательна -->
-            # 1. Сначала генерируем стратегию, чтобы получить РЕКОМЕНДУЕМУЮ СТАВКУ
-            strategy = calculator.generate_bankroll_strategy(personal_bankroll, risk_level)
-            bet_per_spin = strategy.get('bet_per_spin')
-            
-            # 2. Затем используем эту ставку для расчета ШАНСОВ НА ЦЕЛЬ
-            goal_result = calculator.estimate_goal_chance(personal_bankroll, desired_win, bet_per_spin)
-            
-            # 3. Выводим все результаты
             st.header(f"🎰 Полный анализ слота: {game_config.get('game_name', 'N/A')}", divider="rainbow")
             st.subheader(f"Ваши параметры: Банкролл: **${personal_bankroll:,.2f}** | Желаемый выигрыш: **+${desired_win:,.2f}** | Риск: **{risk_level.capitalize()}**")
-            
+
+            goal_result = calculator.estimate_goal_chance(personal_bankroll, desired_win)
+            rtp = game_config.get('rtp', 0.96)
+            strategy = calculator.generate_bankroll_strategy(personal_bankroll, risk_level)
+            bet_per_spin = strategy.get('bet_per_spin', calculator.min_bet)
+            net_loss_per_spin = bet_per_spin * (1 - rtp) if bet_per_spin > 0 else 0
+            expected_spins = int(personal_bankroll / net_loss_per_spin) if net_loss_per_spin > 0 else float('inf')
+
             st.subheader("🎯 Анализ вашей цели", divider="blue")
-            
             col1, col2 = st.columns(2)
             with col1:
-                st.metric(label=f"Шанс выиграть ${desired_win:,.2f} (при риске '{risk_level.capitalize()}')", value=f"{goal_result['probability']*100:.4f}%")
+                st.metric(label=f"Оценочный шанс выиграть ${desired_win:,.2f}", value=f"{goal_result['probability']*100:.4f}%")
             with col2:
-                st.metric(label="Ожидаемое кол-во спинов до разорения", value=f"~{goal_result['expected_spins']:,} спинов")
-            st.info(f"**Почему вероятность меняется с риском?** Более высокая ставка (выше риск) означает, что вы делаете меньше 'шагов' до цели. Это увеличивает дисперсию: вы либо быстрее достигаете цели, либо быстрее проигрываете. Низкие ставки растягивают игру, но преимущество казино (RTP < 100%) успевает 'съесть' ваш банкролл с большей вероятностью.")
+                spins_str = f"~{expected_spins}" if expected_spins != float('inf') else "∞"
+                st.metric(label="Ожидаемое кол-во спинов до разорения", value=spins_str)
+            
+            st.info(f"""
+            **Как это работает?**
+            - **Шанс на выигрыш:** Вероятность рассчитывается как `(Ваш Банкролл * RTP) / (Ваш Банкролл + Желаемый Выигрыш)`. Эта модель показывает, что преимущество казино (RTP < 100%) постоянно уменьшает ваши шансы на достижение крупной цели.
+            - **Количество спинов:** Это математическое ожидание количества спинов, которое вы сможете сделать, прежде чем ваш банкролл иссякнет из-за преимущества казино. Рассчитывается как `Ваш Банкролл / (Ваша Ставка * (1 - RTP))`.
+            """)
 
             st.subheader("📊 Визуальный анализ вероятностей", divider="blue")
             fig = calculator.visualize_win_probabilities()
@@ -189,26 +174,19 @@ def main():
             st.dataframe(calculator.get_results_table(), use_container_width=True)
 
             st.header("♟️ Персональная стратегия игры", divider="rainbow")
-            
             with st.container(border=True):
                 st.subheader("1. Вердикт о вашем банкролле")
                 for advice in strategy['min_bank_advice']: st.markdown(f"➡️ {advice}")
-
             with st.container(border=True):
                 st.subheader("2. Обоснование и Расчет Минимального Банка")
-                st.markdown(f"**Формула** (для {calculator.volatility.capitalize()} волатильности): `{calculator.min_bankroll_formula}`")
-                st.markdown(f"**Подставляем значения**: `{calculator.min_bankroll_calculation}`")
                 min_bankroll_final_str = ''.join(filter(lambda char: char.isdigit() or char in '.,', strategy['min_bank_advice'][0].split('$')[-1]))
-                st.success(f"**Результат**: Итоговый рекомендуемый минимум составляет **${min_bankroll_final_str}**")
-
+                st.markdown(f"**Результат**: Итоговый рекомендуемый минимум составляет **${min_bankroll_final_str}**")
             with st.container(border=True):
                 st.subheader("3. Жесткая правда о шансах (без прикрас)")
                 for truth in strategy['harsh_truths']: st.markdown(f"➡️ {truth}")
-            
             with st.container(border=True):
                 st.subheader("4. Оптимальная пошаговая стратегия")
                 for i, step in enumerate(strategy['optimal_strategy'], 1): st.markdown(f"**Шаг {i}**: {step}")
-
         except Exception as e:
             st.error(f"Произошла ошибка при анализе файла. Убедитесь, что JSON-файл имеет верную структуру. Ошибка: {e}")
     elif not uploaded_file and analyze_button:
