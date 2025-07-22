@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V4.5 (полный, с детальным объяснением)
+#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V4.6 (полный, с обоснованием)
 # ==============================================================================
 import json
 import math
@@ -191,13 +191,28 @@ def main():
             st.dataframe(calculator.get_results_table(), use_container_width=True)
 
             st.header("♟️ Персональная стратегия игры", divider="rainbow")
+            
             with st.container(border=True):
                 st.subheader("1. Вердикт о вашем банкролле")
                 for advice in strategy['min_bank_advice']: st.markdown(f"➡️ {advice}")
+            
             with st.container(border=True):
                 st.subheader("2. Обоснование и Расчет Минимального Банка")
+                st.markdown("Чтобы стратегия имела смысл, ваш банкролл должен позволять пережить серии проигрышей, характерные для данной волатильности.")
+                
+                st.markdown("\n**Исходные данные для расчета:**")
+                st.markdown(f" • **Минимальная ставка**: ${calculator.min_bet:.2f}")
+                st.markdown(f" • **Максимальный выигрыш в слоте**: ${calculator.max_win:,.2f}")
+                st.markdown(f" • **Средний значимый выигрыш**: ${calculator.avg_win:,.2f} (эмпирическая оценка)")
+                st.markdown(f" • **Волатильность**: {calculator.volatility.capitalize()}")
+                
+                st.markdown("\n**Процесс расчета:**")
+                st.markdown(f"1. **Формула** (для {calculator.volatility.capitalize()} волатильности): `{calculator.min_bankroll_formula}`")
+                st.markdown(f"2. **Подставляем значения**: `{calculator.min_bankroll_calculation}`")
+
                 min_bankroll_final_str = ''.join(filter(lambda char: char.isdigit() or char in '.,', strategy['min_bank_advice'][0].split('$')[-1]))
-                st.markdown(f"**Результат**: Итоговый рекомендуемый минимум составляет **${min_bankroll_final_str}**")
+                st.success(f"**Результат**: Итоговый рекомендуемый минимум составляет **${min_bankroll_final_str}**")
+
             with st.container(border=True):
                 st.subheader("3. Жесткая правда о шансах (без прикрас)")
                 for truth in strategy['harsh_truths']: st.markdown(f"➡️ {truth}")
