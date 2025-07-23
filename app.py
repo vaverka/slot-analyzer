@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V7.0 (финальная, с исправленным выводом)
+#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V7.2 (финальная, исправленная версия)
 # ==============================================================================
 import json
 import math
@@ -196,6 +196,7 @@ def main():
                 spins_str = f"{guaranteed_spins}" if guaranteed_spins != float('inf') else "∞"
                 st.metric(label="Гарантированное кол-во спинов (при рек. ставке)", value=spins_str)
             
+            # --- ВОЗВРАЩЕННЫЙ БЛОК С ПРАВИЛЬНЫМ ТЕКСТОМ ---
             with st.expander("Как понимать эти цифры? 🤔"):
                 st.markdown(f"""
                 #### Шанс на выигрыш
@@ -216,7 +217,8 @@ def main():
             
             with st.container(border=True):
                 st.subheader("1. Вердикт о вашем банкролле")
-                for advice in strategy['min_bank_advice']: st.markdown(f"➡️ {advice}")
+                for advice in strategy['min_bank_advice']: 
+                    st.markdown(f"➡️ {advice}")
             
             with st.container(border=True):
                 st.subheader("2. Обоснование и Расчет Минимального Банка")
@@ -237,10 +239,12 @@ def main():
 
             with st.container(border=True):
                 st.subheader("3. Жесткая правда о шансах (без прикрас)")
-                for truth in strategy['harsh_truths']: st.markdown(f"➡️ {truth}")
+                for truth in strategy['harsh_truths']: 
+                    st.markdown(f"➡️ {truth}")
             with st.container(border=True):
                 st.subheader("4. Оптимальная пошаговая стратегия")
-                for i, step in enumerate(strategy['optimal_strategy'], 1): st.markdown(f"**Шаг {i}**: {step}")
+                for i, step in enumerate(strategy['optimal_strategy'], 1): 
+                    st.markdown(f"**Шаг {i}**: {step}")
         except Exception as e:
             st.error(f"Произошла ошибка при анализе файла. Убедитесь, что JSON-файл имеет верную структуру. Ошибка: {e}")
     elif not uploaded_file and analyze_button:
