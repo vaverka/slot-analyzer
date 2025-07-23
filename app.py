@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V5.6 (финальная, честная версия)
+#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V5.7 (финальная, логичная версия)
 # ==============================================================================
 import json
 import math
@@ -44,17 +44,28 @@ class SlotProbabilityCalculator:
         if not isinstance(bet_range, list) or len(bet_range) < 2: bet_range = [0.10, 100.00]
         self.min_bet, self.max_bet = float(bet_range[0]), float(bet_range[1])
         max_win_multiplier = float(self.config.get('probabilities', {}).get('max_win_multiplier', 2000))
-        self.max_win, self.avg_win = max_win_multiplier * self.max_bet, 0.4 * (max_win_multiplier * self.max_bet)
+        
+        # <-- ИЗМЕНЕНИЕ: avg_win теперь считается от ЭТАЛОННОЙ СТАВКИ $1, а не от max_bet -->
+        self.max_win_at_one_dollar = max_win_multiplier * 1.0
+        self.avg_win = 0.4 * self.max_win_at_one_dollar
+        
         min_bankroll = 0
         if self.volatility == 'high':
             part1, part2 = 100 * self.min_bet, 0.05 * self.avg_win
-            self.min_bankroll_formula, self.min_bankroll_calculation, min_bankroll = "max(100 * Мин. ставка, 5% * Среднего выигрыша)", f"max(${part1:.2f}, ${part2:.2f})", max(part1, part2)
+            self.min_bankroll_formula = "max(100 * Мин. ставка, 5% * Среднего выигрыша при ставке $1)"
+            self.min_bankroll_calculation = f"max(${part1:.2f}, ${part2:.2f})"
+            min_bankroll = max(part1, part2)
         elif self.volatility == 'medium':
             part1, part2 = 75 * self.min_bet, 0.03 * self.avg_win
-            self.min_bankroll_formula, self.min_bankroll_calculation, min_bankroll = "max(75 * Мин. ставка, 3% * Среднего выигрыша)", f"max(${part1:.2f}, ${part2:.2f})", max(part1, part2)
-        else:
+            self.min_bankroll_formula = "max(75 * Мин. ставка, 3% * Среднего выигрыша при ставке $1)"
+            self.min_bankroll_calculation = f"max(${part1:.2f}, ${part2:.2f})"
+            min_bankroll = max(part1, part2)
+        else: # low
             part1, part2 = 50 * self.min_bet, 0.01 * self.avg_win
-            self.min_bankroll_formula, self.min_bankroll_calculation, min_bankroll = "max(50 * Мин. ставка, 1% * Среднего выигрыша)", f"max(${part1:.2f}, ${part2:.2f})", max(part1, part2)
+            self.min_bankroll_formula = "max(50 * Мин. ставка, 1% * Среднего выигрыша при ставке $1)"
+            self.min_bankroll_calculation = f"max(${part1:.2f}, ${part2:.2f})"
+            min_bankroll = max(part1, part2)
+            
         return round(min_bankroll, 2)
 
     def generate_bankroll_strategy(self, personal_bankroll, risk_level='medium'):
@@ -179,7 +190,6 @@ def main():
                 spins_str = f"{guaranteed_spins}" if guaranteed_spins != float('inf') else "∞"
                 st.metric(label="Гарантированное кол-во спинов (при рек. ставке)", value=spins_str)
             
-            # <-- ИСПРАВЛЕНИЕ: Текст теперь использует ДИНАМИЧЕСКИЕ значения min_bet и max_bet -->
             with st.expander("Как понимать эти цифры? 🤔"):
                 st.markdown(f"""
                 #### Шанс на выигрыш
@@ -208,8 +218,9 @@ def main():
                 
                 st.markdown("\n**Исходные данные для расчета:**")
                 st.markdown(f" • **Минимальная ставка**: ${calculator.min_bet:.2f}")
-                st.markdown(f" • **Максимальный выигрыш в слоте**: ${calculator.max_win:,.2f}")
-                st.markdown(f" • **Средний значимый выигрыш**: ${calculator.avg_win:,.2f} (эмпирическая оценка)")
+                # <-- ИЗМЕНЕНИЕ: Показываем потенциал выигрыша на ставку $1 -->
+                st.markdown(f" • **Макс. выигрыш при ставке $1**: ${calculator.max_win_at_one_dollar:,.2f}")
+                st.markdown(f" • **Средний значимый выигрыш (при ставке $1)**: ${calculator.avg_win:,.2f}")
                 st.markdown(f" • **Волатильность**: {calculator.volatility.capitalize()}")
                 
                 st.markdown("\n**Процесс расчета:**")
