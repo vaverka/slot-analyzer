@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V7.5 (исправленная версия с учетом LaTeX)
+#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V7.7 (с выбором файла из репо)
 # ==============================================================================
 import json
 import math
@@ -7,6 +7,30 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
+import os # Для работы с файловой системой
+
+# --- Конфигурация ---
+CONFIGS_FOLDER = "slot_configs" # Папка с предустановленными конфигами
+
+# --- Вспомогательная функция для получения списка файлов из папки в репо ---
+@st.cache_data
+def get_local_config_files(folder_path):
+    """
+    Получает список JSON файлов из указанной локальной папки.
+    """
+    try:
+        if os.path.exists(folder_path) and os.path.isdir(folder_path):
+            files = [f for f in os.listdir(folder_path) if f.endswith('.json')]
+            return sorted(files)
+        else:
+            # Если папка не существует, возвращаем пустой список
+            # Это не ошибка, просто нет предустановленных файлов
+            return []
+    except Exception as e:
+        # В случае других ошибок ОС, логируем и возвращаем пустой список
+        # st.write может быть слишком рано, используем print для логирования на стороне сервера
+        print(f"Ошибка при получении списка файлов из {folder_path}: {e}")
+        return []
 
 # --- Класс-калькулятор с надежной инициализацией ---
 sns.set_theme(style="whitegrid", palette="viridis")
@@ -51,22 +75,21 @@ class SlotProbabilityCalculator:
         if self.volatility == 'high':
             part1, part2 = 100 * self.min_bet, 0.05 * self.avg_win
             self.min_bankroll_formula = "max(100 * Мин. ставка, 5% * Среднего выигрыша)"
-            self.min_bankroll_calculation, min_bankroll = f"max(${part1:.2f}, ${part2:.2f})", max(part1, part2)
+            self.min_bankroll_calculation, min_bankroll = f"max(\${part1:.2f}, \${part2:.2f})", max(part1, part2)
         elif self.volatility == 'medium':
             part1, part2 = 75 * self.min_bet, 0.03 * self.avg_win
             self.min_bankroll_formula = "max(75 * Мин. ставка, 3% * Среднего выигрыша)"
-            self.min_bankroll_calculation, min_bankroll = f"max(${part1:.2f}, ${part2:.2f})", max(part1, part2)
+            self.min_bankroll_calculation, min_bankroll = f"max(\${part1:.2f}, \${part2:.2f})", max(part1, part2)
         else: # low
             part1, part2 = 50 * self.min_bet, 0.01 * self.avg_win
             self.min_bankroll_formula = "max(50 * Мин. ставка, 1% * Среднего выигрыша)"
-            self.min_bankroll_calculation, min_bankroll = f"max(${part1:.2f}, ${part2:.2f})", max(part1, part2)
+            self.min_bankroll_calculation, min_bankroll = f"max(\${part1:.2f}, \${part2:.2f})", max(part1, part2)
         return round(min_bankroll, 2)
 
     def generate_bankroll_strategy(self, personal_bankroll, risk_level='medium'):
         min_bankroll = self.calculate_min_bankroll()
         min_bank_advice = []
         if personal_bankroll < min_bankroll:
-            # Используем экранирование \$ и избегаем ** вокруг чисел, чтобы предотвратить LaTeX
             pb_formatted = f"{personal_bankroll:,.2f}"
             mb_formatted = f"{min_bankroll:,.2f}"
             min_bank_advice.append(f"🚨 **КРИТИЧЕСКИЙ РИСК**: Ваш банкролл (\${pb_formatted}) **ЗНАЧИТЕЛЬНО НИЖЕ** минимального (\${mb_formatted})!")
@@ -76,7 +99,6 @@ class SlotProbabilityCalculator:
             mb_formatted = f"{min_bankroll:,.2f}"
             min_bank_advice.append(f"✅ Ваш банкролл (\${pb_formatted}) достаточен для игры в этот слот (минимум: \${mb_formatted}).")
         
-        # Интеллектуальный расчет ставки
         risk_multiplier_map = {'low': 1, 'medium': 2, 'high': 5}
         risk_multiplier = risk_multiplier_map.get(risk_level, 2)
         bankroll_power_base = 50
@@ -87,7 +109,6 @@ class SlotProbabilityCalculator:
         safe_max_bet = min(self.max_bet, personal_bankroll / 20)
         bet_per_spin = max(self.min_bet, min(snapped_bet, safe_max_bet))
         
-        # Форматируем числа заранее
         tb_formatted = f"{theoretical_bet:.2f}"
         bps_formatted = f"{bet_per_spin:.2f}"
         mbet_formatted = f"{self.min_bet:.2f}"
@@ -106,16 +127,14 @@ class SlotProbabilityCalculator:
         house_edge_val = 1000 * (1 - rtp)
         hev_formatted = f"{house_edge_val:.2f}"
         
-        # Используем экранирование \$ и избегаем ** вокруг чисел, чтобы предотвратить LaTeX
         truth1 = f"Вероятность любого выигрыша за спин: **{bwp_pct:.1f}%**. Это означает, что в среднем **~{losing_spins_count} из 10 спинов будут проигрышными**."
-        truth2 = f"**RTP {rtp_pct:.1f}%** означает, что на каждый поставленный \$1,000, казино в среднем оставляет себе **\${hev_formatted}**."
+        truth2 = f"**RTP {rtp_pct:.1f}%** означает, что на каждый поставленный \$1,000, казино в средном оставляет себе **\${hev_formatted}**."
 
         harsh_truths = [truth1, truth2]
         
         stop_loss_profile = {'low': 0.25, 'medium': 0.4, 'high': 0.5}
         win_goal_profile = {'low': 0.4, 'medium': 0.6, 'high': 1.0}
         
-        # Форматируем числа заранее и используем экранирование \$
         sll_val = personal_bankroll * (1-stop_loss_profile[risk_level])
         sll_loss = personal_bankroll * stop_loss_profile[risk_level]
         wgl_val = personal_bankroll * (1+win_goal_profile[risk_level])
@@ -126,7 +145,6 @@ class SlotProbabilityCalculator:
         wgl_val_f = f"{wgl_val:.2f}"
         wgl_profit_f = f"{wgl_profit:.2f}"
         
-        # Используем экранирование \$ и избегаем ** вокруг чисел, чтобы предотвратить LaTeX
         strategy1 = f"**Рекомендуемая ставка**: Для вашего банка и уровня риска реальная ставка составляет **\${bps_formatted}**.{adjustment_note}"
         strategy2 = f"**Управление ставками**: Начинайте с минимальной ставки **\${mbet_formatted}**. Если игра идет хорошо, можно постепенно повышать ставку, но не превышать рекомендуемую."
         strategy3 = f"**Стоп-лосс (железное правило)**: Немедленно прекратите игру, если ваш банк опустится до **\${sll_val_f}** (потеря \${sll_loss_f})."
@@ -147,7 +165,6 @@ class SlotProbabilityCalculator:
         return {"probability": probability}
 
     def visualize_win_probabilities(self, level='base'):
-        # ... (код визуализации без изменений) ...
         if not self.win_probabilities: return None
         level_data = self.win_probabilities.get(level)
         if not level_data: return None
@@ -166,7 +183,6 @@ class SlotProbabilityCalculator:
         return fig
 
     def get_results_table(self, level='base'):
-        # ... (код таблицы без изменений) ...
         if not self.win_probabilities: return pd.DataFrame()
         level_data = self.win_probabilities.get(level)
         if not level_data: return pd.DataFrame()
@@ -184,11 +200,51 @@ class SlotProbabilityCalculator:
 # --- Основной блок веб-приложения Streamlit ---
 def main():
     st.set_page_config(page_title="Анализатор слотов", layout="wide", initial_sidebar_state="expanded")
+    
+    # --- Получаем список локальных файлов ---
+    local_config_files = get_local_config_files(CONFIGS_FOLDER)
+    
     with st.sidebar:
         st.title("🎰 Параметры Анализа")
-        uploaded_file = st.file_uploader("1. Загрузите JSON-конфигурацию слота", type="json")
+        
+        # --- Новый блок выбора источника файла ---
+        file_source = st.radio(
+            "Выберите источник конфигурации:",
+            ('Загрузить файл с компьютера', 'Выбрать из предустановленных'),
+            index=0 # По умолчанию "Загрузить файл"
+        )
+        
+        config_file = None
+        
+        if file_source == 'Загрузить файл с компьютера':
+            config_file = st.file_uploader("1a. Загрузите JSON-конфигурацию слота", type="json")
+        elif file_source == 'Выбрать из предустановленных' and local_config_files:
+            selected_filename = st.selectbox(
+                "1b. Выберите конфигурацию слота",
+                options=local_config_files,
+                format_func=lambda x: x # Отображаем имя файла как есть
+            )
+            if selected_filename:
+                # Пытаемся открыть файл из локальной папки
+                try:
+                    full_path = os.path.join(CONFIGS_FOLDER, selected_filename)
+                    # Открываем файл в бинарном режиме и создаем BytesIO объект,
+                    # который имитирует загруженный файл для st.file_uploader
+                    with open(full_path, 'rb') as f:
+                        config_file = f.read()
+                    # st.file_uploader ожидает объект с атрибутом 'name'
+                    # Оборачиваем байты в объект, совместимый с UploaderFile
+                    from io import BytesIO
+                    config_file = BytesIO(config_file)
+                    config_file.name = selected_filename # Добавляем имя файла
+                except Exception as e:
+                     st.error(f"Ошибка при загрузке файла {selected_filename}: {e}")
+                     config_file = None
+        elif file_source == 'Выбрать из предустановленных' and not local_config_files:
+             st.info(f"Папка '{CONFIGS_FOLDER}' не найдена или пуста.")
+        
         personal_bankroll, desired_win, risk_level, analyze_button = 0, 0, 'medium', False
-        if uploaded_file:
+        if config_file is not None:
             personal_bankroll = st.number_input("2. Ваш стартовый банкролл ($)", min_value=0.01, value=200.0, step=10.0, format="%.2f")
             desired_win = st.number_input("3. Ваш желаемый чистый выигрыш ($)", min_value=1.0, value=500.0, step=10.0, format="%.2f")
             risk_level = st.selectbox("4. Ваш уровень риска", options=['low', 'medium', 'high'], index=1).lower()
@@ -197,13 +253,14 @@ def main():
     st.title("Универсальный анализатор вероятностей слотов")
     st.markdown("Этот инструмент поможет вам понять реальные шансы и разработать стратегию для любого слота, основываясь на его математических параметрах.")
     
-    if analyze_button and uploaded_file:
+    if analyze_button and config_file is not None:
         try:
-            uploaded_file.seek(0)
-            config = json.load(uploaded_file)
+            # Для BytesIO нужно переместить указатель в начало
+            if hasattr(config_file, 'seek'):
+                config_file.seek(0)
+            config = json.load(config_file)
             calculator = SlotProbabilityCalculator(config)
             if personal_bankroll < calculator.min_bet:
-                # Используем экранирование \$ и избегаем ** вокруг чисел, чтобы предотвратить LaTeX
                 pb_formatted_error = f"{personal_bankroll:.2f}"
                 mb_formatted_error = f"{calculator.min_bet:.2f}"
                 st.error(f"**Ваш банкролл (\${pb_formatted_error}) меньше минимальной ставки в этом слоте (\${mb_formatted_error}).**")
@@ -211,8 +268,6 @@ def main():
                 st.stop()
             game_config = config.get('game_config', {})
             
-            # --- Исправленный фрагмент ---
-            # Используем st.markdown с экранированием \$ и избегаем ** вокруг чисел, чтобы предотвратить LaTeX
             gn_formatted = game_config.get('game_name', 'N/A')
             pb_formatted = f"{personal_bankroll:,.2f}"
             dw_formatted = f"{desired_win:,.2f}"
@@ -220,7 +275,6 @@ def main():
 
             st.header(f"🎰 Полный анализ слота: {gn_formatted}", divider="rainbow")
             st.markdown(f"### Ваши параметры: Банкролл: \${pb_formatted} | Желаемый выигрыш: +\${dw_formatted} | Риск: **{rl_formatted}**")
-            # --- Конец исправленного фрагмента ---
             
             goal_result = calculator.estimate_goal_chance(personal_bankroll, desired_win)
             strategy = calculator.generate_bankroll_strategy(personal_bankroll, risk_level)
@@ -230,15 +284,12 @@ def main():
             st.subheader("🎯 Анализ вашей цели", divider="blue")
             col1, col2 = st.columns(2)
             with col1:
-                # Используем экранирование \$ и избегаем ** вокруг чисел, чтобы предотвратить LaTeX
                 dw_label_formatted = f"{desired_win:,.2f}"
                 st.metric(label=f"Оценочный шанс выиграть \${dw_label_formatted}", value=f"{goal_result['probability']*100:.4f}%")
             with col2:
                 spins_str = f"{guaranteed_spins}" if guaranteed_spins != float('inf') else "∞"
                 st.metric(label="Гарантированное кол-во спинов (при рек. ставке)", value=spins_str)
             
-            # --- ВОЗВРАЩЕННЫЙ БЛОК С ПРАВИЛЬНЫМ ТЕКСТОМ ---
-            # Этот блок работает корректно, так как не содержит сложных выражений внутри {}
             with st.expander("Как понимать эти цифры? 🤔"):
                 st.markdown(f"""
                 #### Шанс на выигрыш
@@ -270,7 +321,6 @@ def main():
                 st.markdown("\n**Процесс расчета:**")
                 st.markdown(f"1. **Формула** (для {calculator.volatility.capitalize()} волатильности): `{calculator.min_bankroll_formula}`")
                 st.markdown(f"2. **Подставляем значения**: `{calculator.min_bankroll_calculation}`")
-                # min_bankroll_final_str - это просто число, экранирование не нужно
                 min_bankroll_final_str = ''.join(filter(lambda char: char.isdigit() or char in '.,', strategy['min_bank_advice'][0].split('$')[-1]))
                 st.success(f"**Результат**: Итоговый рекомендуемый минимум составляет **\${min_bankroll_final_str}**")
             with st.container(border=True):
@@ -282,10 +332,12 @@ def main():
                 for i, step in enumerate(strategy['optimal_strategy'], 1): 
                     st.markdown(f"**Шаг {i}**: {step}")
                     
+        except json.JSONDecodeError:
+            st.error("Ошибка: Выбранный файл не является корректным JSON.")
         except Exception as e:
             st.error(f"Произошла ошибка при анализе файла. Убедитесь, что JSON-файл имеет верную структуру. Ошибка: {e}")
-    elif not uploaded_file and analyze_button:
-        st.warning("Пожалуйста, загрузите JSON-файл конфигурации слота, чтобы начать анализ.")
+    elif analyze_button and config_file is None:
+        st.warning("Пожалуйста, загрузите JSON-файл конфигурации слота или выберите его из списка, чтобы начать анализ.")
 
 if __name__ == "__main__":
     main()
