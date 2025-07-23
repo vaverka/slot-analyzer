@@ -93,7 +93,7 @@ class SlotProbabilityCalculator:
             if bet_per_spin == self.min_bet:
                 adjustment_note = f" (Примечание: теоретическая ставка ${theoretical_bet:.2f} была **скорректирована** до минимально возможной в этом слоте)."
             elif bet_per_spin < theoretical_bet:
-                 adjustment_note = f" (Примечание: теоретическая ставка ${theoretical_bet:.2f} была **уменьшена и округлена** для вашей безопасности и соответствия шагу ставки)."
+                 adjustment_note = f" (Примечание: теоретическая ставка ${theoretical_bet:.2f} была **уменьшена и округлена** согласно минимальному шагу ставки (**${calculator.min_bet:.2f}**))."
         
         base_win_prob, rtp = float(self.config.get('probabilities', {}).get('base_win_probability', 0.25)), self.config.get('game_config', {}).get('rtp', 0.96)
         harsh_truths = [f"Вероятность любого выигрыша за спин: **{base_win_prob*100:.1f}%**. Это означает, что в среднем **~{10 - int(base_win_prob * 10)} из 10 спинов будут проигрышными**.", f"**RTP {rtp*100:.1f}%** означает, что на каждый поставленный $1,000, казино в среднем оставляет себе **${1000 * (1 - rtp):.2f}**."]
