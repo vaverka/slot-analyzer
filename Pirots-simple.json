@@ -1,0 +1,47 @@
+{
+  "game_config": {
+    "game_name": "Pirots 3",
+    "type": "collect_to_win (simplified for analysis)",
+    "bet_range": [0.20, 100.00],
+    "rtp": 0.94,
+    "volatility": "high",
+    "features": ["symbol_collection", "gem_upgrade", "free_drops_bonus", "coin_game", "x-iter"]
+  },
+  "symbols": [
+    {
+      "id": "gem_red",
+      "name": "Красный самоцвет",
+      "type": "paying_gem",
+      "base_frequency": 0.205
+    },
+    {
+      "id": "gem_purple",
+      "name": "Фиолетовый самоцвет",
+      "type": "paying_gem",
+      "base_frequency": 0.205
+    },
+    {
+      "id": "gem_green",
+      "name": "Зеленый самоцвет",
+      "type": "paying_gem",
+      "base_frequency": 0.274
+    },
+    {
+      "id": "gem_blue",
+      "name": "Синий самоцвет",
+      "type": "paying_gem",
+      "base_frequency": 0.275
+    },
+    {
+      "id": "wild",
+      "name": "Wild",
+      "type": "wild",
+      "base_frequency": 0.041
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.15,
+    "max_win_multiplier": 10000,
+    "wild_substitution_power": 0.8
+  }
+}

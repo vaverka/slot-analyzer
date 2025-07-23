@@ -1,0 +1,120 @@
+{
+  "game_config": {
+    "game_name": "Fortune Tiger",
+    "type": "line_pays",
+    "grid_size": "3x3",
+    "bet_range": [
+      0.10,
+      5000.00
+    ],
+    "bet_structure": {
+      "base_bet": 5,
+      "bet_sizes": [
+        0.02,
+        100.00
+      ],
+      "bet_levels": [
+        1,
+        10
+      ]
+    },
+    "rtp": 0.9681,
+    "volatility": "medium"
+  },
+  "symbols": [
+    {
+      "id": "wild_tiger",
+      "name": "Wild (Тигр)",
+      "type": "wild",
+      "base_frequency": 0.05,
+      "paytable": {
+        "3": 250
+      }
+    },
+    {
+      "id": "gold_sycee",
+      "name": "Золотой слиток",
+      "type": "high",
+      "base_frequency": 0.10,
+      "paytable": {
+        "3": 100
+      }
+    },
+    {
+      "id": "green_amulet",
+      "name": "Зеленый амулет",
+      "type": "high",
+      "base_frequency": 0.15,
+      "paytable": {
+        "3": 25
+      }
+    },
+    {
+      "id": "money_pouch",
+      "name": "Мешочек с деньгами",
+      "type": "medium",
+      "base_frequency": 0.20,
+      "paytable": {
+        "3": 10
+      }
+    },
+    {
+      "id": "red_envelope",
+      "name": "Красный конверт",
+      "type": "medium",
+      "base_frequency": 0.20,
+      "paytable": {
+        "3": 8
+      }
+    },
+    {
+      "id": "firecrackers",
+      "name": "Петарды",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": {
+        "3": 5
+      }
+    },
+    {
+      "id": "orange",
+      "name": "Апельсин",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": {
+        "3": 3
+      }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Fortune Tiger Feature",
+      "trigger": {
+        "type": "random",
+        "condition": "during_any_spin"
+      },
+      "effect": {
+        "type": "sticky_symbol_respin",
+        "details": "A random symbol is chosen. Reels respin as long as new chosen symbols or Wilds appear."
+      }
+    },
+    {
+      "name": "x10 Multiplier",
+      "trigger": {
+        "type": "full_screen",
+        "condition": "all 9 symbols on the reels are part of a win"
+      },
+      "effect": {
+        "type": "win_multiplier",
+        "details": {
+          "multiplier": 10
+        }
+      }
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.29,
+    "max_win_multiplier": 2500,
+    "wild_substitution_power": 0.8
+  }
+}
