@@ -217,7 +217,7 @@ def main():
 
             # Используем обычные строки для Markdown
             st.header(f"🎰 Полный анализ слота: {gn_formatted}", divider="rainbow")
-            st.subheader(f"Ваши параметры: Банкролл: **${pb_formatted}** | Желаемый выигрыш: **+${dw_formatted}** | Риск: **{rl_formatted}**")
+            st.markdown(f"### Ваши параметры: Банкролл: **${personal_bankroll:,.2f}** | Желаемый выигрыш: **+${desired_win:,.2f}** | Риск: **{risk_level.capitalize()}**")
             # --- Конец исправленного фрагмента ---
             
             goal_result = calculator.estimate_goal_chance(personal_bankroll, desired_win)
