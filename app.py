@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V7.1 (финальная, исправленная версия)
+#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V7.2 (финальная, исправленная версия)
 # ==============================================================================
 import json
 import math
@@ -221,4 +221,31 @@ def main():
             
             with st.container(border=True):
                 st.subheader("2. Обоснование и Расчет Минимального Банка")
-                st.markdown("
+                st.markdown("Чтобы стратегия имела смысл, ваш банкролл должен позволять пережить серии проигрышей, характерные для данной волатильности.")
+                
+                st.markdown("\n**Исходные данные для расчета:**")
+                st.markdown(f" • **Минимальная ставка**: ${calculator.min_bet:.2f}")
+                st.markdown(f" • **Макс. выигрыш при мин. ставке**: ${calculator.max_win_at_min_bet:,.2f}")
+                st.markdown(f" • **Средний значимый выигрыш (при мин. ставке)**: ${calculator.avg_win:,.2f}")
+                st.markdown(f" • **Волатильность**: {calculator.volatility.capitalize()}")
+                
+                st.markdown("\n**Процесс расчета:**")
+                st.markdown(f"1. **Формула** (для {calculator.volatility.capitalize()} волатильности): `{calculator.min_bankroll_formula}`")
+                st.markdown(f"2. **Подставляем значения**: `{calculator.min_bankroll_calculation}`")
+
+                min_bankroll_final_str = ''.join(filter(lambda char: char.isdigit() or char in '.,', strategy['min_bank_advice'][0].split('$')[-1]))
+                st.success(f"**Результат**: Итоговый рекомендуемый минимум составляет **${min_bankroll_final_str}**")
+
+            with st.container(border=True):
+                st.subheader("3. Жесткая правда о шансах (без прикрас)")
+                for truth in strategy['harsh_truths']: st.markdown(f"➡️ {truth}")
+            with st.container(border=True):
+                st.subheader("4. Оптимальная пошаговая стратегия")
+                for i, step in enumerate(strategy['optimal_strategy'], 1): st.markdown(f"**Шаг {i}**: {step}")
+        except Exception as e:
+            st.error(f"Произошла ошибка при анализе файла. Убедитесь, что JSON-файл имеет верную структуру. Ошибка: {e}")
+    elif not uploaded_file and analyze_button:
+        st.warning("Пожалуйста, загрузите JSON-файл конфигурации слота, чтобы начать анализ.")
+
+if __name__ == "__main__":
+    main()
