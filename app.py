@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V4.8 (с финальным объяснением)
+#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V5.0 (финальная версия)
 # ==============================================================================
 import json
 import math
@@ -18,7 +18,6 @@ class SlotProbabilityCalculator:
         self.min_bet, self.max_bet, self.max_win, self.avg_win = None, None, None, None
         self.min_bankroll_formula, self.min_bankroll_calculation = "", ""
         self.volatility = self.config.get('game_config', {}).get('volatility', 'medium')
-        # Все базовые расчеты теперь происходят при создании объекта
         self.calculate_all()
 
     def calculate_all(self):
@@ -67,13 +66,28 @@ class SlotProbabilityCalculator:
             min_bank_advice.append("Вероятность проигрыша всего банка до получения значимого выигрыша **превышает 95%**. Мы **НЕ РЕКОМЕНДУЕМ** играть с таким банком.")
         else:
             min_bank_advice.append(f"✅ Ваш банкролл (${personal_bankroll:,.2f}) достаточен для игры в этот слот (минимум: ${min_bankroll:,.2f}).")
-        risk_profiles = {'low': {'bet_percent': 0.5, 'stop_loss': 0.25, 'win_goal': 0.4},'medium': {'bet_percent': 1.0, 'stop_loss': 0.4, 'win_goal': 0.6},'high': {'bet_percent': 2.0, 'stop_loss': 0.5, 'win_goal': 1.0}}
+        
+        risk_profiles = {'low': {'bet_percent': 0.5}, 'medium': {'bet_percent': 1.0}, 'high': {'bet_percent': 2.0}}
         profile = risk_profiles.get(risk_level, risk_profiles['medium'])
-        theoretical_bet = personal_bankroll * profile['bet_percent'] / 100
-        bet_per_spin = min(theoretical_bet, self.max_bet)
+        
+        theoretical_bet = personal_bankroll * (profile['bet_percent'] / 100)
+        bet_per_spin = max(self.min_bet, min(theoretical_bet, self.max_bet))
+        
+        adjustment_note = ""
+        if bet_per_spin != theoretical_bet:
+            if bet_per_spin == self.min_bet:
+                adjustment_note = f" (Примечание: ваша теоретическая ставка ${theoretical_bet:.2f} была увеличена до минимально возможной в этом слоте)."
+            else:
+                adjustment_note = f" (Примечание: ваша теоретическая ставка ${theoretical_bet:.2f} была уменьшена до максимально возможной в этом слоте)."
+        
         base_win_prob, rtp = float(self.config.get('probabilities', {}).get('base_win_probability', 0.25)), self.config.get('game_config', {}).get('rtp', 0.96)
         harsh_truths = [f"Вероятность любого выигрыша за спин: **{base_win_prob*100:.1f}%**. Это означает, что в среднем **~{10 - int(base_win_prob * 10)} из 10 спинов будут проигрышными**.", f"**RTP {rtp*100:.1f}%** означает, что на каждый поставленный $1,000, казино в среднем оставляет себе **${1000 * (1 - rtp):.2f}**."]
-        optimal_strategy = [f"**Ставка**: Ваша рекомендуемая ставка **${bet_per_spin:.2f}**. Начинайте с минимальной ставки **${self.min_bet:.2f}**.", f"**Управление ставками**: Увеличивайте ставку до **${bet_per_spin:.2f}** ТОЛЬКО после активации бонусной функции или крупного выигрыша.", f"**Стоп-лосс (железное правило)**: Немедленно прекратите игру, если ваш банк опустится до **${personal_bankroll * (1-profile['stop_loss']):.2f}** (потеря ${personal_bankroll * profile['stop_loss']:.2f}).", f"**Цель выигрыша**: Зафиксируйте прибыль и прекратите игру, если ваш банк достигнет **${personal_bankroll * (1+profile['win_goal']):.2f}** (прибыль ${personal_bankroll * profile['win_goal']:.2f}).", "**Психология**: **НИКОГДА** не пытайтесь 'отыграться'. Каждый спин независим. После крупного выигрыша или проигрыша сделайте перерыв."]
+        
+        stop_loss_profile = {'low': 0.25, 'medium': 0.4, 'high': 0.5}
+        win_goal_profile = {'low': 0.4, 'medium': 0.6, 'high': 1.0}
+        
+        optimal_strategy = [f"**Ставка**: Ваша рекомендуемая ставка **${bet_per_spin:.2f}**.{adjustment_note}", f"**Управление ставками**: Начинайте с минимальной ставки **${self.min_bet:.2f}** и не превышайте рекомендуемую.", f"**Стоп-лосс (железное правило)**: Немедленно прекратите игру, если ваш банк опустится до **${personal_bankroll * (1-stop_loss_profile[risk_level]):.2f}** (потеря ${personal_bankroll * stop_loss_profile[risk_level]:.2f}).", f"**Цель выигрыша**: Зафиксируйте прибыль и прекратите игру, если ваш банк достигнет **${personal_bankroll * (1+win_goal_profile[risk_level]):.2f}** (прибыль ${personal_bankroll * win_goal_profile[risk_level]:.2f}).", "**Психология**: **НИКОГДА** не пытайтесь 'отыграться'. Каждый спин независим. После крупного выигрыша или проигрыша сделайте перерыв."]
+        
         return {'min_bank_advice': min_bank_advice, 'harsh_truths': harsh_truths, 'optimal_strategy': optimal_strategy, 'bet_per_spin': bet_per_spin}
 
     def estimate_goal_chance(self, personal_bankroll, desired_win):
@@ -140,8 +154,13 @@ def main():
             uploaded_file.seek(0)
             config = json.load(uploaded_file)
             calculator = SlotProbabilityCalculator(config)
-            game_config = config.get('game_config', {})
             
+            if personal_bankroll < calculator.min_bet:
+                st.error(f"**Ваш банкролл (${personal_bankroll:.2f}) меньше минимальной ставки в этом слоте (${calculator.min_bet:.2f}).**")
+                st.warning("К сожалению, анализ невозможен. Пожалуйста, увеличьте банкролл или выберите другой слот.")
+                st.stop()
+
+            game_config = config.get('game_config', {})
             st.header(f"🎰 Полный анализ слота: {game_config.get('game_name', 'N/A')}", divider="rainbow")
             st.subheader(f"Ваши параметры: Банкролл: **${personal_bankroll:,.2f}** | Желаемый выигрыш: **+${desired_win:,.2f}** | Риск: **{risk_level.capitalize()}**")
 
@@ -196,24 +215,10 @@ def main():
             with st.container(border=True):
                 st.subheader("1. Вердикт о вашем банкролле")
                 for advice in strategy['min_bank_advice']: st.markdown(f"➡️ {advice}")
-            
             with st.container(border=True):
                 st.subheader("2. Обоснование и Расчет Минимального Банка")
-                st.markdown("Чтобы стратегия имела смысл, ваш банкролл должен позволять пережить серии проигрышей, характерные для данной волатильности.")
-                
-                st.markdown("\n**Исходные данные для расчета:**")
-                st.markdown(f" • **Минимальная ставка**: ${calculator.min_bet:.2f}")
-                st.markdown(f" • **Максимальный выигрыш в слоте**: ${calculator.max_win:,.2f}")
-                st.markdown(f" • **Средний значимый выигрыш**: ${calculator.avg_win:,.2f} (эмпирическая оценка)")
-                st.markdown(f" • **Волатильность**: {calculator.volatility.capitalize()}")
-                
-                st.markdown("\n**Процесс расчета:**")
-                st.markdown(f"1. **Формула** (для {calculator.volatility.capitalize()} волатильности): `{calculator.min_bankroll_formula}`")
-                st.markdown(f"2. **Подставляем значения**: `{calculator.min_bankroll_calculation}`")
-
                 min_bankroll_final_str = ''.join(filter(lambda char: char.isdigit() or char in '.,', strategy['min_bank_advice'][0].split('$')[-1]))
-                st.success(f"**Результат**: Итоговый рекомендуемый минимум составляет **${min_bankroll_final_str}**")
-
+                st.markdown(f"**Результат**: Итоговый рекомендуемый минимум составляет **${min_bankroll_final_str}**")
             with st.container(border=True):
                 st.subheader("3. Жесткая правда о шансах (без прикрас)")
                 for truth in strategy['harsh_truths']: st.markdown(f"➡️ {truth}")
