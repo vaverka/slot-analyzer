@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V5.7 (финальная, логичная версия)
+#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V6.0 (финальная, логичная версия)
 # ==============================================================================
 import json
 import math
@@ -15,12 +15,13 @@ class SlotProbabilityCalculator:
     def __init__(self, config):
         self.config = config
         self.win_probabilities = None
-        self.min_bet, self.max_bet, self.max_win, self.avg_win = None, None, None, None
+        self.min_bet, self.max_bet, self.max_win_at_one_dollar, self.avg_win = None, None, None, None
         self.min_bankroll_formula, self.min_bankroll_calculation = "", ""
         self.volatility = self.config.get('game_config', {}).get('volatility', 'medium')
         self.calculate_all()
 
     def calculate_all(self):
+        """Запускает все базовые расчеты в правильном порядке."""
         self.calculate_min_bankroll()
         self.calculate_win_probabilities()
 
@@ -44,28 +45,18 @@ class SlotProbabilityCalculator:
         if not isinstance(bet_range, list) or len(bet_range) < 2: bet_range = [0.10, 100.00]
         self.min_bet, self.max_bet = float(bet_range[0]), float(bet_range[1])
         max_win_multiplier = float(self.config.get('probabilities', {}).get('max_win_multiplier', 2000))
-        
-        # <-- ИЗМЕНЕНИЕ: avg_win теперь считается от ЭТАЛОННОЙ СТАВКИ $1, а не от max_bet -->
         self.max_win_at_one_dollar = max_win_multiplier * 1.0
         self.avg_win = 0.4 * self.max_win_at_one_dollar
-        
         min_bankroll = 0
         if self.volatility == 'high':
             part1, part2 = 100 * self.min_bet, 0.05 * self.avg_win
-            self.min_bankroll_formula = "max(100 * Мин. ставка, 5% * Среднего выигрыша при ставке $1)"
-            self.min_bankroll_calculation = f"max(${part1:.2f}, ${part2:.2f})"
-            min_bankroll = max(part1, part2)
+            self.min_bankroll_formula, self.min_bankroll_calculation, min_bankroll = "max(100 * Мин. ставка, 5% * Среднего выигрыша при ставке $1)", f"max(${part1:.2f}, ${part2:.2f})", max(part1, part2)
         elif self.volatility == 'medium':
             part1, part2 = 75 * self.min_bet, 0.03 * self.avg_win
-            self.min_bankroll_formula = "max(75 * Мин. ставка, 3% * Среднего выигрыша при ставке $1)"
-            self.min_bankroll_calculation = f"max(${part1:.2f}, ${part2:.2f})"
-            min_bankroll = max(part1, part2)
-        else: # low
+            self.min_bankroll_formula, self.min_bankroll_calculation, min_bankroll = "max(75 * Мин. ставка, 3% * Среднего выигрыша при ставке $1)", f"max(${part1:.2f}, ${part2:.2f})", max(part1, part2)
+        else:
             part1, part2 = 50 * self.min_bet, 0.01 * self.avg_win
-            self.min_bankroll_formula = "max(50 * Мин. ставка, 1% * Среднего выигрыша при ставке $1)"
-            self.min_bankroll_calculation = f"max(${part1:.2f}, ${part2:.2f})"
-            min_bankroll = max(part1, part2)
-            
+            self.min_bankroll_formula, self.min_bankroll_calculation, min_bankroll = "max(50 * Мин. ставка, 1% * Среднего выигрыша при ставке $1)", f"max(${part1:.2f}, ${part2:.2f})", max(part1, part2)
         return round(min_bankroll, 2)
 
     def generate_bankroll_strategy(self, personal_bankroll, risk_level='medium'):
@@ -77,18 +68,12 @@ class SlotProbabilityCalculator:
         else:
             min_bank_advice.append(f"✅ Ваш банкролл (${personal_bankroll:,.2f}) достаточен для игры в этот слот (минимум: ${min_bankroll:,.2f}).")
         
-        target_spins_map = {'low': 200, 'medium': 100, 'high': 50}
-        target_spins = target_spins_map.get(risk_level, 100)
-        
-        theoretical_bet = personal_bankroll / target_spins
-        bet_per_spin = max(self.min_bet, min(theoretical_bet, self.max_bet))
-        
-        adjustment_note = ""
-        if abs(bet_per_spin - theoretical_bet) > 0.01:
-            if bet_per_spin == self.min_bet:
-                adjustment_note = f" (Примечание: теоретическая ставка ${theoretical_bet:.2f} была **увеличена** до минимально возможной в этом слоте)."
-            else:
-                adjustment_note = f" (Примечание: теоретическая ставка ${theoretical_bet:.2f} была **уменьшена** до максимально возможной в этом слоте)."
+        risk_profiles = {'low': 0.005, 'medium': 0.01, 'high': 0.02} # % риска
+        risk_percent = risk_profiles.get(risk_level, 0.01)
+
+        # "Оптимальная ставка" теперь зависит от слота, а не от личного банка
+        optimal_bet = min_bankroll * risk_percent
+        optimal_bet = max(self.min_bet, min(optimal_bet, self.max_bet))
         
         base_win_prob, rtp = float(self.config.get('probabilities', {}).get('base_win_probability', 0.25)), self.config.get('game_config', {}).get('rtp', 0.96)
         harsh_truths = [f"Вероятность любого выигрыша за спин: **{base_win_prob*100:.1f}%**. Это означает, что в среднем **~{10 - int(base_win_prob * 10)} из 10 спинов будут проигрышными**.", f"**RTP {rtp*100:.1f}%** означает, что на каждый поставленный $1,000, казино в среднем оставляет себе **${1000 * (1 - rtp):.2f}**."]
@@ -96,9 +81,9 @@ class SlotProbabilityCalculator:
         stop_loss_profile = {'low': 0.25, 'medium': 0.4, 'high': 0.5}
         win_goal_profile = {'low': 0.4, 'medium': 0.6, 'high': 1.0}
         
-        optimal_strategy = [f"**Рекомендуемая ставка**: Для вашего банка и уровня риска реальная ставка составляет **${bet_per_spin:.2f}**.{adjustment_note}", f"**Управление ставками**: Начинайте с минимальной ставки **${self.min_bet:.2f}**. Если игра идет хорошо, можно постепенно повышать ставку, но не превышать рекомендуемую.", f"**Стоп-лосс (железное правило)**: Немедленно прекратите игру, если ваш банк опустится до **${personal_bankroll * (1-stop_loss_profile[risk_level]):.2f}** (потеря ${personal_bankroll * stop_loss_profile[risk_level]:.2f}).", f"**Цель выигрыша**: Зафиксируйте прибыль и прекратите игру, если ваш банк достигнет **${personal_bankroll * (1+win_goal_profile[risk_level]):.2f}** (прибыль ${personal_bankroll * win_goal_profile[risk_level]:.2f}).", "**Психология**: **НИКОГДА** не пытайтесь 'отыграться'. Каждый спин независим."]
+        optimal_strategy = [f"**Оптимальная ставка**: Для этого слота и вашего уровня риска оптимальная ставка составляет **${optimal_bet:.2f}**. Используйте ее как ориентир.", f"**Управление ставками**: Начинайте с минимальной ставки **${self.min_bet:.2f}**. Если игра идет хорошо, можно постепенно повышать ставку, но не превышать оптимальную.", f"**Стоп-лосс (железное правило)**: Немедленно прекратите игру, если ваш банк опустится до **${personal_bankroll * (1-stop_loss_profile[risk_level]):.2f}** (потеря ${personal_bankroll * stop_loss_profile[risk_level]:.2f}).", f"**Цель выигрыша**: Зафиксируйте прибыль и прекратите игру, если ваш банк достигнет **${personal_bankroll * (1+win_goal_profile[risk_level]):.2f}** (прибыль ${personal_bankroll * win_goal_profile[risk_level]:.2f}).", "**Психология**: **НИКОГДА** не пытайтесь 'отыграться'. Каждый спин независим."]
         
-        return {'min_bank_advice': min_bank_advice, 'harsh_truths': harsh_truths, 'optimal_strategy': optimal_strategy, 'bet_per_spin': bet_per_spin}
+        return {'min_bank_advice': min_bank_advice, 'harsh_truths': harsh_truths, 'optimal_strategy': optimal_strategy, 'optimal_bet': optimal_bet}
 
     def estimate_goal_chance(self, personal_bankroll, desired_win):
         rtp = self.config.get('game_config', {}).get('rtp', 0.96)
@@ -110,7 +95,6 @@ class SlotProbabilityCalculator:
         return {"probability": probability}
 
     def visualize_win_probabilities(self, level='base'):
-        # ... (код визуализации без изменений) ...
         if not self.win_probabilities: return None
         level_data = self.win_probabilities.get(level)
         if not level_data: return None
@@ -129,7 +113,6 @@ class SlotProbabilityCalculator:
         return fig
 
     def get_results_table(self, level='base'):
-        # ... (код таблицы без изменений) ...
         if not self.win_probabilities: return pd.DataFrame()
         level_data = self.win_probabilities.get(level)
         if not level_data: return pd.DataFrame()
@@ -179,8 +162,8 @@ def main():
             goal_result = calculator.estimate_goal_chance(personal_bankroll, desired_win)
             strategy = calculator.generate_bankroll_strategy(personal_bankroll, risk_level)
             
-            bet_per_spin = strategy.get('bet_per_spin')
-            guaranteed_spins = int(personal_bankroll / bet_per_spin) if bet_per_spin > 0 else float('inf')
+            optimal_bet = strategy.get('optimal_bet')
+            guaranteed_spins = int(personal_bankroll / optimal_bet) if optimal_bet > 0 else float('inf')
 
             st.subheader("🎯 Анализ вашей цели", divider="blue")
             col1, col2 = st.columns(2)
@@ -188,17 +171,17 @@ def main():
                 st.metric(label=f"Оценочный шанс выиграть ${desired_win:,.2f}", value=f"{goal_result['probability']*100:.4f}%")
             with col2:
                 spins_str = f"{guaranteed_spins}" if guaranteed_spins != float('inf') else "∞"
-                st.metric(label="Гарантированное кол-во спинов (при рек. ставке)", value=spins_str)
+                st.metric(label="Ваш запас прочности (спинов по опт. ставке)", value=spins_str)
             
             with st.expander("Как понимать эти цифры? 🤔"):
                 st.markdown(f"""
                 #### Шанс на выигрыш
                 Это ваша математическая вероятность достичь цели **до того, как преимущество казино (RTP < 100%) исчерпает ваш банкролл**.
                 
-                #### Гарантированное количество спинов
-                Это **реальное количество спинов**, которое вы можете сделать на свой банкролл, играя с **Рекомендуемой ставкой** (${bet_per_spin:.2f}).
-                - **Как определяется ставка?** Мы делим ваш банкролл на целевое количество спинов (200 для 'low', 100 для 'medium', 50 для 'high'), а затем **корректируем результат**, чтобы он не выходил за рамки минимальной (**${calculator.min_bet:.2f}**) и максимальной (**${calculator.max_bet:.2f}**) ставок в слоте.
-                - **Это ваш реальный "запас прочности"**: Чем он больше, тем дольше ваше игровое время для достижения цели.
+                #### Запас прочности (количество спинов)
+                Это **реальное количество спинов**, которое вы можете сделать на свой банкролл, играя с **Оптимальной Ставкой** (${optimal_bet:.2f}), рассчитанной для этого слота и вашего уровня риска.
+                - **Что такое "Оптимальная ставка"?** Это не процент от вашего личного банка, а сбалансированная ставка, рассчитанная на основе **рекомендуемого минимального банкролла** для этого конкретного слота и вашего уровня риска. Она не зависит от размера вашего банкролла.
+                - **Ваш банкролл определяет "запас прочности"**: Чем больше ваш банк, тем больше "Оптимальных Ставок" вы можете себе позволить, и тем дольше ваше игровое время для достижения цели.
                 """)
 
             st.subheader("📊 Визуальный анализ вероятностей", divider="blue")
@@ -218,7 +201,6 @@ def main():
                 
                 st.markdown("\n**Исходные данные для расчета:**")
                 st.markdown(f" • **Минимальная ставка**: ${calculator.min_bet:.2f}")
-                # <-- ИЗМЕНЕНИЕ: Показываем потенциал выигрыша на ставку $1 -->
                 st.markdown(f" • **Макс. выигрыш при ставке $1**: ${calculator.max_win_at_one_dollar:,.2f}")
                 st.markdown(f" • **Средний значимый выигрыш (при ставке $1)**: ${calculator.avg_win:,.2f}")
                 st.markdown(f" • **Волатильность**: {calculator.volatility.capitalize()}")
