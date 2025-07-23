@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V6.5 (финальная, с округлением)
+#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V6.8 (финальная, исправленная версия)
 # ==============================================================================
 import json
 import math
@@ -64,7 +64,6 @@ class SlotProbabilityCalculator:
             
         return round(min_bankroll, 2)
 
-    # <-- ИЗМЕНЕНИЕ: Полностью новая, интеллектуальная модель расчета ставки с округлением -->
     def generate_bankroll_strategy(self, personal_bankroll, risk_level='medium'):
         min_bankroll = self.calculate_min_bankroll()
         min_bank_advice = []
@@ -74,23 +73,18 @@ class SlotProbabilityCalculator:
         else:
             min_bank_advice.append(f"✅ Ваш банкролл (${personal_bankroll:,.2f}) достаточен для игры в этот слот (минимум: ${min_bankroll:,.2f}).")
         
-        # Шаг 1: Базовый множитель риска
+        # Интеллектуальный расчет ставки
         risk_multiplier_map = {'low': 1, 'medium': 2, 'high': 5}
         risk_multiplier = risk_multiplier_map.get(risk_level, 2)
-
-        # Шаг 2: Нелинейный коэффициент банкролла
+        
         bankroll_power_base = 50
         bankroll_multiplier = max(1, 1 + math.log10(personal_bankroll / bankroll_power_base)) if personal_bankroll > bankroll_power_base else 1
         
-        # Шаг 3: Теоретическая ставка
         theoretical_bet = self.min_bet * risk_multiplier * bankroll_multiplier
         
-        # Шаг 4: Привязка к реальной сетке ставок (округление)
         bet_step = self.min_bet
-        # Округляем теоретическую ставку ВНИЗ до ближайшего шага, кратного min_bet
         snapped_bet = math.floor(theoretical_bet / bet_step) * bet_step
         
-        # Шаг 5: Финальная корректировка с учетом всех лимитов
         safe_max_bet = min(self.max_bet, personal_bankroll / 20)
         bet_per_spin = max(self.min_bet, min(snapped_bet, safe_max_bet))
         
@@ -99,7 +93,7 @@ class SlotProbabilityCalculator:
             if bet_per_spin == self.min_bet:
                 adjustment_note = f" (Примечание: теоретическая ставка ${theoretical_bet:.2f} была **скорректирована** до минимально возможной в этом слоте)."
             elif bet_per_spin < theoretical_bet:
-                 adjustment_note = f" (Примечание: теоретическая ставка ${theoretical_bet:.2f} была **уменьшена и округлена** для вашей безопасности)."
+                 adjustment_note = f" (Примечание: теоретическая ставка ${theoretical_bet:.2f} была **уменьшена и округлена** для вашей безопасности и соответствия шагу ставки)."
         
         base_win_prob, rtp = float(self.config.get('probabilities', {}).get('base_win_probability', 0.25)), self.config.get('game_config', {}).get('rtp', 0.96)
         harsh_truths = [f"Вероятность любого выигрыша за спин: **{base_win_prob*100:.1f}%**. Это означает, что в среднем **~{10 - int(base_win_prob * 10)} из 10 спинов будут проигрышными**.", f"**RTP {rtp*100:.1f}%** означает, что на каждый поставленный $1,000, казино в среднем оставляет себе **${1000 * (1 - rtp):.2f}**."]
@@ -201,6 +195,7 @@ def main():
                 spins_str = f"{guaranteed_spins}" if guaranteed_spins != float('inf') else "∞"
                 st.metric(label="Гарантированное кол-во спинов (при рек. ставке)", value=spins_str)
             
+            # --- ВОЗВРАЩЕННЫЙ БЛОК С РАЗВЕРНУТЫМ ОБЪЯСНЕНИЕМ ---
             with st.expander("Как понимать эти цифры? 🤔"):
                 st.markdown(f"""
                 #### Шанс на выигрыш
@@ -219,8 +214,33 @@ def main():
 
             st.header("♟️ Персональная стратегия игры", divider="rainbow")
             
-            # ... (все блоки вывода стратегии без изменений) ...
+            with st.container(border=True):
+                st.subheader("1. Вердикт о вашем банкролле")
+                for advice in strategy['min_bank_advice']: st.markdown(f"➡️ {advice}")
             
+            with st.container(border=True):
+                st.subheader("2. Обоснование и Расчет Минимального Банка")
+                st.markdown("Чтобы стратегия имела смысл, ваш банкролл должен позволять пережить серии проигрышей, характерные для данной волатильности.")
+                
+                st.markdown("\n**Исходные данные для расчета:**")
+                st.markdown(f" • **Минимальная ставка**: ${calculator.min_bet:.2f}")
+                st.markdown(f" • **Макс. выигрыш при мин. ставке**: ${calculator.max_win_at_min_bet:,.2f}")
+                st.markdown(f" • **Средний значимый выигрыш (при мин. ставке)**: ${calculator.avg_win:,.2f}")
+                st.markdown(f" • **Волатильность**: {calculator.volatility.capitalize()}")
+                
+                st.markdown("\n**Процесс расчета:**")
+                st.markdown(f"1. **Формула** (для {calculator.volatility.capitalize()} волатильности): `{calculator.min_bankroll_formula}`")
+                st.markdown(f"2. **Подставляем значения**: `{calculator.min_bankroll_calculation}`")
+
+                min_bankroll_final_str = ''.join(filter(lambda char: char.isdigit() or char in '.,', strategy['min_bank_advice'][0].split('$')[-1]))
+                st.success(f"**Результат**: Итоговый рекомендуемый минимум составляет **${min_bankroll_final_str}**")
+
+            with st.container(border=True):
+                st.subheader("3. Жесткая правда о шансах (без прикрас)")
+                for truth in strategy['harsh_truths']: st.markdown(f"➡️ {truth}")
+            with st.container(border=True):
+                st.subheader("4. Оптимальная пошаговая стратегия")
+                for i, step in enumerate(strategy['optimal_strategy'], 1): st.markdown(f"**Шаг {i}**: {step}")
         except Exception as e:
             st.error(f"Произошла ошибка при анализе файла. Убедитесь, что JSON-файл имеет верную структуру. Ошибка: {e}")
     elif not uploaded_file and analyze_button:
