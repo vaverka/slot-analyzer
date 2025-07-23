@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V7.3 (исправленная версия)
+#  app.py - УНИВЕРСАЛЬНЫЙ АНАЛИЗАТОР СЛОТОВ V7.4 (исправленная версия 2)
 # ==============================================================================
 import json
 import math
@@ -7,14 +7,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
-
-# --- Вспомогательная функция для экранирования символов Markdown ---
-def escape_markdown(text):
-    """Экранирует символы * и _ в тексте для корректного отображения в st.markdown и аналогичных."""
-    if not isinstance(text, str):
-        return text
-    # Заменяем * на &#42; и _ на &#95;
-    return text.replace("*", "&#42;").replace("_", "&#95;")
 
 # --- Класс-калькулятор с надежной инициализацией ---
 sns.set_theme(style="whitegrid", palette="viridis")
@@ -74,12 +66,16 @@ class SlotProbabilityCalculator:
         min_bankroll = self.calculate_min_bankroll()
         min_bank_advice = []
         if personal_bankroll < min_bankroll:
-            # Экранируем текст для st.markdown
-            min_bank_advice.append(escape_markdown(f"🚨 **КРИТИЧЕСКИЙ РИСК**: Ваш банкролл (${personal_bankroll:,.2f}) **ЗНАЧИТЕЛЬНО НИЖЕ** минимального (${min_bankroll:,.2f})!"))
-            min_bank_advice.append(escape_markdown("Вероятность проигрыша всего банка до получения значимого выигрыша **превышает 95%**. Мы **НЕ РЕКОМЕНДУЕМ** играть с таким банком."))
+            # Форматируем числа заранее, чтобы избежать проблем внутри f-string
+            pb_formatted = f"{personal_bankroll:,.2f}"
+            mb_formatted = f"{min_bankroll:,.2f}"
+            # Используем обычные строки для Markdown
+            min_bank_advice.append(f"🚨 **КРИТИЧЕСКИЙ РИСК**: Ваш банкролл (${pb_formatted}) **ЗНАЧИТЕЛЬНО НИЖЕ** минимального (${mb_formatted})!")
+            min_bank_advice.append("Вероятность проигрыша всего банка до получения значимого выигрыша **превышает 95%**. Мы **НЕ РЕКОМЕНДУЕМ** играть с таким банком.")
         else:
-            # Экранируем текст для st.markdown
-            min_bank_advice.append(escape_markdown(f"✅ Ваш банкролл (${personal_bankroll:,.2f}) достаточен для игры в этот слот (минимум: ${min_bankroll:,.2f})."))
+            pb_formatted = f"{personal_bankroll:,.2f}"
+            mb_formatted = f"{min_bankroll:,.2f}"
+            min_bank_advice.append(f"✅ Ваш банкролл (${pb_formatted}) достаточен для игры в этот слот (минимум: ${mb_formatted}).")
         
         # Интеллектуальный расчет ставки
         risk_multiplier_map = {'low': 1, 'medium': 2, 'high': 5}
@@ -91,32 +87,53 @@ class SlotProbabilityCalculator:
         snapped_bet = math.floor(theoretical_bet / bet_step) * bet_step
         safe_max_bet = min(self.max_bet, personal_bankroll / 20)
         bet_per_spin = max(self.min_bet, min(snapped_bet, safe_max_bet))
+        
+        # Форматируем числа заранее
+        tb_formatted = f"{theoretical_bet:.2f}"
+        bps_formatted = f"{bet_per_spin:.2f}"
+        mbet_formatted = f"{self.min_bet:.2f}"
+        
         adjustment_note = ""
         if abs(bet_per_spin - theoretical_bet) > 0.01:
             if bet_per_spin == self.min_bet:
-                # Экранируем текст для st.markdown
-                adjustment_note = escape_markdown(f" (Примечание: теоретическая ставка ${theoretical_bet:.2f} была **скорректирована** до минимально возможной в этом слоте).")
+                adjustment_note = f" (Примечание: теоретическая ставка ${tb_formatted} была **скорректирована** до минимально возможной в этом слоте)."
             elif bet_per_spin < theoretical_bet:
-                 # Экранируем текст для st.markdown
-                 adjustment_note = escape_markdown(f" (Примечание: теоретическая ставка ${theoretical_bet:.2f} была **уменьшена и округлена** для вашей безопасности и соответствия шагу ставки).")
+                 adjustment_note = f" (Примечание: теоретическая ставка ${tb_formatted} была **уменьшена и округлена** для вашей безопасности и соответствия шагу ставки)."
         
         base_win_prob, rtp = float(self.config.get('probabilities', {}).get('base_win_probability', 0.25)), self.config.get('game_config', {}).get('rtp', 0.96)
-        # Экранируем текст для st.markdown
-        harsh_truths = [
-            escape_markdown(f"Вероятность любого выигрыша за спин: **{base_win_prob*100:.1f}%**. Это означает, что в среднем **~{10 - int(base_win_prob * 10)} из 10 спинов будут проигрышными**."), 
-            escape_markdown(f"**RTP {rtp*100:.1f}%** означает, что на каждый поставленный $1,000, казино в среднем оставляет себе **${1000 * (1 - rtp):.2f}**.")
-        ]
+        bwp_pct = base_win_prob * 100
+        losing_spins_count = 10 - int(base_win_prob * 10)
+        rtp_pct = rtp * 100
+        house_edge_val = 1000 * (1 - rtp)
+        hev_formatted = f"{house_edge_val:.2f}"
+        
+        # Форматируем строки заранее
+        truth1 = f"Вероятность любого выигрыша за спин: **{bwp_pct:.1f}%**. Это означает, что в среднем **~{losing_spins_count} из 10 спинов будут проигрышными**."
+        truth2 = f"**RTP {rtp_pct:.1f}%** означает, что на каждый поставленный $1,000, казино в среднем оставляет себе **${hev_formatted}**."
+
+        harsh_truths = [truth1, truth2]
         
         stop_loss_profile = {'low': 0.25, 'medium': 0.4, 'high': 0.5}
         win_goal_profile = {'low': 0.4, 'medium': 0.6, 'high': 1.0}
-        # Экранируем текст для st.markdown
-        optimal_strategy = [
-            escape_markdown(f"**Рекомендуемая ставка**: Для вашего банка и уровня риска реальная ставка составляет **${bet_per_spin:.2f}**.{adjustment_note}"),
-            escape_markdown(f"**Управление ставками**: Начинайте с минимальной ставки **${self.min_bet:.2f}**. Если игра идет хорошо, можно постепенно повышать ставку, но не превышать рекомендуемую."),
-            escape_markdown(f"**Стоп-лосс (железное правило)**: Немедленно прекратите игру, если ваш банк опустится до **${personal_bankroll * (1-stop_loss_profile[risk_level]):.2f}** (потеря ${personal_bankroll * stop_loss_profile[risk_level]:.2f})."),
-            escape_markdown(f"**Цель выигрыша**: Зафиксируйте прибыль и прекратите игру, если ваш банк достигнет **${personal_bankroll * (1+win_goal_profile[risk_level]):.2f}** (прибыль ${personal_bankroll * win_goal_profile[risk_level]:.2f})."),
-            escape_markdown("**Психология**: **НИКОГДА** не пытайтесь 'отыграться'. Каждый спин независим.")
-        ]
+        
+        # Форматируем числа заранее
+        sll_val = personal_bankroll * (1-stop_loss_profile[risk_level])
+        sll_loss = personal_bankroll * stop_loss_profile[risk_level]
+        wgl_val = personal_bankroll * (1+win_goal_profile[risk_level])
+        wgl_profit = personal_bankroll * win_goal_profile[risk_level]
+        
+        sll_val_f = f"{sll_val:.2f}"
+        sll_loss_f = f"{sll_loss:.2f}"
+        wgl_val_f = f"{wgl_val:.2f}"
+        wgl_profit_f = f"{wgl_profit:.2f}"
+        
+        strategy1 = f"**Рекомендуемая ставка**: Для вашего банка и уровня риска реальная ставка составляет **${bps_formatted}**.{adjustment_note}"
+        strategy2 = f"**Управление ставками**: Начинайте с минимальной ставки **${mbet_formatted}**. Если игра идет хорошо, можно постепенно повышать ставку, но не превышать рекомендуемую."
+        strategy3 = f"**Стоп-лосс (железное правило)**: Немедленно прекратите игру, если ваш банк опустится до **${sll_val_f}** (потеря ${sll_loss_f})."
+        strategy4 = f"**Цель выигрыша**: Зафиксируйте прибыль и прекратите игру, если ваш банк достигнет **${wgl_val_f}** (прибыль ${wgl_profit_f})."
+        strategy5 = "**Психология**: **НИКОГДА** не пытайтесь 'отыграться'. Каждый спин независим."
+
+        optimal_strategy = [strategy1, strategy2, strategy3, strategy4, strategy5]
         
         return {'min_bank_advice': min_bank_advice, 'harsh_truths': harsh_truths, 'optimal_strategy': optimal_strategy, 'bet_per_spin': bet_per_spin}
 
@@ -192,9 +209,15 @@ def main():
             game_config = config.get('game_config', {})
             
             # --- Исправленный фрагмент ---
-            # Экранируем текст для st.subheader
-            st.header(f"🎰 Полный анализ слота: {escape_markdown(game_config.get('game_name', 'N/A'))}", divider="rainbow")
-            st.subheader(escape_markdown(f"Ваши параметры: Банкролл: **${personal_bankroll:,.2f}** | Желаемый выигрыш: **+${desired_win:,.2f}** | Риск: **{risk_level.capitalize()}**"))
+            # Форматируем заранее, чтобы избежать проблем внутри f-string
+            gn_formatted = game_config.get('game_name', 'N/A')
+            pb_formatted = f"{personal_bankroll:,.2f}"
+            dw_formatted = f"{desired_win:,.2f}"
+            rl_formatted = risk_level.capitalize()
+
+            # Используем обычные строки для Markdown
+            st.header(f"🎰 Полный анализ слота: {gn_formatted}", divider="rainbow")
+            st.subheader(f"Ваши параметры: Банкролл: **${pb_formatted}** | Желаемый выигрыш: **+${dw_formatted}** | Риск: **{rl_formatted}**")
             # --- Конец исправленного фрагмента ---
             
             goal_result = calculator.estimate_goal_chance(personal_bankroll, desired_win)
@@ -205,15 +228,15 @@ def main():
             st.subheader("🎯 Анализ вашей цели", divider="blue")
             col1, col2 = st.columns(2)
             with col1:
-                # Экранируем текст для st.metric (label)
-                st.metric(label=escape_markdown(f"Оценочный шанс выиграть ${desired_win:,.2f}"), value=f"{goal_result['probability']*100:.4f}%")
+                # Форматируем число заранее
+                dw_label_formatted = f"{desired_win:,.2f}"
+                st.metric(label=f"Оценочный шанс выиграть ${dw_label_formatted}", value=f"{goal_result['probability']*100:.4f}%")
             with col2:
                 spins_str = f"{guaranteed_spins}" if guaranteed_spins != float('inf') else "∞"
-                # Экранируем текст для st.metric (label)
-                st.metric(label=escape_markdown("Гарантированное кол-во спинов (при рек. ставке)"), value=spins_str)
+                st.metric(label="Гарантированное кол-во спинов (при рек. ставке)", value=spins_str)
             
             # --- ВОЗВРАЩЕННЫЙ БЛОК С ПРАВИЛЬНЫМ ТЕКСТОМ ---
-            # Текст внутри f-строки в st.markdown уже содержит HTML-сущности, если нужно
+            # Этот блок работает корректно, так как не содержит сложных выражений внутри {}
             with st.expander("Как понимать эти цифры? 🤔"):
                 st.markdown(f"""
                 #### Шанс на выигрыш
@@ -233,7 +256,6 @@ def main():
             with st.container(border=True):
                 st.subheader("1. Вердикт о вашем банкролле")
                 for advice in strategy['min_bank_advice']: 
-                    # advice уже экранирован
                     st.markdown(f"➡️ {advice}")
             with st.container(border=True):
                 st.subheader("2. Обоснование и Расчет Минимального Банка")
@@ -252,12 +274,10 @@ def main():
             with st.container(border=True):
                 st.subheader("3. Жесткая правда о шансах (без прикрас)")
                 for truth in strategy['harsh_truths']: 
-                    # truth уже экранирован
                     st.markdown(f"➡️ {truth}")
             with st.container(border=True):
                 st.subheader("4. Оптимальная пошаговая стратегия")
                 for i, step in enumerate(strategy['optimal_strategy'], 1): 
-                    # step уже экранирован
                     st.markdown(f"**Шаг {i}**: {step}")
                     
         except Exception as e:
