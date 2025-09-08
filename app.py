@@ -118,7 +118,7 @@ class SlotProbabilityCalculator:
             if bet_per_spin == self.min_bet:
                 adjustment_note = f" (Примечание: теоретическая ставка \${tb_formatted} была **скорректирована** до минимально возможной в этом слоте)."
             elif bet_per_spin < theoretical_bet:
-                 adjustment_note = f" (Примечание: теоретическая ставка \${tb_formatted} была **уменьшена и округлена** для вашей безопасности и соответствия шагу ставки)."
+                 adjustment_note = f" (Примечание: теоретическая ставка \${tb_formatted} была **уменьшена и округлена** в соответствии шагу ставки)."
         
         base_win_prob, rtp = float(self.config.get('probabilities', {}).get('base_win_probability', 0.25)), self.config.get('game_config', {}).get('rtp', 0.96)
         bwp_pct = base_win_prob * 100
@@ -341,3 +341,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
