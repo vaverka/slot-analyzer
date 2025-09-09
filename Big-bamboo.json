@@ -1,0 +1,116 @@
+{
+  "game_config": {
+    "game_name": "Big Bamboo",
+    "type": "line_pays",
+    "grid_size": "5x6",
+    "bet_range": [0.10, 100.00],
+    "rtp": 0.9613,
+    "volatility": "high",
+    "features": ["mystery_symbols", "golden_bamboo_feature", "free_spins_gamble", "symbol_conversion_meter", "bonus_buy"]
+  },
+  "symbols": [
+    {
+      "id": "panda",
+      "name": "Panda",
+      "type": "highest",
+      "base_frequency": 0.01,
+      "paytable": { "2": 0.5, "3": 2, "4": 10, "5": 150 }
+    },
+    {
+      "id": "wild",
+      "name": "Wild",
+      "type": "wild",
+      "base_frequency": 0.01,
+      "paytable": { "2": 0.5, "3": 2, "4": 10, "5": 150 }
+    },
+    {
+      "id": "warthog",
+      "name": "Warthog",
+      "type": "high",
+      "base_frequency": 0.02,
+      "paytable": { "3": 0.5, "4": 2, "5": 20 }
+    },
+    {
+      "id": "monkey",
+      "name": "Monkey",
+      "type": "high",
+      "base_frequency": 0.03,
+      "paytable": { "3": 0.4, "4": 1.6, "5": 16 }
+    },
+    {
+      "id": "bird",
+      "name": "Bird",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 0.3, "4": 1.2, "5": 12 }
+    },
+    {
+      "id": "diamond_suit",
+      "name": "Diamond Suit",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.1, "4": 0.2, "5": 0.4 }
+    },
+    {
+      "id": "spade_suit",
+      "name": "Spade Suit",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.1, "4": 0.2, "5": 0.4 }
+    },
+    {
+      "id": "heart_suit",
+      "name": "Heart Suit",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.1, "4": 0.2, "5": 0.4 }
+    },
+    {
+      "id": "club_suit",
+      "name": "Club Suit",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.1, "4": 0.2, "5": 0.4 }
+    },
+    {
+      "id": "mystery_bamboo",
+      "name": "Mystery Bamboo",
+      "type": "feature",
+      "base_frequency": 0.10
+    },
+    {
+      "id": "scatter",
+      "name": "Scatter",
+      "type": "scatter",
+      "base_frequency": 0.10
+    },
+    {
+      "id": "gamble_scatter",
+      "name": "Gamble Scatter",
+      "type": "scatter",
+      "base_frequency": 0.10
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Golden Bamboo Feature",
+      "trigger": "Revealed from Mystery Bamboo symbols",
+      "effect": "Each position spins to reveal Instant Prizes (up to 5000x), Multipliers, Collectors, or Scatters."
+    },
+    {
+      "name": "Free Spins Feature",
+      "trigger": "Triggered by the Gamble Scatter symbol",
+      "effect": "A complex bonus round where players collect Scatters to convert low symbols into Mystery Bamboo symbols, awarding extra spins and increasing the Golden Bamboo multiplier."
+    },
+    {
+      "name": "Bonus Buy",
+      "trigger": "Player choice",
+      "effect": "Allows buying one of four different Free Spins features, with varying costs and RTPs."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.21,
+    "max_win_multiplier": 50000,
+    "wild_substitution_power": 0.9
+  }
+}

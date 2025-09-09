@@ -1,0 +1,110 @@
+{
+  "game_config": {
+    "game_name": "Pirots 2",
+    "type": "collect_to_win",
+    "grid_size": {
+      "start": "6x6",
+      "max": "8x8"
+    },
+    "bet_range": [0.20, 100.00],
+    "rtp": 0.94,
+    "volatility": "high",
+    "features": ["amber_upgrade_system", "symbol_collection_meter", "free_drops_bonus", "expanding_grid"]
+  },
+  "symbols": [
+    {
+      "id": "amber_red",
+      "name": "Red Amber",
+      "type": "paying_gem",
+      "base_frequency": 0.20
+    },
+    {
+      "id": "amber_purple",
+      "name": "Purple Amber",
+      "type": "paying_gem",
+      "base_frequency": 0.20
+    },
+    {
+      "id": "amber_green",
+      "name": "Green Amber",
+      "type": "paying_gem",
+      "base_frequency": 0.20
+    },
+    {
+      "id": "amber_blue",
+      "name": "Blue Amber",
+      "type": "paying_gem",
+      "base_frequency": 0.20
+    },
+    {
+      "id": "wild",
+      "name": "Wild",
+      "type": "feature",
+      "base_frequency": 0.03
+    },
+    {
+      "id": "bonus",
+      "name": "Bonus Symbol",
+      "type": "feature",
+      "base_frequency": 0.02
+    },
+    {
+      "id": "upgrade",
+      "name": "Upgrade Symbol",
+      "type": "feature",
+      "base_frequency": 0.05
+    },
+    {
+      "id": "coin",
+      "name": "Coin Symbol",
+      "type": "feature",
+      "base_frequency": 0.05
+    },
+    {
+      "id": "red_button",
+      "name": "Red Button (Meteor)",
+      "type": "feature",
+      "base_frequency": 0.01
+    },
+    {
+      "id": "egg",
+      "name": "Egg Symbol",
+      "type": "feature",
+      "base_frequency": 0.01
+    },
+    {
+      "id": "popcorn",
+      "name": "Popcorn Symbol",
+      "type": "feature",
+      "base_frequency": 0.01
+    },
+    {
+      "id": "transform",
+      "name": "Transform Symbol (Mushroom)",
+      "type": "feature",
+      "base_frequency": 0.02
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Bonus Game (Free Drops)",
+      "trigger": "Birds collect three Bonus symbols",
+      "effect": "Awards 5 free drops. All progress (grid size, collection meter, amber payout levels) is persistent during the bonus."
+    },
+    {
+      "name": "Symbol Collection Meter",
+      "trigger": "Fills up as birds collect amber symbols and wilds",
+      "effect": "Releases a number of random feature symbols onto the grid."
+    },
+    {
+      "name": "Amber Upgrade System",
+      "trigger": "A bird collects an Upgrade symbol",
+      "effect": "Increases the payout value of the corresponding amber color for the rest of the game session at that bet level."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.21,
+    "max_win_multiplier": 10000,
+    "wild_substitution_power": 1.0
+  }
+}

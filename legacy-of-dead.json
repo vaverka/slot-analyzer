@@ -1,0 +1,100 @@
+{
+  "game_config": {
+    "game_name": "Legacy of Dead",
+    "type": "line_pays",
+    "grid_size": "5x3",
+    "bet_range": [0.10, 100.00],
+    "rtp": 0.9658,
+    "volatility": "high",
+    "features": ["free_spins_expanding_symbol", "retrigger_adds_exp_symbol", "gamble_feature"]
+  },
+  "symbols": [
+    {
+      "id": "tomb_wild_scatter",
+      "name": "Tomb (Wild/Scatter)",
+      "type": "wild_scatter",
+      "base_frequency": 0.04,
+      "paytable": { "2": 1, "3": 10, "4": 100, "5": 500, "scatter_3": 2, "scatter_4": 20, "scatter_5": 200 }
+    },
+    {
+      "id": "pharaoh",
+      "name": "Pharaoh",
+      "type": "highest",
+      "base_frequency": 0.01,
+      "paytable": { "2": 1, "3": 10, "4": 100, "5": 500 }
+    },
+    {
+      "id": "anubis",
+      "name": "Anubis",
+      "type": "high",
+      "base_frequency": 0.02,
+      "paytable": { "2": 0.5, "3": 3, "4": 30, "5": 160 }
+    },
+    {
+      "id": "tutankhamun",
+      "name": "Tutankhamun",
+      "type": "medium",
+      "base_frequency": 0.04,
+      "paytable": { "2": 0.5, "3": 2, "4": 8, "5": 60 }
+    },
+    {
+      "id": "horus",
+      "name": "Horus",
+      "type": "medium",
+      "base_frequency": 0.04,
+      "paytable": { "2": 0.5, "3": 2, "4": 8, "5": 60 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.5, "4": 3, "5": 12 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.5, "4": 3, "5": 12 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "3": 0.5, "4": 2, "5": 8 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "3": 0.5, "4": 2, "5": 8 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.5, "4": 2, "5": 8 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Free Spins",
+      "trigger": "3 or more Tomb symbols",
+      "effect": "Awards 8 free spins with a random Special Expanding Symbol. Retriggering the feature awards +8 spins and chooses an additional Special Expanding Symbol, up to a maximum of 9."
+    },
+    {
+      "name": "Gamble Feature",
+      "trigger": "Optional, after any win",
+      "effect": "Player can guess a card's color to double (50% chance) or suit to quadruple (25% chance) their winnings."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.29,
+    "max_win_multiplier": 5000,
+    "wild_substitution_power": 0.8
+  }
+}

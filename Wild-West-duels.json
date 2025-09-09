@@ -1,0 +1,135 @@
+{
+  "game_config": {
+    "game_name": "Wild West Duels",
+    "type": "line_pays",
+    "grid_size": "5x5",
+    "bet_range": [0.20, 100.00],
+    "rtp": 0.9600,
+    "volatility": "high",
+    "features": ["expanding_wild_multipliers", "sticky_wilds_fs", "guaranteed_wilds_fs", "pick_and_win_fs", "buy_bonus"]
+  },
+  "symbols": [
+    {
+      "id": "sheriff",
+      "name": "Sheriff",
+      "type": "highest",
+      "base_frequency": 0.02,
+      "paytable": { "3": 4.00, "4": 20.00, "5": 40.00 }
+    },
+    {
+      "id": "wild_bag",
+      "name": "Wild (Money Bag)",
+      "type": "wild",
+      "base_frequency": 0.02,
+      "paytable": { "3": 4.00, "4": 20.00, "5": 40.00 }
+    },
+    {
+      "id": "cowboy_green",
+      "name": "Cowboy (Green)",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 2.00, "4": 10.00, "5": 20.00 }
+    },
+    {
+      "id": "cowgirl",
+      "name": "Cowgirl",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 2.00, "4": 10.00, "5": 20.00 }
+    },
+    {
+      "id": "old_man",
+      "name": "Old Man",
+      "type": "medium",
+      "base_frequency": 0.06,
+      "paytable": { "3": 1.50, "4": 5.00, "5": 10.00 }
+    },
+    {
+      "id": "cowboy_red",
+      "name": "Cowboy (Red)",
+      "type": "medium",
+      "base_frequency": 0.06,
+      "paytable": { "3": 1.50, "4": 5.00, "5": 10.00 }
+    },
+    {
+      "id": "hat",
+      "name": "Cowboy Hat",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "boots",
+      "name": "Cowboy Boots",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "canteen",
+      "name": "Canteen",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "bandana",
+      "name": "Bandana",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "wanted_poster",
+      "name": "Wanted Poster",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "beer_scatter",
+      "name": "Beer Game Scatter",
+      "type": "scatter",
+      "base_frequency": 0.07
+    },
+    {
+      "id": "duel_scatter",
+      "name": "Duel Scatter",
+      "type": "scatter",
+      "base_frequency": 0.05
+    },
+    {
+      "id": "relic_scatter",
+      "name": "Lost Relics Scatter",
+      "type": "scatter",
+      "base_frequency": 0.04
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Beer Game",
+      "trigger": "3+ Beer Game Scatters",
+      "effect": "Awards 10 free spins where any Wilds that land become sticky and have a 2x or 3x multiplier."
+    },
+    {
+      "name": "Duel",
+      "trigger": "3+ Duel Scatters",
+      "effect": "Awards 10 free spins where at least one Wild is guaranteed to land on every spin, with the potential to expand."
+    },
+    {
+      "name": "Lost Relics",
+      "trigger": "3+ Lost Relics Scatters",
+      "effect": "A pre-bonus picker game determines a guaranteed number of Wilds and a win multiplier for 3 free spins."
+    },
+    {
+      "name": "Buy Free Spins",
+      "trigger": "Player choice",
+      "effect": "Allows buying one of the three main bonus features directly for 100x, 200x, or 400x the bet."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.23,
+    "max_win_multiplier": 20000,
+    "wild_substitution_power": 0.9
+  }
+}

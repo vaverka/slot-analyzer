@@ -1,0 +1,117 @@
+{
+  "game_config": {
+    "game_name": "Le Bandit",
+    "type": "cluster_pays_super_cascade",
+    "grid_size": "6x5",
+    "bet_range": [0.10, 100.00],
+    "rtp": 0.9634,
+    "volatility": "high",
+    "features": ["super_cascade", "golden_squares", "rainbow_feature", "tiered_free_spins", "bonus_buy"]
+  },
+  "symbols": [
+    {
+      "id": "hat",
+      "name": "Top Hat",
+      "type": "highest",
+      "base_frequency": 0.01,
+      "paytable": { "5": 2.00, "6": 3.00, "7": 4.00, "8": 6.00, "9-10": 20.00, "11-12": 60.00, "13+": 200.00 }
+    },
+    {
+      "id": "baguette",
+      "name": "Baguette",
+      "type": "high",
+      "base_frequency": 0.02,
+      "paytable": { "5": 1.00, "6": 1.40, "7": 2.00, "8": 3.00, "9-10": 10.00, "11-12": 30.00, "13+": 100.00 }
+    },
+    {
+      "id": "beer",
+      "name": "Beer",
+      "type": "high",
+      "base_frequency": 0.02,
+      "paytable": { "5": 1.00, "6": 1.40, "7": 2.00, "8": 3.00, "9-10": 10.00, "11-12": 30.00, "13+": 100.00 }
+    },
+    {
+      "id": "cheese",
+      "name": "Cheese",
+      "type": "medium",
+      "base_frequency": 0.04,
+      "paytable": { "5": 0.60, "6": 0.80, "7": 1.00, "8": 1.40, "9-10": 5.00, "11-12": 15.00, "13+": 50.00 }
+    },
+    {
+      "id": "trap",
+      "name": "Bear Trap",
+      "type": "medium",
+      "base_frequency": 0.04,
+      "paytable": { "5": 0.60, "6": 0.80, "7": 1.00, "8": 1.40, "9-10": 5.00, "11-12": 15.00, "13+": 50.00 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "5": 0.20, "6": 0.40, "7": 0.60, "8": 1.00, "9-10": 3.00, "11-12": 10.00, "13+": 30.00 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "5": 0.20, "6": 0.40, "7": 0.60, "8": 1.00, "9-10": 3.00, "11-12": 10.00, "13+": 30.00 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "5": 0.20, "6": 0.40, "7": 0.60, "8": 1.00, "9-10": 3.00, "11-12": 10.00, "13+": 30.00 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "5": 0.20, "6": 0.40, "7": 0.60, "8": 1.00, "9-10": 3.00, "11-12": 10.00, "13+": 30.00 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "5": 0.20, "6": 0.40, "7": 0.60, "8": 1.00, "9-10": 3.00, "11-12": 10.00, "13+": 30.00 }
+    },
+    {
+      "id": "wild_poster",
+      "name": "Wild Poster",
+      "type": "wild",
+      "base_frequency": 0.10
+    },
+    {
+      "id": "fs_scatter",
+      "name": "FS Scatter",
+      "type": "scatter",
+      "base_frequency": 0.07
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Golden Squares & Rainbow Symbol",
+      "trigger": "A win occurs, then a Rainbow symbol lands after cascades end",
+      "effect": "Activates highlighted squares behind winning symbols, revealing cash coins, multipliers (Four-Leaf Clover), or collectors (Pot of Gold)."
+    },
+    {
+      "name": "Tiered Free Spins",
+      "trigger": "3, 4, or 5 FS Scatter symbols",
+      "effect": "Awards one of three increasingly powerful free spins modes (Luck of the Bandit, All That Glitters is Gold, Treasure at the End of the Rainbow), each with enhanced Golden Square mechanics."
+    },
+    {
+      "name": "Bonus Buy",
+      "trigger": "Player choice",
+      "effect": "Allows buying one of four different features, with varying costs and RTPs."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.24,
+    "max_win_multiplier": 10000,
+    "wild_substitution_power": 0.9
+  }
+}

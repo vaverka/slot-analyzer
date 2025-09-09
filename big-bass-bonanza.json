@@ -1,0 +1,107 @@
+{
+  "game_config": {
+    "game_name": "Bigger Bass Bonanza",
+    "type": "line_pays",
+    "grid_size": "5x4",
+    "bet_range": [0.12, 240.00],
+    "rtp": 0.9671,
+    "volatility": "high",
+    "features": ["money_symbols", "free_spins_retrigger_meter"]
+  },
+  "symbols": [
+    {
+      "id": "boat",
+      "name": "Boat",
+      "type": "highest",
+      "base_frequency": 0.01,
+      "paytable": { "2": 60, "3": 600, "4": 2400, "5": 24000 }
+    },
+    {
+      "id": "rod",
+      "name": "Fishing Rod",
+      "type": "high",
+      "base_frequency": 0.02,
+      "paytable": { "3": 360, "4": 1800, "5": 12000 }
+    },
+    {
+      "id": "lure",
+      "name": "Lure",
+      "type": "high",
+      "base_frequency": 0.03,
+      "paytable": { "3": 240, "4": 1200, "5": 6000 }
+    },
+    {
+      "id": "tackle_box",
+      "name": "Tackle Box",
+      "type": "high",
+      "base_frequency": 0.03,
+      "paytable": { "3": 240, "4": 1200, "5": 6000 }
+    },
+    {
+      "id": "money_fish",
+      "name": "Money Symbol (Fish)",
+      "type": "medium",
+      "base_frequency": 0.06,
+      "paytable": { "3": 120, "4": 600, "5": 2400 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 60, "4": 300, "5": 1200 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 60, "4": 300, "5": 1200 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 60, "4": 300, "5": 1200 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 60, "4": 300, "5": 1200 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 60, "4": 300, "5": 1200 }
+    },
+    {
+      "id": "fisherman_wild",
+      "name": "Fisherman Wild",
+      "type": "wild",
+      "base_frequency": 0.08
+    },
+    {
+      "id": "scatter_fish",
+      "name": "Scatter Fish",
+      "type": "scatter",
+      "base_frequency": 0.08
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Free Spins",
+      "trigger": "3, 4, or 5 Scatter symbols",
+      "effect": "Awards 10, 15, or 20 free spins. During the feature, Fisherman Wilds collect Money Symbol values. Every 4th Wild collected retriggers +10 spins and increases the collection multiplier (2x, 3x, 10x)."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.18,
+    "max_win_multiplier": 4000,
+    "wild_substitution_power": 0.8
+  }
+}

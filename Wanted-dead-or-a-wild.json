@@ -1,0 +1,141 @@
+{
+  "game_config": {
+    "game_name": "Wanted Dead or a Wild",
+    "type": "line_pays",
+    "grid_size": "5x5",
+    "bet_range": [0.20, 75.00],
+    "rtp": 0.9638,
+    "volatility": "high",
+    "features": ["vs_expanding_wilds", "sticky_wilds_fs", "collect_and_win_bonus", "bonus_buy"]
+  },
+  "symbols": [
+    {
+      "id": "revolver_cylinder",
+      "name": "Revolver Cylinder",
+      "type": "highest",
+      "base_frequency": 0.02,
+      "paytable": { "3": 4.00, "4": 20.00, "5": 40.00 }
+    },
+    {
+      "id": "wild_badge",
+      "name": "Wild Badge",
+      "type": "wild",
+      "base_frequency": 0.02,
+      "paytable": { "5": 40.00 }
+    },
+    {
+      "id": "whiskey_bottle",
+      "name": "Whiskey Bottle",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 2.00, "4": 10.00, "5": 20.00 }
+    },
+    {
+      "id": "money_bag",
+      "name": "Money Bag",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 2.00, "4": 10.00, "5": 20.00 }
+    },
+    {
+      "id": "outlaw",
+      "name": "Outlaw",
+      "type": "medium",
+      "base_frequency": 0.06,
+      "paytable": { "3": 1.00, "4": 5.00, "5": 10.00 }
+    },
+    {
+      "id": "bull_skull",
+      "name": "Bull Skull",
+      "type": "medium",
+      "base_frequency": 0.06,
+      "paytable": { "3": 1.00, "4": 5.00, "5": 10.00 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "vs_symbol",
+      "name": "VS Symbol",
+      "type": "feature",
+      "base_frequency": 0.03
+    },
+    {
+      "id": "train_robbery_scatter",
+      "name": "Train Robbery Scatter",
+      "type": "scatter",
+      "base_frequency": 0.01
+    },
+    {
+      "id": "duel_scatter",
+      "name": "Duel Scatter",
+      "type": "scatter",
+      "base_frequency": 0.01
+    },
+    {
+      "id": "dead_scatter",
+      "name": "DEAD Scatter",
+      "type": "scatter",
+      "base_frequency": 0.01
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "The Great Train Robbery",
+      "trigger": "3+ Train Robbery Scatters",
+      "effect": "Awards 10 free spins where all Wilds are sticky."
+    },
+    {
+      "name": "Duel at Dawn",
+      "trigger": "3+ Duel Scatters",
+      "effect": "Awards 10 free spins with a much higher chance of landing VS symbols."
+    },
+    {
+      "name": "Dead Man's Hand",
+      "trigger": "3+ DEAD Scatters",
+      "effect": "A two-phase bonus. First, collect Wilds and Multipliers in a 'Hold and Win' style feature. Second, play 3 showdown spins where all collected Wilds land and the total collected multiplier is applied to all wins."
+    },
+    {
+      "name": "Bonus Buy",
+      "trigger": "Player choice",
+      "effect": "Allows buying one of the three main bonus features directly."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.19,
+    "max_win_multiplier": 12500,
+    "wild_substitution_power": 1.0
+  }
+}

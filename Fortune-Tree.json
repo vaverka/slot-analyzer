@@ -1,0 +1,131 @@
+{
+  "game_config": {
+    "game_name": "Prosperity Fortune Tree",
+    "type": "ways_to_win_cascading",
+    "grid_size": "6x4",
+    "bet_range": [0.20, 100000.00],
+    "bet_structure": {
+      "base_bet": 20,
+      "bet_sizes": [0.01, 500.00],
+      "bet_levels": [1, 10]
+    },
+    "rtp": 0.9677,
+    "volatility": "high",
+    "features": ["cascades", "progressive_multiplier", "hold_and_win_bonus"]
+  },
+  "symbols": [
+    {
+      "id": "pot_of_gold",
+      "name": "Pot of Gold",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 1, "4": 1.5, "5": 2, "6": 2.5 }
+    },
+    {
+      "id": "gold_ingot",
+      "name": "Gold Ingot",
+      "type": "high",
+      "base_frequency": 0.06,
+      "paytable": { "3": 0.75, "4": 1, "5": 1.5, "6": 2 }
+    },
+    {
+      "id": "pouch",
+      "name": "Pouch",
+      "type": "medium",
+      "base_frequency": 0.08,
+      "paytable": { "3": 0.5, "4": 1, "5": 1.5, "6": 1.5 }
+    },
+    {
+      "id": "lantern",
+      "name": "Lantern",
+      "type": "medium",
+      "base_frequency": 0.08,
+      "paytable": { "3": 0.4, "4": 0.75, "5": 1, "6": 1 }
+    },
+    {
+      "id": "green_ring",
+      "name": "Green Ring",
+      "type": "medium",
+      "base_frequency": 0.09,
+      "paytable": { "3": 0.4, "4": 0.5, "5": 0.75, "6": 1 }
+    },
+    {
+      "id": "knot",
+      "name": "Knot",
+      "type": "medium",
+      "base_frequency": 0.09,
+      "paytable": { "3": 0.4, "4": 0.5, "5": 0.75, "6": 1 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.25, "4": 0.4, "5": 0.5, "6": 0.6 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.25, "4": 0.4, "5": 0.5, "6": 0.6 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.25, "4": 0.4, "5": 0.5, "6": 0.6 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.08,
+      "paytable": { "3": 0.15, "4": 0.25, "5": 0.4, "6": 0.5 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.08,
+      "paytable": { "3": 0.15, "4": 0.25, "5": 0.4, "6": 0.5 }
+    },
+    {
+      "id": "nine",
+      "name": "Nine (9)",
+      "type": "low",
+      "base_frequency": 0.08,
+      "paytable": { "3": 0.15, "4": 0.25, "5": 0.4, "6": 0.5 }
+    },
+    {
+      "id": "wild",
+      "name": "Wild",
+      "type": "wild",
+      "base_frequency": 0.01
+    },
+    {
+      "id": "bonus",
+      "name": "Bonus Symbol",
+      "type": "scatter",
+      "base_frequency": 0.01
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Progressive Multiplier",
+      "trigger": "Consecutive wins in a single spin (cascades)",
+      "effect": "Increases the win multiplier for cascades within a single spin to 2x, 3x, and finally 5x."
+    },
+    {
+      "name": "Bonus Feature",
+      "trigger": "3 or more Bonus symbols",
+      "effect": "A 'Hold and Win' bonus round with 3 respins that reset. Features collector (Angpau) and persistent collector (Golden Angpau) symbols that increase prize values."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.29,
+    "max_win_multiplier": 20000,
+    "wild_substitution_power": 0.8
+  }
+}

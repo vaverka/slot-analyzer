@@ -1,0 +1,129 @@
+{
+  "game_config": {
+    "game_name": "Lucky Neko",
+    "type": "ways_to_win_cascading",
+    "grid_size": "6x5 + top row",
+    "bet_range": [0.20, 100000.00],
+    "bet_structure": {
+      "base_bet": 20,
+      "bet_sizes": [0.01, 500.00],
+      "bet_levels": [1, 10]
+    },
+    "rtp": 0.9673,
+    "volatility": "medium",
+    "features": ["cascades", "wilds_on_the_way", "cat_symbol_multiplier", "free_spins"]
+  },
+  "symbols": [
+    {
+      "id": "cat",
+      "name": "Lucky Cat (Neko)",
+      "type": "highest",
+      "base_frequency": 0.04,
+      "paytable": { "3": 1.5, "4": 2, "5": 2.5, "6": 4 }
+    },
+    {
+      "id": "drum",
+      "name": "Drum",
+      "type": "high",
+      "base_frequency": 0.06,
+      "paytable": { "3": 1, "4": 1.25, "5": 1.5, "6": 2.5 }
+    },
+    {
+      "id": "lantern",
+      "name": "Lantern",
+      "type": "high",
+      "base_frequency": 0.08,
+      "paytable": { "3": 0.5, "4": 1.25, "5": 1.5, "6": 2 }
+    },
+    {
+      "id": "fan",
+      "name": "Fan",
+      "type": "medium",
+      "base_frequency": 0.09,
+      "paytable": { "3": 0.4, "4": 0.75, "5": 1.0, "6": 1.5 }
+    },
+    {
+      "id": "sushi",
+      "name": "Sushi",
+      "type": "medium",
+      "base_frequency": 0.09,
+      "paytable": { "3": 0.3, "4": 0.5, "5": 0.75, "6": 0.75 }
+    },
+    {
+      "id": "maki",
+      "name": "Maki Roll",
+      "type": "medium",
+      "base_frequency": 0.09,
+      "paytable": { "3": 0.3, "4": 0.5, "5": 0.6, "6": 0.75 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.2, "4": 0.3, "5": 0.4, "6": 0.5 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.2, "4": 0.3, "5": 0.4, "6": 0.5 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.11,
+      "paytable": { "3": 0.1, "4": 0.15, "5": 0.2, "6": 0.2 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.11,
+      "paytable": { "3": 0.05, "4": 0.1, "5": 0.15, "6": 0.2 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.11,
+      "paytable": { "3": 0.05, "4": 0.1, "5": 0.15, "6": 0.2 }
+    },
+    {
+      "id": "wild_shrine",
+      "name": "Wild Shrine",
+      "type": "wild",
+      "base_frequency": 0.03
+    },
+    {
+      "id": "scatter_coins",
+      "name": "Scatter Coins",
+      "type": "scatter",
+      "base_frequency": 0.03
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Wilds-on-the-Way",
+      "trigger": "A silver-framed symbol is part of a win, then the subsequent gold-framed symbol is part of a win",
+      "effect": "Transforms a regular symbol into a Wild symbol through a two-step cascade process."
+    },
+    {
+      "name": "Cat Symbol Multiplier",
+      "trigger": "One or more Cat symbols appear on the reels",
+      "effect": "Increases the total win multiplier by +2 for each Cat symbol present. In Free Spins, this multiplier is persistent."
+    },
+    {
+      "name": "Free Spins",
+      "trigger": "4 or more Scatter symbols",
+      "effect": "Awards 10+ free spins. The round starts with a 2x multiplier, and the Cat Symbol Multiplier becomes progressive and does not reset between spins."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.31,
+    "max_win_multiplier": 20000,
+    "wild_substitution_power": 0.8
+  }
+}

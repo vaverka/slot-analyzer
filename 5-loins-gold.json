@@ -1,0 +1,124 @@
+{
+  "game_config": {
+    "game_name": "5 Lions Gold",
+    "type": "ways_to_win",
+    "grid_size": "5x3",
+    "bet_range": [0.18, 90.00],
+    "rtp": 0.965,
+    "volatility": "high",
+    "features": ["free_spins_choice", "wild_multipliers", "fixed_jackpots"]
+  },
+  "symbols": [
+    {
+      "id": "dragon",
+      "name": "Dragon",
+      "type": "highest",
+      "base_frequency": 0.015,
+      "paytable": { "2": 0.11, "3": 0.83, "4": 2.5, "5": 7 }
+    },
+    {
+      "id": "phoenix",
+      "name": "Phoenix",
+      "type": "high",
+      "base_frequency": 0.02,
+      "paytable": { "3": 0.67, "4": 1.67, "5": 4.5 }
+    },
+    {
+      "id": "frog",
+      "name": "Frog",
+      "type": "high",
+      "base_frequency": 0.02,
+      "paytable": { "3": 0.67, "4": 1.67, "5": 4.5 }
+    },
+    {
+      "id": "fish",
+      "name": "Fish",
+      "type": "medium",
+      "base_frequency": 0.03,
+      "paytable": { "3": 0.5, "4": 1.33, "5": 3.5 }
+    },
+    {
+      "id": "turtle",
+      "name": "Turtle",
+      "type": "medium",
+      "base_frequency": 0.03,
+      "paytable": { "3": 0.5, "4": 1.33, "5": 3.5 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.22, "4": 0.67, "5": 2 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.22, "4": 0.67, "5": 2 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.17, "4": 0.5, "5": 1.5 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.17, "4": 0.5, "5": 1.5 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.17,
+      "paytable": { "3": 0.17, "4": 0.5, "5": 1.0 }
+    },
+    {
+      "id": "nine",
+      "name": "Nine (9)",
+      "type": "low",
+      "base_frequency": 0.17,
+      "paytable": { "3": 0.11, "4": 0.33, "5": 1.0 }
+    },
+    {
+      "id": "wild_lion",
+      "name": "Wild (Lion)",
+      "type": "wild",
+      "base_frequency": 0.025
+    },
+    {
+      "id": "scatter_yin_yang",
+      "name": "Scatter (Yin-yang)",
+      "type": "scatter",
+      "base_frequency": 0.02
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Free Spins Feature (Выбор бонуса)",
+      "trigger": "3 Scatter symbols",
+      "effect": "Player chooses one of seven options for free spins count and Wild multiplier range."
+    },
+    {
+      "name": "Golden Reels Jackpot Feature",
+      "trigger": "3, 4, or 5 reels turn gold during Free Spins",
+      "effect": "Awards a fixed jackpot of 15x, 150x, or 2000x total bet."
+    },
+    {
+      "name": "Caishen Random Award Feature",
+      "trigger": "Randomly during Free Spins",
+      "effect": "Can trigger the Jackpot Bonus Game (pick 'em bonus)."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.25,
+    "max_win_multiplier": 2000,
+    "wild_substitution_power": 0.7
+  }
+}

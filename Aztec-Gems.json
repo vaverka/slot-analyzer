@@ -1,0 +1,97 @@
+{
+  "game_config": {
+    "game_name": "Aztec Gems",
+    "type": "line_pays_multiplier_reel",
+    "grid_size": "3x3 + 1 Multiplier Reel",
+    "bet_range": [0.05, 25.00],
+    "rtp": 0.9652,
+    "volatility": "medium",
+    "features": ["win_multiplier_reel", "stacked_symbols"]
+  },
+  "symbols": [
+    {
+      "id": "wild_chief",
+      "name": "Wild (Aztec Chief)",
+      "type": "wild",
+      "base_frequency": 0.05,
+      "paytable": {
+        "3": 5
+      }
+    },
+    {
+      "id": "red_gem",
+      "name": "Red Gem",
+      "type": "high",
+      "base_frequency": 0.08,
+      "paytable": {
+        "3": 4
+      }
+    },
+    {
+      "id": "purple_gem",
+      "name": "Purple Gem",
+      "type": "high",
+      "base_frequency": 0.10,
+      "paytable": {
+        "3": 3
+      }
+    },
+    {
+      "id": "blue_gem",
+      "name": "Blue Gem",
+      "type": "medium",
+      "base_frequency": 0.15,
+      "paytable": {
+        "3": 2.4
+      }
+    },
+    {
+      "id": "green_gem",
+      "name": "Green Gem",
+      "type": "medium",
+      "base_frequency": 0.18,
+      "paytable": {
+        "3": 2
+      }
+    },
+    {
+      "id": "square_gem",
+      "name": "Square Gem",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": {
+        "3": 1.6
+      }
+    },
+    {
+      "id": "star_gem",
+      "name": "Star Gem",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": {
+        "3": 1
+      }
+    },
+    {
+      "id": "triangle_gem",
+      "name": "Triangle Gem",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": {
+        "3": 0.4
+      }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Win Multiplier Reel",
+      "trigger": "On every spin",
+      "effect": "A random multiplier (1x, 2x, 3x, 5x, 10x, 15x) is applied to all line wins."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.35,
+    "max_win_multiplier": 375,
+    "wild_substitution_power": 0.8
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "game_config": {
+    "game_name": "Volcano Rising",
+    "type": "line_pays",
+    "grid_size": "5x4",
+    "bet_range": [0.50, 100.00],
+    "rtp": 0.9646,
+    "volatility": "high",
+    "features": ["free_spins_fireball_pays", "jackpot_mania_rising"]
+  },
+  "symbols": [
+    {
+      "id": "wild",
+      "name": "Wild",
+      "type": "wild",
+      "base_frequency": 0.05,
+      "paytable": { "3": 2.50, "4": 7.50, "5": 25.00 }
+    },
+    {
+      "id": "scatter_volcano",
+      "name": "Scatter (Volcano)",
+      "type": "scatter",
+      "base_frequency": 0.05,
+      "paytable": { "3": 10.00, "4": 15.00, "5": 50.00 }
+    },
+    {
+      "id": "woman",
+      "name": "Woman",
+      "type": "high",
+      "base_frequency": 0.08,
+      "paytable": { "3": 1.25, "4": 5.00, "5": 12.50 }
+    },
+    {
+      "id": "leopard",
+      "name": "Leopard",
+      "type": "high",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.75, "4": 2.50, "5": 7.50 }
+    },
+    {
+      "id": "toucan",
+      "name": "Toucan",
+      "type": "medium",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.50, "4": 1.25, "5": 5.00 }
+    },
+    {
+      "id": "drum",
+      "name": "Drum",
+      "type": "medium",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.25, "4": 0.75, "5": 2.50 }
+    },
+    {
+      "id": "orchid",
+      "name": "Orchid",
+      "type": "medium",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.25, "4": 0.75, "5": 2.50 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.25, "4": 0.75, "5": 2.50 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.25, "4": 0.50, "5": 1.25 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.14,
+      "paytable": { "3": 0.25, "4": 0.50, "5": 1.25 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.14,
+      "paytable": { "3": 0.25, "4": 0.50, "5": 1.25 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Free Games",
+      "trigger": "3 or more Scatter symbols",
+      "effect": "Awards 10 free spins. During the feature, any Fireball symbol that lands pays its prize value instantly."
+    },
+    {
+      "name": "Jackpot Mania Rising",
+      "trigger": "4 or more Fireball symbols",
+      "effect": "A 'Hold and Win' bonus round with 3 respins that reset. Collecting Fireballs unlocks up to 4 additional rows on the grid."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.25,
+    "max_win_multiplier": 5000,
+    "wild_substitution_power": 0.8
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "game_config": {
+    "game_name": "Reactoonz",
+    "type": "grid_slot_cluster_pays",
+    "grid_size": "7x7",
+    "bet_range": [0.20, 100.00],
+    "rtp": 0.9651,
+    "volatility": "high",
+    "features": ["cascades", "quantum_leap_meter", "gargantoon_feature", "giantoonz_x2", "fluctuation_wilds"]
+  },
+  "symbols": [
+    {
+      "id": "pink_alien",
+      "name": "Pink Alien",
+      "type": "highest",
+      "base_frequency": 0.04,
+      "paytable": { "5": 0.20, "6": 0.40, "7": 0.60, "8": 1.00, "9": 1.60, "10+": 4.00, "12+": 10.00, "15+": 150.00 }
+    },
+    {
+      "id": "green_alien",
+      "name": "Green Alien",
+      "type": "high",
+      "base_frequency": 0.06,
+      "paytable": { "5": 0.16, "6": 0.20, "7": 0.40, "8": 0.60, "9": 0.80, "10+": 2.00, "12+": 5.00, "15+": 60.00 }
+    },
+    {
+      "id": "orange_alien",
+      "name": "Orange Alien",
+      "type": "high",
+      "base_frequency": 0.08,
+      "paytable": { "5": 0.12, "6": 0.16, "7": 0.20, "8": 0.40, "9": 0.60, "10+": 1.00, "12+": 2.00, "15+": 30.00 }
+    },
+    {
+      "id": "blue_alien",
+      "name": "Blue Alien",
+      "type": "high",
+      "base_frequency": 0.08,
+      "paytable": { "5": 0.10, "6": 0.14, "7": 0.20, "8": 0.30, "9": 0.40, "10+": 0.60, "12+": 1.00, "15+": 15.00 }
+    },
+    {
+      "id": "purple_alien_one_eye",
+      "name": "Purple Alien (One-Eyed)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "5": 0.03, "6": 0.04, "7": 0.08, "8": 0.12, "9": 0.16, "10+": 0.20, "12+": 0.60, "15+": 2.00 }
+    },
+    {
+      "id": "red_alien_one_eye",
+      "name": "Red Alien (One-Eyed)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "5": 0.03, "6": 0.04, "7": 0.08, "8": 0.12, "9": 0.16, "10+": 0.20, "12+": 0.60, "15+": 2.00 }
+    },
+    {
+      "id": "lime_alien_one_eye",
+      "name": "Lime Alien (One-Eyed)",
+      "type": "low",
+      "base_frequency": 0.22,
+      "paytable": { "5": 0.02, "6": 0.03, "7": 0.04, "8": 0.06, "9": 0.12, "10+": 0.16, "12+": 0.20, "15+": 0.60 }
+    },
+    {
+      "id": "yellow_alien_one_eye",
+      "name": "Yellow Alien (One-Eyed)",
+      "type": "low",
+      "base_frequency": 0.22,
+      "paytable": { "5": 0.02, "6": 0.03, "7": 0.04, "8": 0.06, "9": 0.12, "10+": 0.16, "12+": 0.20, "15+": 0.60 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Quantum Leap Meter",
+      "trigger": "Winning on 25 symbols in a single spin",
+      "effect": "Queues one of four random Quantum Features (Implosion, Incision, Demolition, Alteration) that activate when no more wins occur."
+    },
+    {
+      "name": "Gargantoon Feature",
+      "trigger": "Charging the Quantum Leap meter a fifth time (125 total symbols)",
+      "effect": "Unleashes a massive multi-stage Wild feature, starting with a 3x3 Wild, then two 2x2 Wilds, and finally nine 1x1 Wilds."
+    },
+    {
+      "name": "Fluctuation",
+      "trigger": "A winning combination is formed with the randomly marked one-eyed symbol",
+      "effect": "Leaves two Wild symbols behind after the winning symbols are removed."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.40,
+    "max_win_multiplier": 4570,
+    "wild_substitution_power": 1.0
+  }
+}

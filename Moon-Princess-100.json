@@ -1,0 +1,98 @@
+{
+  "game_config": {
+    "game_name": "Moon Princess 100",
+    "type": "grid_slot_cluster_pays",
+    "grid_size": "5x5",
+    "bet_range": [0.20, 100.00],
+    "rtp": 0.9620,
+    "volatility": "high",
+    "features": ["cascades_no_refill", "progressive_multiplier", "girl_power_modifiers", "trinity_feature", "free_spins_choice"]
+  },
+  "symbols": [
+    {
+      "id": "wild_moon",
+      "name": "Wild (Moon)",
+      "type": "wild",
+      "base_frequency": 0,
+      "paytable": { "3": 1.60, "4": 3.20, "5": 80.00 }
+    },
+    {
+      "id": "love_princess",
+      "name": "Love Princess",
+      "type": "high",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.48, "4": 1.60, "5": 16.00 }
+    },
+    {
+      "id": "star_princess",
+      "name": "Star Princess",
+      "type": "high",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.48, "4": 1.60, "5": 16.00 }
+    },
+    {
+      "id": "storm_princess",
+      "name": "Storm Princess",
+      "type": "high",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.48, "4": 1.60, "5": 16.00 }
+    },
+    {
+      "id": "any_princess",
+      "name": "Any Princess Mix",
+      "type": "high_mix",
+      "base_frequency": 0,
+      "paytable": { "3": 0.32, "4": 0.80, "5": 8.00 }
+    },
+    {
+      "id": "bell",
+      "name": "Bell",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.24, "4": 0.48, "5": 4.80 }
+    },
+    {
+      "id": "heart",
+      "name": "Heart",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.24, "4": 0.48, "5": 4.80 }
+    },
+    {
+      "id": "star_medal",
+      "name": "Star Medal",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "3": 0.16, "4": 0.32, "5": 3.20 }
+    },
+    {
+      "id": "green_emblem",
+      "name": "Green Emblem",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "3": 0.16, "4": 0.32, "5": 3.20 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Girl Power",
+      "trigger": "Randomly on a non-winning spin",
+      "effect": "One of three unique princess abilities activates to help create a win (symbol conversion, add wilds, or symbol removal)."
+    },
+    {
+      "name": "Trinity Feature",
+      "trigger": "Filling the on-screen meter with Princess wins",
+      "effect": "Awards one free round where all three Girl Powers trigger sequentially. Clearing the grid during this feature triggers the main Free Spins."
+    },
+    {
+      "name": "Free Spins",
+      "trigger": "Clearing the grid during the Trinity Feature",
+      "effect": "Player chooses one of three volatile bonus modes. The win multiplier does not reset and the chosen Girl Power triggers on every non-winning spin."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.30,
+    "max_win_multiplier": 15000,
+    "wild_substitution_power": 1.0
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "game_config": {
+    "game_name": "Mahjong Ways",
+    "type": "ways_to_win_cascading",
+    "grid_size": "5x4",
+    "bet_range": [0.20, 100000.00],
+    "bet_structure": {
+      "base_bet": 20,
+      "bet_sizes": [0.01, 500.00],
+      "bet_levels": [1, 10]
+    },
+    "rtp": 0.9692,
+    "volatility": "medium",
+    "features": ["cascades", "gold_plated_symbols", "progressive_multiplier", "free_spins"]
+  },
+  "symbols": [
+    {
+      "id": "green_dragon",
+      "name": "Green Dragon Tile",
+      "type": "highest",
+      "base_frequency": 0.04,
+      "paytable": { "3": 0.75, "4": 3, "5": 5 }
+    },
+    {
+      "id": "red_dragon",
+      "name": "Red Dragon Tile",
+      "type": "high",
+      "base_frequency": 0.06,
+      "paytable": { "3": 0.5, "4": 2, "5": 4 }
+    },
+    {
+      "id": "blank_tile",
+      "name": "Blank Tile",
+      "type": "high",
+      "base_frequency": 0.08,
+      "paytable": { "3": 0.4, "4": 1, "5": 3 }
+    },
+    {
+      "id": "eight_wan",
+      "name": "Eight Wan Tile",
+      "type": "medium",
+      "base_frequency": 0.09,
+      "paytable": { "3": 0.3, "4": 0.75, "5": 2 }
+    },
+    {
+      "id": "five_circles",
+      "name": "Five Circles Tile",
+      "type": "medium",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.2, "4": 0.5, "5": 1 }
+    },
+    {
+      "id": "two_bamboo",
+      "name": "Two Bamboo Tile",
+      "type": "medium",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.2, "4": 0.5, "5": 1 }
+    },
+    {
+      "id": "five_wan",
+      "name": "Five Wan Tile",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.1, "4": 0.25, "5": 0.5 }
+    },
+    {
+      "id": "two_circles",
+      "name": "Two Circles Tile",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.1, "4": 0.25, "5": 0.5 }
+    },
+    {
+      "id": "wild_ingot",
+      "name": "Wild Ingot",
+      "type": "wild",
+      "base_frequency": 0.12
+    },
+    {
+      "id": "scatter_char",
+      "name": "Scatter Character",
+      "type": "scatter",
+      "base_frequency": 0.17
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Gold Plated Symbols",
+      "trigger": "A gold-plated symbol is part of a win",
+      "effect": "Transforms the symbol's position into a Wild on the next cascade, increasing win potential."
+    },
+    {
+      "name": "Progressive Multiplier",
+      "trigger": "Consecutive wins in a single spin (cascades)",
+      "effect": "Increases the win multiplier for cascades up to 5x in the base game and up to 10x in Free Spins."
+    },
+    {
+      "name": "Free Spins",
+      "trigger": "3 or more Scatter symbols",
+      "effect": "Awards 12+ free spins with doubled multiplier values, significantly increasing the win potential."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.33,
+    "max_win_multiplier": 25000,
+    "wild_substitution_power": 0.8
+  }
+}

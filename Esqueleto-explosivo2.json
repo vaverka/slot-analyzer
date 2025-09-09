@@ -1,0 +1,84 @@
+{
+  "game_config": {
+    "game_name": "Esqueleto Explosivo 2",
+    "type": "ways_to_win_cascading",
+    "grid_size": "5x3",
+    "bet_range": [0.20, 100.00],
+    "rtp": 0.9613,
+    "volatility": "high",
+    "features": ["dropping_symbols", "progressive_multiplier", "exploding_wilds", "free_spins_wild_collection"]
+  },
+  "symbols": [
+    {
+      "id": "female_skull",
+      "name": "Female Skull (High Pay)",
+      "type": "highest",
+      "base_frequency": 0.04,
+      "paytable": { "3": 1.00, "4": 2.00, "5": 5.00 }
+    },
+    {
+      "id": "pink_skull",
+      "name": "Pink Skull",
+      "type": "high",
+      "base_frequency": 0.06,
+      "paytable": { "3": 0.50, "4": 0.90, "5": 2.50 }
+    },
+    {
+      "id": "green_skull",
+      "name": "Green Skull",
+      "type": "medium",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.40, "4": 0.70, "5": 1.40 }
+    },
+    {
+      "id": "blue_skull",
+      "name": "Blue Skull",
+      "type": "medium",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.30, "4": 0.60, "5": 1.20 }
+    },
+    {
+      "id": "orange_skull",
+      "name": "Orange Skull",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "3": 0.30, "4": 0.50, "5": 0.90 }
+    },
+    {
+      "id": "cyan_skull",
+      "name": "Cyan Skull",
+      "type": "low",
+      "base_frequency": 0.25,
+      "paytable": { "3": 0.20, "4": 0.40, "5": 0.70 }
+    },
+    {
+      "id": "explosivo_wild",
+      "name": "Explosivo Wild",
+      "type": "wild",
+      "base_frequency": 0.10
+    },
+    {
+      "id": "scatter_skull",
+      "name": "Scatter Skull",
+      "type": "scatter",
+      "base_frequency": 0.10
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Mucho Multiplier",
+      "trigger": "Each winning cascade or Explosivo Wild appearance",
+      "effect": "Increases the win multiplier for the current spin, up to 32x in the base game and 64x in the bonus."
+    },
+    {
+      "name": "Bonus Game",
+      "trigger": "3 or more Scatter symbols",
+      "effect": "Awards free spins where collecting Explosivo Wilds removes lower multipliers and awards extra spins."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.23,
+    "max_win_multiplier": 5000,
+    "wild_substitution_power": 0.8
+  }
+}

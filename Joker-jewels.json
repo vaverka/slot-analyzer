@@ -1,0 +1,81 @@
+{
+  "game_config": {
+    "game_name": "Joker's Jewels",
+    "type": "line_pays",
+    "grid_size": "5x3",
+    "bet_range": [1.00, 2000.00],
+    "rtp": 0.9650,
+    "volatility": "high",
+    "features": ["scatter_pays"]
+  },
+  "symbols": [
+    {
+      "id": "joker",
+      "name": "Joker",
+      "type": "highest",
+      "base_frequency": 0.02,
+      "paytable": { "3": 400, "4": 4000, "5": 20000 }
+    },
+    {
+      "id": "bonus_crown",
+      "name": "Bonus (Crown)",
+      "type": "scatter",
+      "base_frequency": 0.05,
+      "paytable": { "3": 40, "4": 200, "5": 1000 }
+    },
+    {
+      "id": "lute",
+      "name": "Lute",
+      "type": "high",
+      "base_frequency": 0.10,
+      "paytable": { "3": 40, "4": 160, "5": 800 }
+    },
+    {
+      "id": "juggling_clubs",
+      "name": "Juggling Clubs",
+      "type": "high",
+      "base_frequency": 0.10,
+      "paytable": { "3": 40, "4": 160, "5": 800 }
+    },
+    {
+      "id": "joker_shoes",
+      "name": "Joker Shoes",
+      "type": "medium",
+      "base_frequency": 0.15,
+      "paytable": { "3": 16, "4": 40, "5": 160 }
+    },
+    {
+      "id": "red_gem",
+      "name": "Red Gem",
+      "type": "medium",
+      "base_frequency": 0.15,
+      "paytable": { "3": 16, "4": 40, "5": 160 }
+    },
+    {
+      "id": "light_blue_gem",
+      "name": "Light Blue Gem",
+      "type": "low",
+      "base_frequency": 0.21,
+      "paytable": { "3": 16, "4": 32, "5": 160 }
+    },
+    {
+      "id": "dark_blue_gem",
+      "name": "Dark Blue Gem",
+      "type": "low",
+      "base_frequency": 0.22,
+      "paytable": { "3": 4, "4": 16, "5": 160 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Scatter Pays",
+      "trigger": "3 or more Crown symbols land anywhere",
+      "effect": "Awards a direct cash prize based on the number of Scatters, independently of paylines."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.15,
+    "max_win_multiplier": 4000,
+    "wild_substitution_power": 0
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "game_config": {
+    "game_name": "Lucky Pharaoh",
+    "type": "line_pays",
+    "grid_size": "5x3",
+    "bet_range": [0.20, 100.00],
+    "rtp": 0.9625,
+    "volatility": "high",
+    "features": ["power_spins_gamble", "mystery_symbols"]
+  },
+  "symbols": [
+    {
+      "id": "diamond",
+      "name": "Diamond",
+      "type": "highest",
+      "base_frequency": 0.05,
+      "paytable": { "3": 10, "4": 30, "5": 50 }
+    },
+    {
+      "id": "red_gem",
+      "name": "Red Gem",
+      "type": "high",
+      "base_frequency": 0.08,
+      "paytable": { "3": 6, "4": 20, "5": 40 }
+    },
+    {
+      "id": "blue_gem",
+      "name": "Blue Gem",
+      "type": "medium",
+      "base_frequency": 0.12,
+      "paytable": { "3": 4, "4": 10, "5": 30 }
+    },
+    {
+      "id": "green_gem",
+      "name": "Green Gem",
+      "type": "medium",
+      "base_frequency": 0.12,
+      "paytable": { "3": 4, "4": 10, "5": 30 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 2, "4": 4, "5": 20 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 2, "4": 4, "5": 20 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.16,
+      "paytable": { "3": 1, "4": 2, "5": 10 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.17,
+      "paytable": { "3": 1, "4": 2, "5": 10 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Power Spins",
+      "trigger": "Any win of 4x total bet or higher",
+      "effect": "Player can collect the win or use it to play a series of spins on 4 separate reel sets. The feature includes a mystery symbol that transforms into a single paying symbol."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.20,
+    "max_win_multiplier": 50000,
+    "wild_substitution_power": 0
+  }
+}

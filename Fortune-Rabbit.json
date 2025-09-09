@@ -1,0 +1,98 @@
+{
+  "game_config": {
+    "game_name": "Fortune Rabbit",
+    "type": "line_pays_scatter_prizes",
+    "grid_size": "3 reels (3-4-3 rows)",
+    "bet_range": [0.10, 100000.00],
+    "bet_structure": {
+      "base_bet": 10,
+      "bet_sizes": [0.01, 1000.00],
+      "bet_levels": [1, 10]
+    },
+    "rtp": 0.9675,
+    "volatility": "medium",
+    "features": ["prize_symbols", "fortune_spins"]
+  },
+  "symbols": [
+    {
+      "id": "wild_rabbit",
+      "name": "Wild (Fortune Rabbit)",
+      "type": "wild",
+      "base_frequency": 0.10,
+      "paytable": {
+        "3": 20
+      }
+    },
+    {
+      "id": "golden_rabbit",
+      "name": "Golden Rabbit",
+      "type": "high",
+      "base_frequency": 0.15,
+      "paytable": {
+        "3": 10
+      }
+    },
+    {
+      "id": "money_pouch",
+      "name": "Money Pouch",
+      "type": "high",
+      "base_frequency": 0.20,
+      "paytable": {
+        "3": 5
+      }
+    },
+    {
+      "id": "red_envelopes",
+      "name": "Red Envelopes",
+      "type": "medium",
+      "base_frequency": 0.20,
+      "paytable": {
+        "3": 1
+      }
+    },
+    {
+      "id": "gold_coins",
+      "name": "Gold Coins",
+      "type": "medium",
+      "base_frequency": 0.15,
+      "paytable": {
+        "3": 0.5
+      }
+    },
+    {
+      "id": "firecrackers",
+      "name": "Firecrackers",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": {
+        "3": 0.3
+      }
+    },
+    {
+      "id": "carrot",
+      "name": "Carrot",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": {
+        "3": 0.2
+      }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Prize Symbol Payout",
+      "trigger": "5 or more Prize Symbols land anywhere",
+      "effect": "Awards the sum of all Prize Symbol values on the screen. Values range from 0.5x to 500x."
+    },
+    {
+      "name": "Fortune Rabbit Feature",
+      "trigger": "Randomly on any spin",
+      "effect": "Awards 8 Fortune Spins where only Prize Symbols and empty spaces appear on the reels."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.34,
+    "max_win_multiplier": 5000,
+    "wild_substitution_power": 0.8
+  }
+}

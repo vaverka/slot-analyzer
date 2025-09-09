@@ -1,0 +1,127 @@
+{
+  "game_config": {
+    "game_name": "5 Lions Megaways",
+    "type": "megaways_tumble",
+    "grid_size": "6 reels, up to 7-8 rows",
+    "bet_range": [0.20, 125.00],
+    "rtp": 0.9650,
+    "volatility": "high",
+    "features": ["tumble_feature", "wild_multipliers", "free_spins_choice", "ante_bet", "buy_bonus"]
+  },
+  "symbols": [
+    {
+      "id": "dragon",
+      "name": "Dragon",
+      "type": "highest",
+      "base_frequency": 0.01,
+      "paytable": { "3": 10, "4": 20, "5": 40, "6": 250 }
+    },
+    {
+      "id": "phoenix",
+      "name": "Phoenix",
+      "type": "high",
+      "base_frequency": 0.015,
+      "paytable": { "3": 12.5, "4": 25, "5": 50, "6": 50 }
+    },
+    {
+      "id": "frog",
+      "name": "Frog",
+      "type": "high",
+      "base_frequency": 0.015,
+      "paytable": { "3": 15, "4": 25, "5": 50, "6": 50 }
+    },
+    {
+      "id": "fish",
+      "name": "Fish",
+      "type": "medium",
+      "base_frequency": 0.03,
+      "paytable": { "3": 3, "4": 5, "5": 12.5, "6": 25 }
+    },
+    {
+      "id": "turtle",
+      "name": "Turtle",
+      "type": "medium",
+      "base_frequency": 0.03,
+      "paytable": { "3": 3, "4": 5, "5": 12.5, "6": 25 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 2, "4": 3, "5": 5, "6": 12.5 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 2, "4": 3, "5": 5, "6": 12.5 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 1, "4": 2, "5": 4, "6": 10 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 1, "4": 2, "5": 4, "6": 10 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "3": 1, "4": 2, "5": 4, "6": 10 }
+    },
+    {
+      "id": "wild_lion",
+      "name": "Wild (Golden Lion)",
+      "type": "wild",
+      "base_frequency": 0.10
+    },
+    {
+      "id": "bonus_yin_yang",
+      "name": "Bonus (Yin Yang)",
+      "type": "scatter",
+      "base_frequency": 0.10,
+      "paytable": { "3": 3, "4": 5, "5": 25, "6": 100 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Free Spins Choice",
+      "trigger": "3 or more Bonus symbols",
+      "effect": "Player chooses one of seven options for free spins count and Wild multiplier range.",
+      "options": [
+        {"spins": 25, "multipliers": ["2x", "3x", "5x"]},
+        {"spins": 20, "multipliers": ["3x", "5x", "8x"]},
+        {"spins": 15, "multipliers": ["5x", "8x", "10x"]},
+        {"spins": 13, "multipliers": ["8x", "10x", "15x"]},
+        {"spins": 10, "multipliers": ["10x", "15x", "30x"]},
+        {"spins": 6, "multipliers": ["15x", "30x", "40x"]},
+        {"spins": "Mystery", "multipliers": ["Mystery"]}
+      ]
+    },
+    {
+      "name": "Ante Bet",
+      "trigger": "Player choice",
+      "effect": "Bet multiplier is increased from 20x to 25x, doubling the chance to trigger Free Spins."
+    },
+    {
+      "name": "Buy Free Spins",
+      "trigger": "Player choice",
+      "effect": "Instantly triggers the Free Spins feature for a cost of 100x the total bet."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.31,
+    "max_win_multiplier": 5000,
+    "wild_substitution_power": 0.9
+  }
+}

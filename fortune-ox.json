@@ -1,0 +1,98 @@
+{
+  "game_config": {
+    "game_name": "Fortune Ox",
+    "type": "line_pays",
+    "grid_size": "3 reels (3-4-3 rows)",
+    "bet_range": [0.10, 100000.00],
+    "bet_structure": {
+      "base_bet": 10,
+      "bet_sizes": [0.01, 1000.00],
+      "bet_levels": [1, 10]
+    },
+    "rtp": 0.9675,
+    "volatility": "medium",
+    "features": ["respins_until_win", "x10_multiplier"]
+  },
+  "symbols": [
+    {
+      "id": "wild_ox",
+      "name": "Wild (Fortune Ox)",
+      "type": "wild",
+      "base_frequency": 0.10,
+      "paytable": {
+        "3": 20
+      }
+    },
+    {
+      "id": "gold_sycee",
+      "name": "Gold Sycee",
+      "type": "high",
+      "base_frequency": 0.15,
+      "paytable": {
+        "3": 10
+      }
+    },
+    {
+      "id": "gold_coins",
+      "name": "Gold Coins",
+      "type": "high",
+      "base_frequency": 0.20,
+      "paytable": {
+        "3": 5
+      }
+    },
+    {
+      "id": "money_pouch",
+      "name": "Money Pouch",
+      "type": "medium",
+      "base_frequency": 0.20,
+      "paytable": {
+        "3": 2
+      }
+    },
+    {
+      "id": "red_envelopes",
+      "name": "Red Envelopes",
+      "type": "medium",
+      "base_frequency": 0.15,
+      "paytable": {
+        "3": 1
+      }
+    },
+    {
+      "id": "orange",
+      "name": "Orange",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": {
+        "3": 0.5
+      }
+    },
+    {
+      "id": "firecrackers",
+      "name": "Firecrackers",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": {
+        "3": 0.3
+      }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Fortune Ox Feature",
+      "trigger": "Randomly on any spin",
+      "effect": "Reels 1 and 3 become synchronized, and all reels respin until a win is guaranteed."
+    },
+    {
+      "name": "x10 Multiplier",
+      "trigger": "A full screen of one symbol type",
+      "effect": "The total win for the spin is multiplied by x10."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.33,
+    "max_win_multiplier": 2000,
+    "wild_substitution_power": 0.8
+  }
+}

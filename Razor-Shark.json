@@ -1,0 +1,98 @@
+{
+  "game_config": {
+    "game_name": "Razor Shark",
+    "type": "line_pays",
+    "grid_size": "5x4",
+    "bet_range": [0.10, 100.00],
+    "rtp": 0.9670,
+    "volatility": "high",
+    "features": ["mystery_stacks", "nudge_reveal", "razor_reveal", "free_spins_nudge_multiplier"]
+  },
+  "symbols": [
+    {
+      "id": "wild_shark",
+      "name": "Wild Shark (Great White)",
+      "type": "wild",
+      "base_frequency": 0.05,
+      "paytable": { "3": 2.5, "4": 12.5, "5": 50 }
+    },
+    {
+      "id": "orange_shark",
+      "name": "Orange Shark",
+      "type": "high",
+      "base_frequency": 0.08,
+      "paytable": { "3": 1.5, "4": 7.5, "5": 25 }
+    },
+    {
+      "id": "purple_shark",
+      "name": "Purple Shark",
+      "type": "high",
+      "base_frequency": 0.10,
+      "paytable": { "3": 1, "4": 5, "5": 20 }
+    },
+    {
+      "id": "green_shark",
+      "name": "Green Shark",
+      "type": "medium",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.5, "4": 2.5, "5": 7.5 }
+    },
+    {
+      "id": "blue_shark",
+      "name": "Blue Shark",
+      "type": "medium",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.4, "4": 2, "5": 5 }
+    },
+    {
+      "id": "camera",
+      "name": "Camera",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.1, "4": 0.5, "5": 2.5 }
+    },
+    {
+      "id": "mask",
+      "name": "Diving Mask",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.1, "4": 0.5, "5": 2.5 }
+    },
+    {
+      "id": "flippers",
+      "name": "Flippers",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.1, "4": 0.5, "5": 2.5 }
+    },
+    {
+      "id": "oxygen_tank",
+      "name": "Oxygen Tank",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.1, "4": 0.5, "5": 2.5 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Nudge & Reveal Feature",
+      "trigger": "Landing one or more Mystery Stacks",
+      "effect": "Mystery Stacks open to reveal either paying symbols (and nudge down on subsequent spins) or Golden Shark symbols, which trigger the Razor Reveal feature."
+    },
+    {
+      "name": "Razor Reveal Feature",
+      "trigger": "Mystery Stacks reveal Golden Shark symbols",
+      "effect": "Each position spins to reveal high-value Bet Multiplier Coins (up to 2500x) or Scatter symbols."
+    },
+    {
+      "name": "Free Games Feature",
+      "trigger": "3 or more Scatter symbols",
+      "effect": "A bonus round where reels 2 and 4 are filled with Mystery Stacks. Each nudge of the stacks increases a persistent win multiplier by +1."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.22,
+    "max_win_multiplier": 85475,
+    "wild_substitution_power": 0.9
+  }
+}

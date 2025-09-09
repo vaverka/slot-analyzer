@@ -1,0 +1,117 @@
+{
+  "game_config": {
+    "game_name": "Great Rhino Megaways",
+    "type": "megaways_tumble",
+    "grid_size": "6 reels + top row, up to 200704 ways",
+    "bet_range": [0.20, 125.00],
+    "rtp": 0.9658,
+    "volatility": "high",
+    "features": ["tumble_feature", "progressive_multiplier_free_spins", "ante_bet", "buy_bonus"]
+  },
+  "symbols": [
+    {
+      "id": "cheetah",
+      "name": "Cheetah",
+      "type": "highest",
+      "base_frequency": 0.01,
+      "paytable": { "2": 2, "3": 4, "4": 20, "5": 50, "6": 100 }
+    },
+    {
+      "id": "gorilla",
+      "name": "Gorilla",
+      "type": "high",
+      "base_frequency": 0.02,
+      "paytable": { "3": 4, "4": 5, "5": 10, "6": 10 }
+    },
+    {
+      "id": "crocodile",
+      "name": "Crocodile",
+      "type": "high",
+      "base_frequency": 0.03,
+      "paytable": { "3": 0.6, "4": 1, "5": 2, "6": 5 }
+    },
+    {
+      "id": "hyena",
+      "name": "Hyena",
+      "type": "medium",
+      "base_frequency": 0.04,
+      "paytable": { "3": 0.6, "4": 1, "5": 1.6, "6": 4 }
+    },
+    {
+      "id": "flamingo",
+      "name": "Flamingo",
+      "type": "medium",
+      "base_frequency": 0.05,
+      "paytable": { "3": 0.4, "4": 0.8, "5": 1.2, "6": 3 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.4, "4": 0.8, "5": 1.2, "6": 3 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.4, "4": 0.8, "5": 1.2, "6": 3 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.2, "4": 0.4, "5": 0.8, "6": 2 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.2, "4": 0.4, "5": 0.8, "6": 2 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.2, "4": 0.4, "5": 0.8, "6": 2 }
+    },
+    {
+      "id": "wild_rhino",
+      "name": "Wild (Golden Rhino)",
+      "type": "wild",
+      "base_frequency": 0.10
+    },
+    {
+      "id": "scatter_coin",
+      "name": "Scatter (Coin)",
+      "type": "scatter",
+      "base_frequency": 0.10
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Free Spins",
+      "trigger": "4 or more Scatter symbols",
+      "effect": "Player chooses one of several options for the number of free spins and the starting win multiplier. The multiplier increases by +1 after every tumble win and does not reset."
+    },
+    {
+      "name": "Ante Bet",
+      "trigger": "Player choice",
+      "effect": "Doubles the chance to trigger Free Spins."
+    },
+    {
+      "name": "Buy Free Spins",
+      "trigger": "Player choice",
+      "effect": "Instantly triggers the Free Spins feature for a cost of 100x the total bet."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.25,
+    "max_win_multiplier": 20000,
+    "wild_substitution_power": 0.9
+  }
+}

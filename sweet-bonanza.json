@@ -1,0 +1,110 @@
+{
+  "game_config": {
+    "game_name": "Sweet Bonanza",
+    "type": "pay_anywhere_tumble",
+    "grid_size": "6x5",
+    "bet_range": [0.20, 125.00],
+    "rtp": 0.9660,
+    "volatility": "high",
+    "features": ["tumble_feature", "multiplier_symbols_free_spins", "ante_bet", "buy_bonus"]
+  },
+  "symbols": [
+    {
+      "id": "scatter_lollipop",
+      "name": "Scatter (Lollipop)",
+      "type": "scatter",
+      "base_frequency": 0.01,
+      "paytable": { "4": 6.00, "5": 10.00, "6": 200.00 }
+    },
+    {
+      "id": "red_heart",
+      "name": "Red Heart Candy",
+      "type": "highest",
+      "base_frequency": 0.02,
+      "paytable": { "8-9": 20.00, "10-11": 50.00, "12+": 100.00 }
+    },
+    {
+      "id": "purple_square",
+      "name": "Purple Square Candy",
+      "type": "high",
+      "base_frequency": 0.03,
+      "paytable": { "8-9": 5.00, "10-11": 20.00, "12+": 50.00 }
+    },
+    {
+      "id": "green_pentagon",
+      "name": "Green Pentagon Candy",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "8-9": 4.00, "10-11": 10.00, "12+": 30.00 }
+    },
+    {
+      "id": "blue_rectangle",
+      "name": "Blue Rectangle Candy",
+      "type": "high",
+      "base_frequency": 0.05,
+      "paytable": { "8-9": 3.00, "10-11": 4.00, "12+": 24.00 }
+    },
+    {
+      "id": "apple",
+      "name": "Apple",
+      "type": "medium",
+      "base_frequency": 0.10,
+      "paytable": { "8-9": 2.00, "10-11": 3.00, "12+": 20.00 }
+    },
+    {
+      "id": "plum",
+      "name": "Plum",
+      "type": "medium",
+      "base_frequency": 0.12,
+      "paytable": { "8-9": 1.60, "10-11": 2.40, "12+": 16.00 }
+    },
+    {
+      "id": "watermelon",
+      "name": "Watermelon",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "8-9": 1.00, "10-11": 2.00, "12+": 10.00 }
+    },
+    {
+      "id": "grapes",
+      "name": "Grapes",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "8-9": 0.80, "10-11": 1.80, "12+": 8.00 }
+    },
+    {
+      "id": "banana",
+      "name": "Banana",
+      "type": "low",
+      "base_frequency": 0.28,
+      "paytable": { "8-9": 0.50, "10-11": 1.50, "12+": 4.00 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Multiplier Symbol (Candy Bomb)",
+      "trigger": "Lands only during Free Spins",
+      "effect": "Takes a random value from 2x to 100x. At the end of a tumble sequence, all multiplier values on screen are added together and applied to the total win."
+    },
+    {
+      "name": "Free Spins",
+      "trigger": "4 or more Scatter symbols",
+      "effect": "Awards 10 free spins where Multiplier Symbols can land. Retrigger with 3+ Scatters for 5 additional spins."
+    },
+    {
+      "name": "Ante Bet",
+      "trigger": "Player choice",
+      "effect": "Doubles the chance to trigger Free Spins."
+    },
+    {
+      "name": "Buy Free Spins",
+      "trigger": "Player choice",
+      "effect": "Instantly triggers the Free Spins feature for a cost of 100x the total bet."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.28,
+    "max_win_multiplier": 21100,
+    "wild_substitution_power": 0
+  }
+}

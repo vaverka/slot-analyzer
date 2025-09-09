@@ -1,0 +1,115 @@
+{
+  "game_config": {
+    "game_name": "Pirots 3",
+    "type": "collect_to_win",
+    "grid_size": {
+      "start": "7x6",
+      "max": "8x7"
+    },
+    "bet_range": [0.20, 100.00],
+    "rtp": 0.94,
+    "volatility": "high",
+    "features": ["gem_upgrade_system", "symbol_collection_meter", "free_drops_bonus", "coin_game", "bandit_feature", "train_heist", "x-iter"]
+  },
+  "symbols": [
+    {
+      "id": "gem_red",
+      "name": "Red Gem",
+      "type": "paying_gem",
+      "base_frequency": 0.20
+    },
+    {
+      "id": "gem_purple",
+      "name": "Purple Gem",
+      "type": "paying_gem",
+      "base_frequency": 0.20
+    },
+    {
+      "id": "gem_green",
+      "name": "Green Gem",
+      "type": "paying_gem",
+      "base_frequency": 0.20
+    },
+    {
+      "id": "gem_blue",
+      "name": "Blue Gem",
+      "type": "paying_gem",
+      "base_frequency": 0.20
+    },
+    {
+      "id": "wild",
+      "name": "Wild",
+      "type": "feature",
+      "base_frequency": 0.03
+    },
+    {
+      "id": "bonus",
+      "name": "Bonus Symbol",
+      "type": "feature",
+      "base_frequency": 0.02
+    },
+    {
+      "id": "upgrade",
+      "name": "Upgrade Symbol",
+      "type": "feature",
+      "base_frequency": 0.05
+    },
+    {
+      "id": "coin",
+      "name": "Coin Symbol",
+      "type": "feature",
+      "base_frequency": 0.05
+    },
+    {
+      "id": "dynamite",
+      "name": "Dynamite Symbol",
+      "type": "feature",
+      "base_frequency": 0.01
+    },
+    {
+      "id": "key",
+      "name": "Key Symbol",
+      "type": "feature",
+      "base_frequency": 0.01
+    },
+    {
+      "id": "peanut",
+      "name": "Peanut Symbol",
+      "type": "feature",
+      "base_frequency": 0.01
+    },
+    {
+      "id": "transform",
+      "name": "Transform Symbol",
+      "type": "feature",
+      "base_frequency": 0.02
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Free Drops Bonus",
+      "trigger": "Collect 3 'Bonus' symbols",
+      "effect": "Awards 5 free drops. All gem level and collection meter progress is persistent during the bonus."
+    },
+    {
+      "name": "Coin Game",
+      "trigger": "Clear the entire game grid",
+      "effect": "Starts a mini-game to collect coin bags and avoid scorpions."
+    },
+    {
+      "name": "Bandit Feature",
+      "trigger": "Collect a 'Key' symbol",
+      "effect": "Releases the Bandit, a 5th collector that can collect gems of any color and duel other birds."
+    },
+    {
+      "name": "X-iter",
+      "trigger": "Player choice (Bonus Buy)",
+      "effect": "Allows buying one of five different game modes, including guaranteed bonuses."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.19,
+    "max_win_multiplier": 10000,
+    "wild_substitution_power": 1.0
+  }
+}

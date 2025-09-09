@@ -1,0 +1,98 @@
+{
+  "game_config": {
+    "game_name": "Razor Returns",
+    "type": "line_pays",
+    "grid_size": "5x5",
+    "bet_range": [0.10, 100.00],
+    "rtp": 0.9655,
+    "volatility": "high",
+    "features": ["mystery_symbols", "nudge_reveal", "razor_reveal", "free_spins_nudge", "bonus_buy", "push_bet"]
+  },
+  "symbols": [
+    {
+      "id": "wild_shark",
+      "name": "Wild Shark",
+      "type": "wild",
+      "base_frequency": 0.05,
+      "paytable": { "3": 1.0, "4": 4.0, "5": 12.5 }
+    },
+    {
+      "id": "orange_shark",
+      "name": "Orange Shark",
+      "type": "high",
+      "base_frequency": 0.08,
+      "paytable": { "3": 0.6, "4": 2.5, "5": 7.5 }
+    },
+    {
+      "id": "purple_shark",
+      "name": "Purple Shark",
+      "type": "high",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.5, "4": 2.0, "5": 6.0 }
+    },
+    {
+      "id": "green_shark",
+      "name": "Green Shark",
+      "type": "medium",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.3, "4": 0.8, "5": 3.0 }
+    },
+    {
+      "id": "blue_shark",
+      "name": "Blue Shark",
+      "type": "medium",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.2, "4": 0.7, "5": 2.5 }
+    },
+    {
+      "id": "diving_helmet",
+      "name": "Diving Helmet",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.1, "4": 0.3, "5": 1.0 }
+    },
+    {
+      "id": "periscope",
+      "name": "Periscope",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.1, "4": 0.3, "5": 1.0 }
+    },
+    {
+      "id": "compass",
+      "name": "Compass",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.1, "4": 0.2, "5": 0.8 }
+    },
+    {
+      "id": "anchor",
+      "name": "Anchor",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.1, "4": 0.2, "5": 0.8 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Razor Reveal Feature",
+      "trigger": "Mystery Symbols reveal Golden Shark symbols",
+      "effect": "Each position spins to reveal Instant Prizes (up to 5000x), Multipliers, Collectors, Converters, or Scatters."
+    },
+    {
+      "name": "Free Spins Feature",
+      "trigger": "3 or more Torpedo (Scatter) symbols",
+      "effect": "A bonus round where reels 2 and 4 are filled with Mystery Symbols that nudge down each spin, increasing a total win multiplier."
+    },
+    {
+      "name": "Bonus Buy",
+      "trigger": "Player choice",
+      "effect": "Allows buying one of five different features, with varying costs and RTPs."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.18,
+    "max_win_multiplier": 100000,
+    "wild_substitution_power": 0.9
+  }
+}

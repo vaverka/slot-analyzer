@@ -1,0 +1,93 @@
+{
+  "game_config": {
+    "game_name": "Fortune Mouse",
+    "type": "line_pays",
+    "grid_size": "3x3",
+    "bet_range": [0.10, 100000.00],
+    "bet_structure": {
+      "base_bet": 5,
+      "bet_sizes": [0.02, 2000.00],
+      "bet_levels": [1, 10]
+    },
+    "rtp": 0.9696,
+    "volatility": "medium",
+    "features": ["respins_until_win"]
+  },
+  "symbols": [
+    {
+      "id": "wild_mouse",
+      "name": "Wild (Fortune Mouse)",
+      "type": "wild",
+      "base_frequency": 0.10,
+      "paytable": {
+        "3": 60
+      }
+    },
+    {
+      "id": "red_ornament",
+      "name": "Red Ornament",
+      "type": "high",
+      "base_frequency": 0.15,
+      "paytable": {
+        "3": 20
+      }
+    },
+    {
+      "id": "red_envelopes",
+      "name": "Red Envelopes",
+      "type": "high",
+      "base_frequency": 0.20,
+      "paytable": {
+        "3": 10
+      }
+    },
+    {
+      "id": "money_pouch",
+      "name": "Money Pouch",
+      "type": "medium",
+      "base_frequency": 0.20,
+      "paytable": {
+        "3": 6
+      }
+    },
+    {
+      "id": "firecrackers",
+      "name": "Firecrackers",
+      "type": "medium",
+      "base_frequency": 0.15,
+      "paytable": {
+        "3": 3
+      }
+    },
+    {
+      "id": "orange",
+      "name": "Orange",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": {
+        "3": 1
+      }
+    },
+    {
+      "id": "peanuts",
+      "name": "Peanuts",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": {
+        "3": 0.6
+      }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Fortune Mouse Feature",
+      "trigger": "Randomly on any spin",
+      "effect": "The middle reel is filled with Wilds, and the outer reels respin until a win is guaranteed."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.35,
+    "max_win_multiplier": 1000,
+    "wild_substitution_power": 0.8
+  }
+}

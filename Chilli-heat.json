@@ -1,0 +1,105 @@
+{
+  "game_config": {
+    "game_name": "Chilli Heat",
+    "type": "line_pays",
+    "grid_size": "5x3",
+    "bet_range": [0.25, 125.00],
+    "rtp": 0.9650,
+    "volatility": "medium",
+    "features": ["free_spins_high_symbols", "money_respin_feature", "fixed_jackpots"]
+  },
+  "symbols": [
+    {
+      "id": "mariachi",
+      "name": "Mariachi Player",
+      "type": "highest",
+      "base_frequency": 0.02,
+      "paytable": { "3": 10, "4": 50, "5": 200 }
+    },
+    {
+      "id": "chihuahua",
+      "name": "Chihuahua",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 5, "4": 30, "5": 150 }
+    },
+    {
+      "id": "hot_sauce",
+      "name": "Hot Sauce",
+      "type": "high",
+      "base_frequency": 0.06,
+      "paytable": { "3": 5, "4": 25, "5": 125 }
+    },
+    {
+      "id": "tequila",
+      "name": "Tequila Shot",
+      "type": "high",
+      "base_frequency": 0.08,
+      "paytable": { "3": 5, "4": 25, "5": 100 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 5, "4": 10, "5": 50 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 5, "4": 10, "5": 50 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 5, "4": 10, "5": 50 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 5, "4": 10, "5": 50 }
+    },
+    {
+      "id": "wild_logo",
+      "name": "Chilli Heat Wild",
+      "type": "wild",
+      "base_frequency": 0.10
+    },
+    {
+      "id": "sun_scatter",
+      "name": "Sun Scatter",
+      "type": "scatter",
+      "base_frequency": 0.10,
+      "paytable": { "3": 25 }
+    },
+    {
+      "id": "money_bag",
+      "name": "Money Bag",
+      "type": "money_symbol",
+      "base_frequency": 0.12
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Free Spins",
+      "trigger": "3 Scatter symbols on reels 2, 3, and 4",
+      "effect": "Awards 8 free spins. During the feature, only high-paying, Wild, Scatter, and Money symbols are present on the reels. Can be retriggered infinitely."
+    },
+    {
+      "name": "Money Respin Feature",
+      "trigger": "6 or more Money Bag symbols",
+      "effect": "A 'Hold and Win' bonus round with 3 respins that reset. The goal is to fill the screen with Money Bags to win their combined value and the Grande Jackpot."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.30,
+    "max_win_multiplier": 1000,
+    "wild_substitution_power": 0.8
+  }
+}

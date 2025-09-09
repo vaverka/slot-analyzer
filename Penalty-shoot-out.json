@@ -1,0 +1,67 @@
+{
+  "game_config": {
+    "game_name": "Penalty Shoot-out",
+    "type": "instant_win_progressive",
+    "grid_size": "N/A",
+    "bet_range": [1.00, 30000.00],
+    "rtp": 0.9600,
+    "volatility": "high",
+    "features": ["progressive_multiplier_ladder", "manual_collect"]
+  },
+  "symbols": [
+    {
+      "id": "goal_1",
+      "name": "Score 1 Goal",
+      "type": "payout_level",
+      "base_frequency": 0.500,
+      "paytable": { "multiplier": 1.92 }
+    },
+    {
+      "id": "goal_2",
+      "name": "Score 2 Goals",
+      "type": "payout_level",
+      "base_frequency": 0.250,
+      "paytable": { "multiplier": 3.84 }
+    },
+    {
+      "id": "goal_3",
+      "name": "Score 3 Goals",
+      "type": "payout_level",
+      "base_frequency": 0.125,
+      "paytable": { "multiplier": 7.68 }
+    },
+    {
+      "id": "goal_4",
+      "name": "Score 4 Goals",
+      "type": "payout_level",
+      "base_frequency": 0.062,
+      "paytable": { "multiplier": 15.36 }
+    },
+    {
+      "id": "goal_5",
+      "name": "Score 5 Goals",
+      "type": "payout_level",
+      "base_frequency": 0.031,
+      "paytable": { "multiplier": 30.72 }
+    },
+    {
+      "id": "miss",
+      "name": "Miss / Goalkeeper Save",
+      "type": "loss_condition",
+      "base_frequency": 0.032,
+      "paytable": { "multiplier": 0 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Progressive Payout Ladder",
+      "trigger": "Scoring a goal",
+      "effect": "Advances the player to the next multiplier level. The player can collect the current win at any stage."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.50,
+    "max_win_multiplier": 30.72,
+    "wild_substitution_power": 0
+  }
+}

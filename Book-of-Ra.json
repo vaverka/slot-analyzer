@@ -1,0 +1,74 @@
+{
+  "game_config": {
+    "game_name": "Book of Ra",
+    "type": "line_pays",
+    "grid_size": "5x3",
+    "bet_range": [0.10, 100.00],
+    "rtp": 0.9510,
+    "volatility": "high",
+    "features": ["free_spins_expanding_symbol"]
+  },
+  "symbols": [
+    {
+      "id": "explorer",
+      "name": "Explorer",
+      "type": "highest",
+      "base_frequency": 0.01,
+      "paytable": { "2": 20, "3": 200, "4": 2000, "5": 10000 }
+    },
+    {
+      "id": "sarcophagus",
+      "name": "Sarcophagus",
+      "type": "high",
+      "base_frequency": 0.02,
+      "paytable": { "2": 10, "3": 80, "4": 800, "5": 4000 }
+    },
+    {
+      "id": "book_scatter_wild",
+      "name": "Book (Scatter/Wild)",
+      "type": "scatter",
+      "base_frequency": 0.04,
+      "paytable": { "3": 36, "4": 360, "5": 3600 }
+    },
+    {
+      "id": "goddess",
+      "name": "Goddess Statue",
+      "type": "medium",
+      "base_frequency": 0.05,
+      "paytable": { "2": 10, "3": 60, "4": 200, "5": 1500 }
+    },
+    {
+      "id": "scarab",
+      "name": "Scarab Beetle",
+      "type": "medium",
+      "base_frequency": 0.05,
+      "paytable": { "2": 10, "3": 60, "4": 200, "5": 1500 }
+    },
+    {
+      "id": "ace_king",
+      "name": "Ace / King",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "3": 10, "4": 80, "5": 300 }
+    },
+    {
+      "id": "queen_jack_ten",
+      "name": "Queen / Jack / Ten",
+      "type": "low",
+      "base_frequency": 0.63,
+      "paytable": { "3": 10, "4": 50, "5": 200 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Free Games",
+      "trigger": "3 or more Book symbols",
+      "effect": "Awards 10 free spins. A random symbol is chosen to be the Special Expanding Symbol, which expands to cover the reel and pays on non-adjacent positions."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.28,
+    "max_win_multiplier": 10000,
+    "wild_substitution_power": 0.8
+  }
+}

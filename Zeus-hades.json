@@ -1,0 +1,118 @@
+{
+  "game_config": {
+    "game_name": "Zeus vs Hades - Gods of War",
+    "type": "line_pays",
+    "grid_size": "5x5",
+    "bet_range": [0.10, 100.00],
+    "rtp": 0.9606,
+    "volatility": "high",
+    "features": ["choosable_volatility", "expanding_wild_multipliers", "sticky_expanding_wilds_fs", "buy_bonus"]
+  },
+  "symbols": [
+    {
+      "id": "zeus",
+      "name": "Zeus / Hades",
+      "type": "highest",
+      "base_frequency": 0.02,
+      "paytable": { "3": 4.00, "4": 20.00, "5": 40.00 }
+    },
+    {
+      "id": "wild",
+      "name": "Wild",
+      "type": "wild",
+      "base_frequency": 0.02,
+      "paytable": { "3": 4.00, "4": 20.00, "5": 40.00 }
+    },
+    {
+      "id": "pegasus",
+      "name": "Pegasus / Cerberus",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 2.00, "4": 10.00, "5": 20.00 }
+    },
+    {
+      "id": "eagle",
+      "name": "Eagle / Phoenix",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 2.00, "4": 10.00, "5": 20.00 }
+    },
+    {
+      "id": "helmet",
+      "name": "Helmet",
+      "type": "medium",
+      "base_frequency": 0.06,
+      "paytable": { "3": 1.00, "4": 5.00, "5": 10.00 }
+    },
+    {
+      "id": "goblet",
+      "name": "Goblet",
+      "type": "medium",
+      "base_frequency": 0.06,
+      "paytable": { "3": 1.00, "4": 5.00, "5": 10.00 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.20, "4": 1.00, "5": 2.00 }
+    },
+    {
+      "id": "scatter_temple",
+      "name": "Scatter (Temple)",
+      "type": "scatter",
+      "base_frequency": 0.13
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Expanding Wilds with Multiplier",
+      "trigger": "An Expanding Wild symbol lands and can create a win",
+      "effect": "The Wild expands to fill the reel and gains a random multiplier up to 100x. Multipliers add together if more than one is in a winning line."
+    },
+    {
+      "name": "Free Spins",
+      "trigger": "3 Scatter symbols on reels 1, 3, and 5",
+      "effect": "Awards 10 free spins. During the feature, any Expanding Wild that lands becomes sticky and remains on screen for the duration of the round."
+    },
+    {
+      "name": "Buy Free Spins",
+      "trigger": "Player choice",
+      "effect": "Allows buying either a standard or a special (guaranteed Wild) Free Spins round, with different costs for Olympus and Hades modes."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.24,
+    "max_win_multiplier": 15000,
+    "wild_substitution_power": 0.9
+  }
+}

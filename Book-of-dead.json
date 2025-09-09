@@ -1,0 +1,100 @@
+{
+  "game_config": {
+    "game_name": "Book of Dead",
+    "type": "line_pays",
+    "grid_size": "5x3",
+    "bet_range": [0.10, 100.00],
+    "rtp": 0.9621,
+    "volatility": "high",
+    "features": ["free_spins_expanding_symbol", "gamble_feature"]
+  },
+  "symbols": [
+    {
+      "id": "rich_wilde",
+      "name": "Rich Wilde",
+      "type": "highest",
+      "base_frequency": 0.01,
+      "paytable": { "2": 1, "3": 10, "4": 100, "5": 500 }
+    },
+    {
+      "id": "pharaoh",
+      "name": "Pharaoh",
+      "type": "high",
+      "base_frequency": 0.02,
+      "paytable": { "2": 0.5, "3": 4, "4": 40, "5": 200 }
+    },
+    {
+      "id": "anubis",
+      "name": "Anubis",
+      "type": "medium",
+      "base_frequency": 0.04,
+      "paytable": { "2": 0.5, "3": 3, "4": 10, "5": 75 }
+    },
+    {
+      "id": "horus",
+      "name": "Horus",
+      "type": "medium",
+      "base_frequency": 0.04,
+      "paytable": { "2": 0.5, "3": 3, "4": 10, "5": 75 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.5, "4": 4, "5": 15 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.5, "4": 4, "5": 15 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "3": 0.5, "4": 2.5, "5": 10 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "3": 0.5, "4": 2.5, "5": 10 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "3": 0.5, "4": 2.5, "5": 10 }
+    },
+    {
+      "id": "book_scatter_wild",
+      "name": "Book (Scatter/Wild)",
+      "type": "wild_scatter",
+      "base_frequency": 0.04,
+      "paytable": { "3": 2, "4": 20, "5": 200 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Free Spins",
+      "trigger": "3 or more Book symbols",
+      "effect": "Awards 10 free spins. A random symbol is chosen to be the Special Expanding Symbol, which expands to cover the reel and pays on non-adjacent positions."
+    },
+    {
+      "name": "Gamble Feature",
+      "trigger": "Optional, after any base game win",
+      "effect": "Player can guess a card's color to double (50% chance) or suit to quadruple (25% chance) their winnings."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.29,
+    "max_win_multiplier": 5000,
+    "wild_substitution_power": 0.8
+  }
+}

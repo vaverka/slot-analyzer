@@ -1,0 +1,110 @@
+{
+  "game_config": {
+    "game_name": "Piñata Wins",
+    "type": "line_pays_cascading",
+    "grid_size": "5x3",
+    "bet_range": [0.60, 180.00],
+    "bet_structure": {
+      "base_bet": 20,
+      "bet_sizes": [0.03, 0.90],
+      "bet_levels": [1, 10]
+    },
+    "rtp": 0.9675,
+    "volatility": "high",
+    "features": ["cascades", "gold_framed_symbols_wild_transform", "accumulating_multipliers", "free_spins"]
+  },
+  "symbols": [
+    {
+      "id": "skull",
+      "name": "Skull",
+      "type": "highest",
+      "base_frequency": 0.04,
+      "paytable": { "3": 2.5, "4": 12.5, "5": 50 }
+    },
+    {
+      "id": "sombrero",
+      "name": "Sombrero",
+      "type": "high",
+      "base_frequency": 0.06,
+      "paytable": { "3": 1, "4": 5, "5": 20 }
+    },
+    {
+      "id": "maracas",
+      "name": "Maracas",
+      "type": "high",
+      "base_frequency": 0.08,
+      "paytable": { "3": 0.75, "4": 2.5, "5": 10 }
+    },
+    {
+      "id": "taco",
+      "name": "Taco",
+      "type": "medium",
+      "base_frequency": 0.09,
+      "paytable": { "3": 0.5, "4": 2, "5": 7.5 }
+    },
+    {
+      "id": "chilli",
+      "name": "Chilli Pepper",
+      "type": "medium",
+      "base_frequency": 0.09,
+      "paytable": { "3": 0.25, "4": 1, "5": 5 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.1, "4": 0.5, "5": 2.5 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.1, "4": 0.5, "5": 2.5 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.1, "4": 0.5, "5": 2.5 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.1, "4": 0.5, "5": 2.5 }
+    },
+    {
+      "id": "wild_woman",
+      "name": "Wild (Woman)",
+      "type": "wild",
+      "base_frequency": 0.10
+    },
+    {
+      "id": "scatter_pinata",
+      "name": "Scatter (Piñata)",
+      "type": "scatter",
+      "base_frequency": 0.10
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Gold Framed Symbols",
+      "trigger": "A gold-framed symbol is part of a win",
+      "effect": "Transforms the symbol's position into a Wild on the next cascade. If the symbol had a multiplier (x2-x100), it's added to the total win multiplier for the spin."
+    },
+    {
+      "name": "Free Spins",
+      "trigger": "3 or more Scatter symbols",
+      "effect": "Awards 15+ free spins where the total win multiplier collected from Gold Framed Symbols does not reset between spins."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.30,
+    "max_win_multiplier": 5000,
+    "wild_substitution_power": 0.8
+  }
+}

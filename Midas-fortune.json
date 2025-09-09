@@ -1,0 +1,108 @@
+{
+  "game_config": {
+    "game_name": "Midas Fortune",
+    "type": "cluster_pays_cascading",
+    "grid_size": "5x5",
+    "bet_range": [0.20, 100000.00],
+    "bet_structure": {
+      "base_bet": 20,
+      "bet_sizes": [0.01, 500.00],
+      "bet_levels": [1, 10]
+    },
+    "rtp": 0.9673,
+    "volatility": "high",
+    "features": ["cascades", "gold_symbols_wild_transform", "wild_multiplier", "free_spins"]
+  },
+  "symbols": [
+    {
+      "id": "king_midas",
+      "name": "King Midas",
+      "type": "highest",
+      "base_frequency": 0.04,
+      "paytable": { "5": 0.25, "6": 1, "7": 1.5, "8-9": 2, "10-11": 2.5, "12-14": 3, "15-19": 4, "20+": 7.5 }
+    },
+    {
+      "id": "princess",
+      "name": "Princess",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "5": 0.25, "6": 1, "7": 1.5, "8-9": 2, "10-11": 2.5, "12-14": 3, "15-19": 4, "20+": 7.5 }
+    },
+    {
+      "id": "chest",
+      "name": "Chest",
+      "type": "high",
+      "base_frequency": 0.06,
+      "paytable": { "5": 0.1, "6": 0.5, "7": 0.75, "8-9": 1, "10-11": 1.5, "12-14": 2, "15-19": 3, "20+": 5 }
+    },
+    {
+      "id": "grapes",
+      "name": "Grapes",
+      "type": "medium",
+      "base_frequency": 0.06,
+      "paytable": { "5": 0.1, "6": 0.5, "7": 0.75, "8-9": 1, "10-11": 1.5, "12-14": 2, "15-19": 3, "20+": 5 }
+    },
+    {
+      "id": "goblet",
+      "name": "Goblet",
+      "type": "medium",
+      "base_frequency": 0.10,
+      "paytable": { "5": 0.1, "6": 0.5, "7": 0.75, "8-9": 1, "10-11": 1.5, "12-14": 2, "15-19": 3, "20+": 3.5 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "5": 0.05, "6": 0.25, "7": 0.5, "8-9": 0.75, "10-11": 1, "12-14": 1.5, "15-19": 4, "20+": 5 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "5": 0.05, "6": 0.25, "7": 0.5, "8-9": 0.75, "10-11": 1, "12-14": 1.5, "15-19": 4, "20+": 4 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "5": 0.05, "6": 0.25, "7": 0.5, "8-9": 0.75, "10-11": 1, "12-14": 1.5, "15-19": 4, "20+": 4 }
+    },
+    {
+      "id": "wild",
+      "name": "Wild Symbol",
+      "type": "wild",
+      "base_frequency": 0.10
+    },
+    {
+      "id": "scatter",
+      "name": "Scatter Symbol",
+      "type": "scatter",
+      "base_frequency": 0.10
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Gold Symbols & Wild Transformation",
+      "trigger": "A gold-plated symbol is part of a win, OR 3+ gold symbols are touching",
+      "effect": "Transforms gold-plated symbols into Wild symbols, creating more wins."
+    },
+    {
+      "name": "Wild Multiplier",
+      "trigger": "A win includes one or more Wild symbols",
+      "effect": "The win is multiplied by the number of Wilds in the combo. This value is added to a total multiplier that applies to all subsequent cascades in the same spin."
+    },
+    {
+      "name": "Free Spins Feature",
+      "trigger": "3 or more Scatter symbols",
+      "effect": "Awards 8+ free spins where the total Wild Multiplier does not reset between spins, allowing it to accumulate to very high values."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.38,
+    "max_win_multiplier": 5000,
+    "wild_substitution_power": 0.8
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "game_config": {
+    "game_name": "Tigre Fortudo",
+    "type": "line_pays",
+    "grid_size": "3x3",
+    "bet_range": [0.05, 150.00],
+    "rtp": 0.9750,
+    "volatility": "medium",
+    "features": ["sticky_symbol_respin", "full_screen_multiplier"]
+  },
+  "symbols": [
+    {
+      "id": "wild_tiger",
+      "name": "Wild Tiger",
+      "type": "wild",
+      "base_frequency": 0.10,
+      "paytable": { "3": 10000 }
+    },
+    {
+      "id": "lucky_cat",
+      "name": "Lucky Cat",
+      "type": "high",
+      "base_frequency": 0.15,
+      "paytable": { "3": 4000 }
+    },
+    {
+      "id": "golden_frog",
+      "name": "Golden Frog",
+      "type": "high",
+      "base_frequency": 0.15,
+      "paytable": { "3": 1000 }
+    },
+    {
+      "id": "golden_ingot",
+      "name": "Golden Ingot",
+      "type": "medium",
+      "base_frequency": 0.18,
+      "paytable": { "3": 400 }
+    },
+    {
+      "id": "drum",
+      "name": "Drum",
+      "type": "medium",
+      "base_frequency": 0.18,
+      "paytable": { "3": 320 }
+    },
+    {
+      "id": "scroll",
+      "name": "Scroll",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 200 }
+    },
+    {
+      "id": "money_pouch",
+      "name": "Money Pouch",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 120 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Respin Feature",
+      "trigger": "Randomly on any spin",
+      "effect": "A random symbol is chosen and becomes sticky. The reels respin as long as new matching symbols or Wilds land."
+    },
+    {
+      "name": "Full Screen Multiplier",
+      "trigger": "A full screen of the same symbol type",
+      "effect": "The total win for the spin is multiplied by a random multiplier of x5, x10, x15, or x25."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.36,
+    "max_win_multiplier": 2500,
+    "wild_substitution_power": 0.8
+  }
+}

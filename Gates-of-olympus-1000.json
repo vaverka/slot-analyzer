@@ -1,0 +1,110 @@
+{
+  "game_config": {
+    "game_name": "Gates of Olympus 1000",
+    "type": "pay_anywhere_tumble",
+    "grid_size": "6x5",
+    "bet_range": [0.20, 125.00],
+    "rtp": 0.9650,
+    "volatility": "high",
+    "features": ["tumble_feature", "multiplier_symbols", "progressive_multiplier_free_spins", "ante_bet", "buy_bonus"]
+  },
+  "symbols": [
+    {
+      "id": "scatter_zeus",
+      "name": "Scatter (Zeus)",
+      "type": "scatter",
+      "base_frequency": 0.01,
+      "paytable": { "4": 6, "5": 10, "6": 200 }
+    },
+    {
+      "id": "crown",
+      "name": "Crown",
+      "type": "highest",
+      "base_frequency": 0.02,
+      "paytable": { "8-9": 20, "10-11": 50, "12-30": 100 }
+    },
+    {
+      "id": "hourglass",
+      "name": "Hourglass",
+      "type": "high",
+      "base_frequency": 0.03,
+      "paytable": { "8-9": 5, "10-11": 20, "12-30": 50 }
+    },
+    {
+      "id": "ring",
+      "name": "Ring",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "8-9": 4, "10-11": 10, "12-30": 30 }
+    },
+    {
+      "id": "goblet",
+      "name": "Goblet",
+      "type": "high",
+      "base_frequency": 0.05,
+      "paytable": { "8-9": 3, "10-11": 4, "12-30": 24 }
+    },
+    {
+      "id": "red_gem",
+      "name": "Red Gem",
+      "type": "medium",
+      "base_frequency": 0.10,
+      "paytable": { "8-9": 2, "10-11": 3, "12-30": 20 }
+    },
+    {
+      "id": "purple_gem",
+      "name": "Purple Gem",
+      "type": "medium",
+      "base_frequency": 0.12,
+      "paytable": { "8-9": 1.6, "10-11": 2.4, "12-30": 16 }
+    },
+    {
+      "id": "yellow_gem",
+      "name": "Yellow Gem",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "8-9": 1, "10-11": 2, "12-30": 10 }
+    },
+    {
+      "id": "green_gem",
+      "name": "Green Gem",
+      "type": "low",
+      "base_frequency": 0.20,
+      "paytable": { "8-9": 0.8, "10-11": 1.8, "12-30": 8 }
+    },
+    {
+      "id": "blue_gem",
+      "name": "Blue Gem",
+      "type": "low",
+      "base_frequency": 0.28,
+      "paytable": { "8-9": 0.5, "10-11": 1.5, "12-30": 4 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Multiplier Symbols",
+      "trigger": "Randomly on any spin or tumble",
+      "effect": "Lands with a value from 2x to 1000x. At the end of the tumble sequence, all multiplier values are added together and applied to the total win."
+    },
+    {
+      "name": "Free Spins",
+      "trigger": "4 or more Scatter symbols",
+      "effect": "Awards 15 free spins. During the feature, any multiplier that lands during a win is added to a persistent total multiplier, which then applies to all subsequent wins."
+    },
+    {
+      "name": "Ante Bet",
+      "trigger": "Player choice",
+      "effect": "Bet multiplier is increased, doubling the chance to trigger Free Spins."
+    },
+    {
+      "name": "Buy Free Spins",
+      "trigger": "Player choice",
+      "effect": "Instantly triggers the Free Spins feature for a cost of 100x the total bet."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.29,
+    "max_win_multiplier": 15000,
+    "wild_substitution_power": 0
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "game_config": {
+    "game_name": "Cosmic Cash",
+    "type": "line_pays",
+    "grid_size": "5x4",
+    "bet_range": [0.40, 200.00],
+    "rtp": 0.9656,
+    "volatility": "high",
+    "features": ["money_symbols", "cosmic_respins_feature", "free_spins_stacked_wilds", "buy_bonus"]
+  },
+  "symbols": [
+    {
+      "id": "alien",
+      "name": "Green Alien",
+      "type": "highest",
+      "base_frequency": 0.02,
+      "paytable": { "3": 2.5, "4": 10, "5": 20 }
+    },
+    {
+      "id": "astronaut",
+      "name": "Female Astronaut",
+      "type": "high",
+      "base_frequency": 0.03,
+      "paytable": { "3": 1.5, "4": 7.5, "5": 15 }
+    },
+    {
+      "id": "orange_monster",
+      "name": "Orange Monster",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 1, "4": 5, "5": 10 }
+    },
+    {
+      "id": "blue_monster",
+      "name": "Blue Monster",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 1, "4": 5, "5": 10 }
+    },
+    {
+      "id": "rocket",
+      "name": "Rocket",
+      "type": "medium",
+      "base_frequency": 0.05,
+      "paytable": { "3": 0.5, "4": 2, "5": 7.5 }
+    },
+    {
+      "id": "ray_gun",
+      "name": "Ray Gun",
+      "type": "medium",
+      "base_frequency": 0.05,
+      "paytable": { "3": 0.5, "4": 2, "5": 7.5 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.5, "4": 1, "5": 5 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.5, "4": 1, "5": 5 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.5, "4": 1, "5": 5 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.5, "4": 1, "5": 5 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.5, "4": 1, "5": 5 }
+    },
+    {
+      "id": "nine",
+      "name": "Nine (9)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.5, "4": 1, "5": 5 }
+    },
+    {
+      "id": "wild_ufo",
+      "name": "Wild UFO",
+      "type": "wild",
+      "base_frequency": 0.04,
+      "paytable": { "3": 5, "4": 20, "5": 50 }
+    },
+    {
+      "id": "scatter_logo",
+      "name": "Scatter Logo",
+      "type": "scatter",
+      "base_frequency": 0.03,
+      "paytable": { "3": 2, "4": 10, "5": 100 }
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Cosmic Respins",
+      "trigger": "6 or more Money symbols",
+      "effect": "A 'Hold and Win' bonus round with 3 respins that reset. Filling rows unlocks UFO prizes, including jackpots, free spins, and multipliers."
+    },
+    {
+      "name": "Free Spins",
+      "trigger": "3, 4, or 5 Scatter symbols OR won from Cosmic Respins",
+      "effect": "Awards 10, 20, or 50 free spins. During the feature, reels 2, 3, and 4 have more stacked Wild symbols."
+    },
+    {
+      "name": "Buy Cosmic Respins",
+      "trigger": "Player choice",
+      "effect": "Instantly triggers the Cosmic Respins feature for a cost of 100x the total bet."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.25,
+    "max_win_multiplier": 2650,
+    "wild_substitution_power": 0.8
+  }
+}

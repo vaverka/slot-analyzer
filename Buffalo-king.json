@@ -1,0 +1,119 @@
+{
+  "game_config": {
+    "game_name": "Buffalo King",
+    "type": "ways_to_win",
+    "grid_size": "6x4",
+    "bet_range": [0.40, 60.00],
+    "rtp": 0.9606,
+    "volatility": "high",
+    "features": ["free_spins_retrigger", "multiplying_wilds", "buy_bonus"]
+  },
+  "symbols": [
+    {
+      "id": "buffalo",
+      "name": "Buffalo",
+      "type": "highest",
+      "base_frequency": 0.01,
+      "paytable": { "2": 2.5, "3": 10, "4": 25, "5": 31.25, "6": 37.5 }
+    },
+    {
+      "id": "eagle",
+      "name": "Eagle",
+      "type": "high",
+      "base_frequency": 0.02,
+      "paytable": { "3": 7.5, "4": 25, "5": 31.25, "6": 31.25 }
+    },
+    {
+      "id": "cougar",
+      "name": "Cougar",
+      "type": "high",
+      "base_frequency": 0.02,
+      "paytable": { "3": 7.5, "4": 25, "5": 31.25, "6": 31.25 }
+    },
+    {
+      "id": "wolf",
+      "name": "Wolf",
+      "type": "medium",
+      "base_frequency": 0.03,
+      "paytable": { "3": 5, "4": 10, "5": 15, "6": 25 }
+    },
+    {
+      "id": "moose",
+      "name": "Moose",
+      "type": "medium",
+      "base_frequency": 0.03,
+      "paytable": { "3": 5, "4": 10, "5": 15, "6": 25 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 2.5, "4": 5, "5": 10, "6": 15 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.10,
+      "paytable": { "3": 2.5, "4": 5, "5": 10, "6": 15 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 1.25, "4": 2.5, "5": 7.5, "6": 12.5 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 1.25, "4": 2.5, "5": 7.5, "6": 12.5 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.18,
+      "paytable": { "3": 1.25, "4": 2.5, "5": 5, "6": 10 }
+    },
+    {
+      "id": "nine",
+      "name": "Nine (9)",
+      "type": "low",
+      "base_frequency": 0.18,
+      "paytable": { "3": 1.25, "4": 2.5, "5": 5, "6": 10 }
+    },
+    {
+      "id": "wild_canyon",
+      "name": "Wild (Canyon)",
+      "type": "wild",
+      "base_frequency": 0.015
+    },
+    {
+      "id": "bonus_coin",
+      "name": "Bonus (Coin)",
+      "type": "scatter",
+      "base_frequency": 0.015
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Free Spins",
+      "trigger": "3 or more Bonus symbols",
+      "effect": "Awards up to 100 free spins. During the feature, all Wilds have a 2x, 3x, or 5x multiplier. Multipliers from multiple Wilds are multiplied together."
+    },
+    {
+      "name": "Buy Free Spins",
+      "trigger": "Player choice",
+      "effect": "Instantly triggers the Free Spins feature for a cost of 75x the total bet."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.26,
+    "max_win_multiplier": 93750,
+    "wild_substitution_power": 0.9
+  }
+}

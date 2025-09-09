@@ -1,0 +1,104 @@
+{
+  "game_config": {
+    "game_name": "Double Fortune",
+    "type": "line_pays",
+    "grid_size": "5x3",
+    "bet_range": [0.30, 3000.00],
+    "bet_structure": {
+      "base_bet": 30,
+      "bet_sizes": [0.01, 10.00],
+      "bet_levels": [1, 10]
+    },
+    "rtp": 0.9622,
+    "volatility": "medium",
+    "features": ["double_symbols", "free_spins_dual_reels"]
+  },
+  "symbols": [
+    {
+      "id": "wild",
+      "name": "Wild Symbol",
+      "type": "wild",
+      "base_frequency": 0.04,
+      "paytable": { "3": 30, "4": 50, "5": 300, "6": 500, "7": 800, "8": 1000, "9": 1500, "10": 3000 }
+    },
+    {
+      "id": "ring",
+      "name": "Ring",
+      "type": "high",
+      "base_frequency": 0.05,
+      "paytable": { "3": 20, "4": 30, "5": 100, "6": 150, "7": 500, "8": 800, "9": 1200, "10": 1500 }
+    },
+    {
+      "id": "pouch",
+      "name": "Pouch",
+      "type": "high",
+      "base_frequency": 0.06,
+      "paytable": { "3": 15, "4": 25, "5": 80, "6": 100, "7": 300, "8": 600, "9": 1000, "10": 1200 }
+    },
+    {
+      "id": "shoes",
+      "name": "Shoes",
+      "type": "medium",
+      "base_frequency": 0.07,
+      "paytable": { "3": 12, "4": 20, "5": 60, "6": 80, "7": 200, "8": 500, "9": 800, "10": 1000 }
+    },
+    {
+      "id": "pastry",
+      "name": "Pastry",
+      "type": "medium",
+      "base_frequency": 0.08,
+      "paytable": { "3": 10, "4": 15, "5": 50, "6": 60, "7": 150, "8": 300, "9": 500, "10": 800 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 5, "4": 10, "5": 30, "6": 50, "7": 80, "8": 150, "9": 300, "10": 500 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 5, "4": 10, "5": 30, "6": 50, "7": 80, "8": 150, "9": 300, "10": 500 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 5, "4": 8, "5": 15, "6": 30, "7": 50, "8": 100, "9": 150, "10": 300 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 5, "4": 8, "5": 15, "6": 30, "7": 50, "8": 100, "9": 150, "10": 300 }
+    },
+    {
+      "id": "scatter",
+      "name": "Scatter",
+      "type": "scatter",
+      "base_frequency": 0.16
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Double Symbol Feature",
+      "trigger": "Any symbol can land as a double",
+      "effect": "A double symbol counts as two symbols in a payline win, allowing for combinations of up to 10 symbols."
+    },
+    {
+      "name": "Free Spins Feature",
+      "trigger": "3 Scatter symbols on reels 2, 3, and 4",
+      "effect": "Awards 8 free spins on two separate 5x3 reel sets. If both sets have a win on the same spin, the total win for that spin is multiplied by x8."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.32,
+    "max_win_multiplier": 100000,
+    "wild_substitution_power": 0.8
+  }
+}

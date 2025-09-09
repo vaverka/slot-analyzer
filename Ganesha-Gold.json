@@ -1,0 +1,98 @@
+{
+  "game_config": {
+    "game_name": "Ganesha Gold",
+    "type": "ways_to_win",
+    "grid_size": "5x3",
+    "bet_range": [0.30, 90000.00],
+    "bet_structure": {
+      "base_bet": 30,
+      "bet_sizes": [0.01, 300.00],
+      "bet_levels": [1, 10]
+    },
+    "rtp": 0.9608,
+    "volatility": "medium",
+    "features": ["free_spins_wild_collection_multiplier"]
+  },
+  "symbols": [
+    {
+      "id": "woman",
+      "name": "Woman",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 1, "4": 2, "5": 5 }
+    },
+    {
+      "id": "candles",
+      "name": "Candles",
+      "type": "high",
+      "base_frequency": 0.06,
+      "paytable": { "3": 0.67, "4": 1.5, "5": 3 }
+    },
+    {
+      "id": "flowers",
+      "name": "Flowers",
+      "type": "medium",
+      "base_frequency": 0.08,
+      "paytable": { "3": 0.5, "4": 1, "5": 2 }
+    },
+    {
+      "id": "spices",
+      "name": "Spices",
+      "type": "medium",
+      "base_frequency": 0.10,
+      "paytable": { "3": 0.33, "4": 0.5, "5": 1.5 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.27, "4": 0.33, "5": 1 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.27, "4": 0.33, "5": 1 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.17, "4": 0.27, "5": 0.5 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.15,
+      "paytable": { "3": 0.17, "4": 0.27, "5": 0.5 }
+    },
+    {
+      "id": "wild",
+      "name": "Wild Symbol",
+      "type": "wild",
+      "base_frequency": 0.10
+    },
+    {
+      "id": "scatter",
+      "name": "Scatter Symbol",
+      "type": "scatter",
+      "base_frequency": 0.08
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Free Spins Feature",
+      "trigger": "3, 4, or 5 Scatter symbols",
+      "effect": "Awards 12, 15, or 20 free spins. The round starts with a 2x win multiplier. Every 3 Wilds collected increases the multiplier by +2, up to a maximum of 20x."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.30,
+    "max_win_multiplier": 100000,
+    "wild_substitution_power": 0.8
+  }
+}

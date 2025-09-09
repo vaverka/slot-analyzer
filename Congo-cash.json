@@ -1,0 +1,118 @@
+{
+  "game_config": {
+    "game_name": "Congo Cash",
+    "type": "ways_to_win",
+    "grid_size": "5 reels (4-3-4-3-4 rows)",
+    "bet_range": [0.20, 100.00],
+    "rtp": 0.9651,
+    "volatility": "high",
+    "features": ["jewel_board", "fixed_jackpots", "free_spins_guaranteed_wild"]
+  },
+  "symbols": [
+    {
+      "id": "gorilla",
+      "name": "Gorilla",
+      "type": "highest",
+      "base_frequency": 0.02,
+      "paytable": { "2": 1, "3": 2, "4": 5, "5": 10 } 
+    },
+    {
+      "id": "leopard",
+      "name": "Leopard",
+      "type": "high",
+      "base_frequency": 0.04,
+      "paytable": { "3": 1, "4": 2, "5": 2.5 }
+    },
+    {
+      "id": "baboon",
+      "name": "Baboon",
+      "type": "high",
+      "base_frequency": 0.05,
+      "paytable": { "3": 1, "4": 2, "5": 2 }
+    },
+    {
+      "id": "lemur",
+      "name": "Lemur",
+      "type": "medium",
+      "base_frequency": 0.06,
+      "paytable": { "3": 0.5, "4": 1.5, "5": 1 }
+    },
+    {
+      "id": "frog",
+      "name": "Frog",
+      "type": "medium",
+      "base_frequency": 0.06,
+      "paytable": { "3": 0.5, "4": 1.5, "5": 1 }
+    },
+    {
+      "id": "ace",
+      "name": "Ace (A)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.5, "4": 1, "5": 1.5 }
+    },
+    {
+      "id": "king",
+      "name": "King (K)",
+      "type": "low",
+      "base_frequency": 0.12,
+      "paytable": { "3": 0.5, "4": 1, "5": 1.5 }
+    },
+    {
+      "id": "queen",
+      "name": "Queen (Q)",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.5, "4": 1, "5": 1.5 }
+    },
+    {
+      "id": "jack",
+      "name": "Jack (J)",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.5, "4": 1, "5": 1.5 }
+    },
+    {
+      "id": "ten",
+      "name": "Ten (10)",
+      "type": "low",
+      "base_frequency": 0.13,
+      "paytable": { "3": 0.5, "4": 1, "5": 1.5 }
+    },
+    {
+      "id": "diamond_wild",
+      "name": "Diamond Wild",
+      "type": "wild",
+      "base_frequency": 0.05
+    },
+    {
+      "id": "butterfly",
+      "name": "Butterfly",
+      "type": "trigger",
+      "base_frequency": 0.04
+    },
+    {
+      "id": "congo_cash_logo",
+      "name": "Congo Cash Logo",
+      "type": "trigger",
+      "base_frequency": 0.02
+    }
+  ],
+  "bonus_features": [
+    {
+      "name": "Jewel Board",
+      "trigger": "Land 2 Butterfly symbols on reels 1 & 5, plus at least one Congo Cash symbol on reels 2, 3, or 4.",
+      "effect": "Awards the prize shown on the Jewel Board above the triggering Congo Cash symbol. Prizes include cash values (5x-200x), fixed jackpots (25x, 100x, 2000x), or free spins (8-100)."
+    },
+    {
+      "name": "Free Games",
+      "trigger": "Collect a Free Games jewel from the Jewel Board.",
+      "effect": "Starts a free spins round where at least one Wild is guaranteed to land on every spin on the triggering reel."
+    }
+  ],
+  "probabilities": {
+    "base_win_probability": 0.27,
+    "max_win_multiplier": 2200,
+    "wild_substitution_power": 0.8
+  }
+}
