@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - UNIVERSAL SLOT ANALYZER V9.1 (Correct f-string formatting)
+#  app.py - UNIVERSAL SLOT ANALYZER V9.2 (Added new columns to batch analysis)
 # ==============================================================================
 import json
 import math
@@ -162,7 +162,6 @@ class SlotProbabilityCalculator:
         wgl_val_f = f"{wgl_val:.2f}"
         wgl_profit_f = f"{wgl_profit:.2f}"
         
-        # --- CORRECTED F-STRING FORMATTING AS PER YOUR REQUEST ---
         strategy1 = f"**Recommended bet**: For your bankroll and risk level, real bet is **\${bps_formatted}**.{adjustment_note}"
         strategy2 = f"**Bet management**: Start with minimum bet **\${mbet_formatted}**. If game goes well, gradually increase bet but don't exceed recommended."
         strategy3 = f"**Stop-loss (iron rule)**: Immediately stop playing if your bankroll drops to **\${sll_val_f}** (loss of \${sll_loss_f})."
@@ -404,6 +403,7 @@ def run_batch_analysis(local_config_files):
                     any_win_prob = config.get('probabilities', {}).get('base_win_probability', 0)
                     min_bet = calculator.min_bet
                     
+                    # --- ADDED NEW COLUMNS DATA ---
                     all_results.append({
                         "Название слота": game_name,
                         "Estimated chance to win": f"{goal_chance * 100:.4f}%",
@@ -411,7 +411,9 @@ def run_batch_analysis(local_config_files):
                         "spins for 99% probability (min - max)": spins_99_range,
                         "Bankroll Verdict": bankroll_verdict,
                         "Probability of any win per spin": f"{any_win_prob * 100:.1f}%",
-                        "Minimum bet": f"\${min_bet:.2f}"
+                        "Minimum bet": f"\${min_bet:.2f}",
+                        "Recommended bet": f"\${bet_per_spin:.2f}",
+                        "Max win at min bet": f"\${calculator.max_win_at_min_bet:,.2f}"
                     })
 
                 except Exception as e:
