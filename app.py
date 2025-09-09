@@ -411,9 +411,9 @@ def run_batch_analysis(local_config_files):
                         "spins for 99% probability (min - max)": spins_99_range,
                         "Bankroll Verdict": bankroll_verdict,
                         "Probability of any win per spin": f"{any_win_prob * 100:.1f}%",
-                        "Minimum bet $": {min_bet:.2f},
-                        "Recommended bet $": {bet_per_spin:.2f},
-                        "Max win at min bet $": {calculator.max_win_at_min_bet:,.2f}
+                        "Minimum bet $": f"{min_bet:.2f}",
+                        "Recommended bet $": f"{bet_per_spin:.2f}",
+                        "Max win at min bet $": f"{calculator.max_win_at_min_bet:,.2f}"
                     })
 
                 except Exception as e:
@@ -425,6 +425,7 @@ def run_batch_analysis(local_config_files):
 
 if __name__ == "__main__":
     main()
+
 
 
 
