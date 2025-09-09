@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - UNIVERSAL SLOT ANALYZER V9.4 (Added Max Win at Rec Bet)
+#  app.py - UNIVERSAL SLOT ANALYZER V9.5 (Fixed Column Format Syntax)
 # ==============================================================================
 import json
 import math
@@ -403,7 +403,6 @@ def run_batch_analysis(local_config_files):
                     any_win_prob = config.get('probabilities', {}).get('base_win_probability', 0)
                     min_bet = calculator.min_bet
                     
-                    # --- NEW CALCULATION ---
                     max_win_multiplier = float(config.get('probabilities', {}).get('max_win_multiplier', 2000))
                     max_win_at_rec_bet = max_win_multiplier * bet_per_spin
 
@@ -417,7 +416,7 @@ def run_batch_analysis(local_config_files):
                         "Minimum bet $": min_bet,
                         "Recommended bet $": bet_per_spin,
                         "Max win at min bet $": calculator.max_win_at_min_bet,
-                        "Max win at rec bet $": max_win_at_rec_bet # New column data
+                        "Max win at rec bet $": max_win_at_rec_bet
                     })
 
                 except Exception as e:
@@ -425,13 +424,14 @@ def run_batch_analysis(local_config_files):
             
             if all_results:
                 df = pd.DataFrame(all_results)
+                # --- CORRECTED COLUMN FORMATTING ---
                 st.dataframe(
                     df,
                     column_config={
                         "Minimum bet $": st.column_config.NumberColumn(format="$%.2f"),
                         "Recommended bet $": st.column_config.NumberColumn(format="$%.2f"),
-                        "Max win at min bet $": st.column_config.NumberColumn(format="$%,.2f"),
-                        "Max win at rec bet $": st.column_config.NumberColumn(format="$%,.2f"), # New column config
+                        "Max win at min bet $": st.column_config.NumberColumn(format="$ ,.2f"),
+                        "Max win at rec bet $": st.column_config.NumberColumn(format="$ ,.2f"),
                     },
                     use_container_width=True
                 )
