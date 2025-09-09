@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - UNIVERSAL SLOT ANALYZER V9.2 (Added new columns to batch analysis)
+#  app.py - UNIVERSAL SLOT ANALYZER V9.4 (Added Max Win at Rec Bet)
 # ==============================================================================
 import json
 import math
@@ -403,7 +403,10 @@ def run_batch_analysis(local_config_files):
                     any_win_prob = config.get('probabilities', {}).get('base_win_probability', 0)
                     min_bet = calculator.min_bet
                     
-                    # --- ADDED NEW COLUMNS DATA ---
+                    # --- NEW CALCULATION ---
+                    max_win_multiplier = float(config.get('probabilities', {}).get('max_win_multiplier', 2000))
+                    max_win_at_rec_bet = max_win_multiplier * bet_per_spin
+
                     all_results.append({
                         "Название слота": game_name,
                         "Estimated chance to win": f"{goal_chance * 100:.4f}%",
@@ -413,7 +416,8 @@ def run_batch_analysis(local_config_files):
                         "Probability of any win per spin": f"{any_win_prob * 100:.1f}%",
                         "Minimum bet $": min_bet,
                         "Recommended bet $": bet_per_spin,
-                        "Max win at min bet $": calculator.max_win_at_min_bet
+                        "Max win at min bet $": calculator.max_win_at_min_bet,
+                        "Max win at rec bet $": max_win_at_rec_bet # New column data
                     })
 
                 except Exception as e:
@@ -421,12 +425,16 @@ def run_batch_analysis(local_config_files):
             
             if all_results:
                 df = pd.DataFrame(all_results)
-                st.dataframe(df, use_container_width=True)
+                st.dataframe(
+                    df,
+                    column_config={
+                        "Minimum bet $": st.column_config.NumberColumn(format="$%.2f"),
+                        "Recommended bet $": st.column_config.NumberColumn(format="$%.2f"),
+                        "Max win at min bet $": st.column_config.NumberColumn(format="$%,.2f"),
+                        "Max win at rec bet $": st.column_config.NumberColumn(format="$%,.2f"), # New column config
+                    },
+                    use_container_width=True
+                )
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
