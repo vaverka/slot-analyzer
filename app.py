@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - UNIVERSAL SLOT ANALYZER V8.3 (Original Russian text formatting restored)
+#  app.py - UNIVERSAL SLOT ANALYZER V9.0 (Batch analysis with original text format)
 # ==============================================================================
 import json
 import math
@@ -179,7 +179,7 @@ class SlotProbabilityCalculator:
         target_amount = personal_bankroll + desired_win
         effective_bankroll = personal_bankroll * rtp
         probability = effective_bankroll / target_amount
-        return {"probability": min(1.0, max(0.0, probability))} # Ensure probability is between 0 and 1
+        return {"probability": min(1.0, max(0.0, probability))}
 
     def visualize_win_probabilities(self, level='base'):
         if not self.win_probabilities: return None
@@ -310,15 +310,14 @@ def run_single_slot_analysis(local_config_files):
                 spins_str = f"{guaranteed_spins}" if guaranteed_spins != float('inf') else "∞"
                 st.metric(label="Guaranteed number of spins (at rec. bet)", value=spins_str)
             
-            # --- RESTORED ORIGINAL TEXT AND FORMATTING ---
-            with st.expander("Как понимать эти цифры? 🤔"):
+            with st.expander("How to understand these numbers? 🤔"):
                 st.markdown(f"""
-                #### Шанс на выигрыш
-                Это ваша математическая вероятность достичь цели **до того, как преимущество казино (RTP < 100%) исчерпает ваш банкролл**.
-                #### Гарантированное количество спинов
-                Это **реальное количество вращений**, которое вы можете сделать с вашим банкроллом, играя по **Рекомендуемой ставке** (${bet_per_spin:.2f}).
-                - **Как определяется ставка?** Мы умножаем минимальную ставку слота (**${calculator.min_bet:.2f}**) на коэффициент риска (x1-x5) и на нелинейный коэффициент банкролла. Затем результат **округляется и корректируется** под реальные лимиты слота.
-                - **Это ваш реальный 'запас прочности'**: Чем он больше, тем дольше ваше игровое время для достижения цели.
+                #### Win chance
+                This is your mathematical probability to reach goal **before casino advantage (RTP < 100%) depletes your bankroll**.
+                #### Guaranteed number of spins
+                This is **real number of spins** you can make with your bankroll playing at **Recommended bet** (${bet_per_spin:.2f}).
+                - **How is bet determined?** We multiply slot's minimum bet (**${calculator.min_bet:.2f}**) by risk coefficient (x1-x5) and by non-linear bankroll coefficient. Then result is **rounded and adjusted** to fit slot's real limits.
+                - **This is your real 'safety margin'**: The bigger it is, the longer your play time to reach goal.
                 """)
             
             st.subheader("📊 Visual Probability Analysis", divider="blue")
