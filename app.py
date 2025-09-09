@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - UNIVERSAL SLOT ANALYZER V9.6 (Corrected Display Formatting)
+#  app.py - UNIVERSAL SLOT ANALYZER V10.0 (Full English Translation)
 # ==============================================================================
 import json
 import math
@@ -109,8 +109,8 @@ class SlotProbabilityCalculator:
         if personal_bankroll < min_bankroll:
             pb_formatted = f"{personal_bankroll:,.2f}"
             mb_formatted = f"{min_bankroll:,.2f}"
-            min_bank_advice.append(f"🚨 **CRITICAL RISK**: Your bankroll (\${pb_formatted}) is **SIGNIFICANTLY BELOW** minimum (\${mb_formatted})!")
-            min_bank_advice.append("Probability of losing entire bankroll before significant win **exceeds 95%**. We **DO NOT RECOMMEND** playing with this bankroll.")
+            min_bank_advice.append(f"🚨 **CRITICAL RISK**: Your bankroll (\${pb_formatted}) is **SIGNIFICANTLY BELOW** the minimum (\${mb_formatted})!")
+            min_bank_advice.append("The probability of losing your entire bankroll before a significant win **exceeds 95%**. We **DO NOT RECOMMEND** playing with this bankroll.")
         else:
             pb_formatted = f"{personal_bankroll:,.2f}"
             mb_formatted = f"{min_bankroll:,.2f}"
@@ -133,9 +133,9 @@ class SlotProbabilityCalculator:
         adjustment_note = ""
         if abs(bet_per_spin - theoretical_bet) > 0.01:
             if bet_per_spin == self.min_bet:
-                adjustment_note = f" (Note: theoretical bet \${tb_formatted} was **adjusted** to minimum possible in this slot)."
+                adjustment_note = f" (Note: The theoretical bet of \${tb_formatted} was **adjusted** to the minimum possible for this slot)."
             elif bet_per_spin < theoretical_bet:
-                 adjustment_note = f" (Note: theoretical bet \${tb_formatted} was **reduced and rounded** according to bet step)."
+                 adjustment_note = f" (Note: The theoretical bet of \${tb_formatted} was **reduced and rounded** according to the bet step)."
         
         base_win_prob, rtp = float(self.config.get('probabilities', {}).get('base_win_probability', 0.25)), self.config.get('game_config', {}).get('rtp', 0.96)
         bwp_pct = base_win_prob * 100
@@ -144,8 +144,8 @@ class SlotProbabilityCalculator:
         house_edge_val = 1000 * (1 - rtp)
         hev_formatted = f"{house_edge_val:.2f}"
         
-        truth1 = f"Probability of any win per spin: **{bwp_pct:.1f}%**. This means on average **~{losing_spins_count} out of 10 spins will be losing**."
-        truth2 = f"**RTP {rtp_pct:.1f}%** means for every \$1,000 bet, casino keeps **\${hev_formatted}** on average."
+        truth1 = f"Probability of any win per spin: **{bwp_pct:.1f}%**. This means on average, **~{losing_spins_count} out of 10 spins will be losing spins**."
+        truth2 = f"An **RTP of {rtp_pct:.1f}%** means that for every \$1,000 wagered, the casino keeps **\${hev_formatted}** on average."
 
         harsh_truths = [truth1, truth2]
         
@@ -162,11 +162,11 @@ class SlotProbabilityCalculator:
         wgl_val_f = f"{wgl_val:.2f}"
         wgl_profit_f = f"{wgl_profit:.2f}"
         
-        strategy1 = f"**Recommended bet**: For your bankroll and risk level, real bet is **\${bps_formatted}**.{adjustment_note}"
-        strategy2 = f"**Bet management**: Start with minimum bet **\${mbet_formatted}**. If game goes well, gradually increase bet but don't exceed recommended."
-        strategy3 = f"**Stop-loss (iron rule)**: Immediately stop playing if your bankroll drops to **\${sll_val_f}** (loss of \${sll_loss_f})."
-        strategy4 = f"**Win goal**: Secure profit and stop playing if your bankroll reaches **\${wgl_val_f}** (profit of \${wgl_profit_f})."
-        strategy5 = "**Psychology**: **NEVER** try to 'win back'. Each spin is independent."
+        strategy1 = f"**Recommended Bet**: Based on your bankroll and risk level, the recommended bet is **\${bps_formatted}**.{adjustment_note}"
+        strategy2 = f"**Bet Management**: Start with the minimum bet of **\${mbet_formatted}**. If the session goes well, you can gradually increase the bet, but do not exceed the recommended amount."
+        strategy3 = f"**Stop-Loss (Iron Rule)**: Immediately stop playing if your bankroll drops to **\${sll_val_f}** (a loss of \${sll_loss_f})."
+        strategy4 = f"**Win Goal**: Secure your profit and stop playing if your bankroll reaches **\${wgl_val_f}** (a profit of \${wgl_profit_f})."
+        strategy5 = "**Psychology**: **NEVER** chase your losses. Each spin is an independent event."
 
         optimal_strategy = [strategy1, strategy2, strategy3, strategy4, strategy5]
         
@@ -190,8 +190,8 @@ class SlotProbabilityCalculator:
         df['combo_probability_pct'] = df['combo_probability'] * 100
         fig, ax = plt.subplots(figsize=(12, 6))
         sns.barplot(x='combo_probability_pct', y='name', data=df, palette='viridis_r', orient='h', hue='name', legend=False, ax=ax)
-        ax.set_title(f'Probability of winning combination with symbol (Level: {level})', fontsize=16, pad=20)
-        ax.set_xlabel('Probability per spin (with Wild), %', fontsize=12); ax.set_ylabel('Symbol', fontsize=12)
+        ax.set_title(f'Probability of Winning Combination with Symbol (Level: {level})', fontsize=16, pad=20)
+        ax.set_xlabel('Probability per Spin (with Wild), %', fontsize=12); ax.set_ylabel('Symbol', fontsize=12)
         for p in ax.patches:
             width = p.get_width()
             ax.text(width + 0.05, p.get_y() + p.get_height() / 2., f'{width:.3f}%', va='center', fontsize=10)
@@ -202,7 +202,7 @@ class SlotProbabilityCalculator:
     def get_results_table(self, level='base'):
         if not self.win_probabilities: return pd.DataFrame()
         level_data = self.win_probabilities.get(level)
-        if not level_data: return pd.DataFrame()
+        if not level_data: return None
         df = pd.DataFrame.from_dict(level_data, orient='index')
         if df.empty: return df
         df_sorted = df.sort_values(by='combo_probability', ascending=False)
@@ -219,17 +219,17 @@ def main():
     st.set_page_config(page_title="Slot Analyzer", layout="wide", initial_sidebar_state="expanded")
     
     st.title("Universal Slot Probability Analyzer")
-    st.markdown("This tool helps you understand real odds and develop strategy for any slot based on its mathematical parameters.")
+    st.markdown("This tool helps you understand the real odds and develop a strategy for any slot based on its mathematical parameters.")
 
     analysis_mode = st.radio(
-        "Выберите режим анализа:",
-        ("Анализ одного слота", "Анализ всех слотов в папке"),
+        "Select analysis mode:",
+        ("Single Slot Analysis", "Analyze All Slots in Folder"),
         horizontal=True,
     )
     
     local_config_files = get_local_config_files(CONFIGS_FOLDER)
     
-    if analysis_mode == "Анализ одного слота":
+    if analysis_mode == "Single Slot Analysis":
         run_single_slot_analysis(local_config_files)
     else:
         run_batch_analysis(local_config_files)
@@ -240,13 +240,13 @@ def run_single_slot_analysis(local_config_files):
         
         file_source = st.radio(
             "Select configuration source:",
-            ('Upload file from computer', 'Select from presets'),
+            ('Upload from computer', 'Select from presets'),
             index=0
         )
         
         config_file = None
         
-        if file_source == 'Upload file from computer':
+        if file_source == 'Upload from computer':
             config_file = st.file_uploader("1a. Upload slot JSON configuration", type="json")
         elif file_source == 'Select from presets' and local_config_files:
             selected_filename = st.selectbox(
@@ -265,7 +265,7 @@ def run_single_slot_analysis(local_config_files):
                      st.error(f"Error loading file {selected_filename}: {e}")
                      config_file = None
         elif file_source == 'Select from presets' and not local_config_files:
-             st.info(f"Folder '{CONFIGS_FOLDER}' not found or empty.")
+             st.info(f"Folder '{CONFIGS_FOLDER}' not found or is empty.")
         
         personal_bankroll, desired_win, risk_level, analyze_button = 0, 0, 'medium', False
         if config_file is not None:
@@ -283,8 +283,8 @@ def run_single_slot_analysis(local_config_files):
             if personal_bankroll < calculator.min_bet:
                 pb_formatted_error = f"{personal_bankroll:.2f}"
                 mb_formatted_error = f"{calculator.min_bet:.2f}"
-                st.error(f"**Your bankroll (\${pb_formatted_error}) is less than minimum bet in this slot (\${mb_formatted_error}).**")
-                st.warning("Unfortunately, analysis is impossible. Please increase your bankroll.")
+                st.error(f"**Your bankroll (\${pb_formatted_error}) is less than the minimum bet for this slot (\${mb_formatted_error}).**")
+                st.warning("Analysis is not possible. Please increase your bankroll.")
                 st.stop()
             game_config = config.get('game_config', {})
             
@@ -312,12 +312,12 @@ def run_single_slot_analysis(local_config_files):
             
             with st.expander("How to understand these numbers? 🤔"):
                 st.markdown(f"""
-                #### Win chance
-                This is your mathematical probability to reach goal **before casino advantage (RTP < 100%) depletes your bankroll**.
-                #### Guaranteed number of spins
-                This is **real number of spins** you can make with your bankroll playing at **Recommended bet** (\${bet_per_spin:.2f}).
-                - **How is bet determined?** We multiply slot's minimum bet (**\${calculator.min_bet:.2f}**) by risk coefficient (x1-x5) and by non-linear bankroll coefficient. Then result is **rounded and adjusted** to fit slot's real limits.
-                - **This is your real 'safety margin'**: The bigger it is, the longer your play time to reach goal.
+                #### Chance to Win
+                This is your mathematical probability of reaching your goal **before the casino's advantage (RTP < 100%) depletes your bankroll**.
+                #### Guaranteed Number of Spins
+                This is the **actual number of spins** you can make with your bankroll while playing at the **Recommended Bet** (\${bet_per_spin:.2f}).
+                - **How is the bet determined?** We multiply the slot's minimum bet (**\${calculator.min_bet:.2f}**) by a risk coefficient (x1-x5) and a non-linear bankroll coefficient. The result is then **rounded and adjusted** to fit the slot's actual limits.
+                - **This is your real 'safety margin'**: The larger it is, the longer your playtime to reach your goal.
                 """)
             
             st.subheader("📊 Visual Probability Analysis", divider="blue")
@@ -332,19 +332,19 @@ def run_single_slot_analysis(local_config_files):
                     st.markdown(f"➡️ {advice}")
             with st.container(border=True):
                 st.subheader("2. Minimum Bankroll Calculation & Rationale")
-                st.markdown("For strategy to make sense, your bankroll must withstand losing streaks characteristic of this volatility.")
-                st.markdown("\n**Calculation source data:**")
+                st.markdown("For the strategy to be meaningful, your bankroll must withstand the losing streaks characteristic of this volatility.")
+                st.markdown("\n**Source data for calculation:**")
                 st.markdown(f" • **Minimum bet**: \${calculator.min_bet:.2f}")
                 st.markdown(f" • **Max win at min bet**: \${calculator.max_win_at_min_bet:,.2f}")
                 st.markdown(f" • **Average significant win (at min bet)**: \${calculator.avg_win:,.2f}")
                 st.markdown(f" • **Volatility**: {calculator.volatility.capitalize()}")
                 st.markdown("\n**Calculation process:**")
                 st.markdown(f"1. **Formula** (for {calculator.volatility.capitalize()} volatility): `{calculator.min_bankroll_formula}`")
-                st.markdown(f"2. **Substitute values**: `{calculator.min_bankroll_calculation}`")
+                st.markdown(f"2. **Substituting values**: `{calculator.min_bankroll_calculation}`")
                 min_bankroll_final_str = ''.join(filter(lambda char: char.isdigit() or char in '.,', strategy['min_bank_advice'][0].split('$')[-1]))
-                st.success(f"**Result**: Final recommended minimum is **\${min_bankroll_final_str}**")
+                st.success(f"**Result**: The final recommended minimum is **\${min_bankroll_final_str}**")
             with st.container(border=True):
-                st.subheader("3. Hard Truth About Odds (no sugarcoating)")
+                st.subheader("3. The Hard Truth About Odds (no sugarcoating)")
                 for truth in strategy['harsh_truths']: 
                     st.markdown(f"➡️ {truth}")
             with st.container(border=True):
@@ -353,29 +353,29 @@ def run_single_slot_analysis(local_config_files):
                     st.markdown(f"**Step {i}**: {step}")
                     
         except json.JSONDecodeError:
-            st.error("Error: Selected file is not valid JSON.")
+            st.error("Error: The selected file is not a valid JSON.")
         except Exception as e:
-            st.error(f"Error analyzing file. Make sure JSON file has correct structure. Error: {e}")
+            st.error(f"Error analyzing the file. Ensure the JSON has the correct structure. Error: {e}")
     elif analyze_button and config_file is None:
-        st.warning("Please upload slot JSON configuration file or select from list to start analysis.")
+        st.warning("Please upload a slot JSON configuration file or select from the list to begin the analysis.")
 
 
 def run_batch_analysis(local_config_files):
-    st.header("Сравнительный анализ всех слотов", divider="rainbow")
+    st.header("Comparative Analysis of All Slots", divider="rainbow")
     
     with st.sidebar:
-        st.title("🎰 Параметры для всех слотов")
-        personal_bankroll = st.number_input("1. Ваш стартовый банкролл ($)", min_value=0.01, value=200.0, step=10.0, format="%.2f")
-        desired_win = st.number_input("2. Ваш желаемый чистый выигрыш ($)", min_value=1.0, value=500.0, step=10.0, format="%.2f")
-        risk_level = st.selectbox("3. Ваш уровень риска", options=['low', 'medium', 'high'], index=1).lower()
-        analyze_button = st.button("🚀 Запустить пакетный анализ", type="primary", use_container_width=True)
+        st.title("🎰 Parameters for All Slots")
+        personal_bankroll = st.number_input("1. Your starting bankroll ($)", min_value=0.01, value=200.0, step=10.0, format="%.2f")
+        desired_win = st.number_input("2. Your desired net win ($)", min_value=1.0, value=500.0, step=10.0, format="%.2f")
+        risk_level = st.selectbox("3. Your risk level", options=['low', 'medium', 'high'], index=1).lower()
+        analyze_button = st.button("🚀 Run Batch Analysis", type="primary", use_container_width=True)
     
     if not local_config_files:
-        st.warning(f"В папке '{CONFIGS_FOLDER}' не найдено файлов конфигурации (.json).")
+        st.warning(f"No configuration files (.json) found in the '{CONFIGS_FOLDER}' folder.")
         return
 
     if analyze_button:
-        with st.spinner(f"Анализирую {len(local_config_files)} слотов..."):
+        with st.spinner(f"Analyzing {len(local_config_files)} slots..."):
             all_results = []
             for filename in local_config_files:
                 try:
@@ -394,9 +394,9 @@ def run_batch_analysis(local_config_files):
                     
                     full_verdict_message = strategy['min_bank_advice'][0]
                     if "CRITICAL RISK" in full_verdict_message:
-                        bankroll_verdict = "Критический риск"
-                    elif "is sufficient" in full_verdict_message:
-                        bankroll_verdict = "Достаточный"
+                        bankroll_verdict = "Critical Risk"
+                    elif "sufficient" in full_verdict_message:
+                        bankroll_verdict = "Sufficient"
                     else:
                         bankroll_verdict = "N/A"
                         
@@ -407,31 +407,32 @@ def run_batch_analysis(local_config_files):
                     max_win_at_rec_bet = max_win_multiplier * bet_per_spin
 
                     all_results.append({
-                        "Название слота": game_name,
-                        "Estimated chance to win": f"{goal_chance * 100:.4f}%",
-                        "Guaranteed number of spins": guaranteed_spins,
-                        "spins for 99% probability (min - max)": spins_99_range,
+                        "Slot Name": game_name,
+                        "Estimated chance to win (%)": goal_chance * 100,
+                        "Guaranteed Spins": guaranteed_spins,
+                        "Spins for 99% Win (Range)": spins_99_range,
                         "Bankroll Verdict": bankroll_verdict,
-                        "Probability of any win per spin": f"{any_win_prob * 100:.1f}%",
-                        "Minimum bet $": min_bet,
-                        "Recommended bet $": bet_per_spin,
-                        "Max win at min bet $": calculator.max_win_at_min_bet,
-                        "Max win at rec bet $": max_win_at_rec_bet
+                        "Any Win Prob. per Spin (%)": any_win_prob * 100,
+                        "Minimum Bet $": min_bet,
+                        "Recommended Bet $": bet_per_spin,
+                        "Max Win at Min Bet $": calculator.max_win_at_min_bet,
+                        "Max Win at Rec Bet $": max_win_at_rec_bet
                     })
 
                 except Exception as e:
-                    st.error(f"Не удалось проанализировать файл {filename}: {e}")
+                    st.error(f"Failed to analyze file {filename}: {e}")
             
             if all_results:
                 df = pd.DataFrame(all_results)
-                # --- CORRECTED COLUMN FORMATTING ---
                 st.dataframe(
                     df,
                     column_config={
-                        "Minimum bet $": st.column_config.NumberColumn(format="$%.2f"),
-                        "Recommended bet $": st.column_config.NumberColumn(format="$%.2f"),
-                        "Max win at min bet $": st.column_config.NumberColumn(format="$%.2f"),
-                        "Max win at rec bet $": st.column_config.NumberColumn(format="$%.2f"),
+                        "Estimated chance to win (%)": st.column_config.NumberColumn(format="%.4f%%"),
+                        "Any Win Prob. per Spin (%)": st.column_config.NumberColumn(format="%.1f%%"),
+                        "Minimum Bet $": st.column_config.NumberColumn(format="$%.2f"),
+                        "Recommended Bet $": st.column_config.NumberColumn(format="$%.2f"),
+                        "Max Win at Min Bet $": st.column_config.NumberColumn(format="$%.2f"),
+                        "Max Win at Rec Bet $": st.column_config.NumberColumn(format="$%.2f"),
                     },
                     use_container_width=True
                 )
