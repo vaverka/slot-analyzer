@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - UNIVERSAL SLOT ANALYZER V9.0 (Batch analysis with original text format)
+#  app.py - UNIVERSAL SLOT ANALYZER V9.1 (Correct f-string formatting)
 # ==============================================================================
 import json
 import math
@@ -92,15 +92,15 @@ class SlotProbabilityCalculator:
         if self.volatility == 'high':
             part1, part2 = 100 * self.min_bet, 0.05 * self.avg_win
             self.min_bankroll_formula = "max(100 * Min. Bet, 5% * Average Win)"
-            self.min_bankroll_calculation, min_bankroll = f"max(${part1:.2f}, ${part2:.2f})", max(part1, part2)
+            self.min_bankroll_calculation, min_bankroll = f"max(\${part1:.2f}, \${part2:.2f})", max(part1, part2)
         elif self.volatility == 'medium':
             part1, part2 = 75 * self.min_bet, 0.03 * self.avg_win
             self.min_bankroll_formula = "max(75 * Min. Bet, 3% * Average Win)"
-            self.min_bankroll_calculation, min_bankroll = f"max(${part1:.2f}, ${part2:.2f})", max(part1, part2)
+            self.min_bankroll_calculation, min_bankroll = f"max(\${part1:.2f}, \${part2:.2f})", max(part1, part2)
         else:  # low
             part1, part2 = 50 * self.min_bet, 0.01 * self.avg_win
             self.min_bankroll_formula = "max(50 * Min. Bet, 1% * Average Win)"
-            self.min_bankroll_calculation, min_bankroll = f"max(${part1:.2f}, ${part2:.2f})", max(part1, part2)
+            self.min_bankroll_calculation, min_bankroll = f"max(\${part1:.2f}, \${part2:.2f})", max(part1, part2)
         return round(min_bankroll, 2)
 
     def generate_bankroll_strategy(self, personal_bankroll, risk_level='medium'):
@@ -109,12 +109,12 @@ class SlotProbabilityCalculator:
         if personal_bankroll < min_bankroll:
             pb_formatted = f"{personal_bankroll:,.2f}"
             mb_formatted = f"{min_bankroll:,.2f}"
-            min_bank_advice.append(f"🚨 **CRITICAL RISK**: Your bankroll (${pb_formatted}) is **SIGNIFICANTLY BELOW** minimum (${mb_formatted})!")
+            min_bank_advice.append(f"🚨 **CRITICAL RISK**: Your bankroll (\${pb_formatted}) is **SIGNIFICANTLY BELOW** minimum (\${mb_formatted})!")
             min_bank_advice.append("Probability of losing entire bankroll before significant win **exceeds 95%**. We **DO NOT RECOMMEND** playing with this bankroll.")
         else:
             pb_formatted = f"{personal_bankroll:,.2f}"
             mb_formatted = f"{min_bankroll:,.2f}"
-            min_bank_advice.append(f"✅ Your bankroll (${pb_formatted}) is sufficient for this slot (minimum: ${mb_formatted}).")
+            min_bank_advice.append(f"✅ Your bankroll (\${pb_formatted}) is sufficient for this slot (minimum: \${mb_formatted}).")
         
         risk_multiplier_map = {'low': 1, 'medium': 2, 'high': 5}
         risk_multiplier = risk_multiplier_map.get(risk_level, 2)
@@ -133,9 +133,9 @@ class SlotProbabilityCalculator:
         adjustment_note = ""
         if abs(bet_per_spin - theoretical_bet) > 0.01:
             if bet_per_spin == self.min_bet:
-                adjustment_note = f" (Note: theoretical bet ${tb_formatted} was **adjusted** to minimum possible in this slot)."
+                adjustment_note = f" (Note: theoretical bet \${tb_formatted} was **adjusted** to minimum possible in this slot)."
             elif bet_per_spin < theoretical_bet:
-                 adjustment_note = f" (Note: theoretical bet ${tb_formatted} was **reduced and rounded** according to bet step)."
+                 adjustment_note = f" (Note: theoretical bet \${tb_formatted} was **reduced and rounded** according to bet step)."
         
         base_win_prob, rtp = float(self.config.get('probabilities', {}).get('base_win_probability', 0.25)), self.config.get('game_config', {}).get('rtp', 0.96)
         bwp_pct = base_win_prob * 100
@@ -145,7 +145,7 @@ class SlotProbabilityCalculator:
         hev_formatted = f"{house_edge_val:.2f}"
         
         truth1 = f"Probability of any win per spin: **{bwp_pct:.1f}%**. This means on average **~{losing_spins_count} out of 10 spins will be losing**."
-        truth2 = f"**RTP {rtp_pct:.1f}%** means for every $1,000 bet, casino keeps **${hev_formatted}** on average."
+        truth2 = f"**RTP {rtp_pct:.1f}%** means for every \$1,000 bet, casino keeps **\${hev_formatted}** on average."
 
         harsh_truths = [truth1, truth2]
         
@@ -162,10 +162,11 @@ class SlotProbabilityCalculator:
         wgl_val_f = f"{wgl_val:.2f}"
         wgl_profit_f = f"{wgl_profit:.2f}"
         
-        strategy1 = f"**Recommended bet**: For your bankroll and risk level, real bet is **${bps_formatted}**.{adjustment_note}"
-        strategy2 = f"**Bet management**: Start with minimum bet **${mbet_formatted}**. If game goes well, gradually increase bet but don't exceed recommended."
-        strategy3 = f"**Stop-loss (iron rule)**: Immediately stop playing if your bankroll drops to **${sll_val_f}** (loss of ${sll_loss_f})."
-        strategy4 = f"**Win goal**: Secure profit and stop playing if your bankroll reaches **${wgl_val_f}** (profit of ${wgl_profit_f})."
+        # --- CORRECTED F-STRING FORMATTING AS PER YOUR REQUEST ---
+        strategy1 = f"**Recommended bet**: For your bankroll and risk level, real bet is **\${bps_formatted}**.{adjustment_note}"
+        strategy2 = f"**Bet management**: Start with minimum bet **\${mbet_formatted}**. If game goes well, gradually increase bet but don't exceed recommended."
+        strategy3 = f"**Stop-loss (iron rule)**: Immediately stop playing if your bankroll drops to **\${sll_val_f}** (loss of \${sll_loss_f})."
+        strategy4 = f"**Win goal**: Secure profit and stop playing if your bankroll reaches **\${wgl_val_f}** (profit of \${wgl_profit_f})."
         strategy5 = "**Psychology**: **NEVER** try to 'win back'. Each spin is independent."
 
         optimal_strategy = [strategy1, strategy2, strategy3, strategy4, strategy5]
@@ -283,7 +284,7 @@ def run_single_slot_analysis(local_config_files):
             if personal_bankroll < calculator.min_bet:
                 pb_formatted_error = f"{personal_bankroll:.2f}"
                 mb_formatted_error = f"{calculator.min_bet:.2f}"
-                st.error(f"**Your bankroll (${pb_formatted_error}) is less than minimum bet in this slot (${mb_formatted_error}).**")
+                st.error(f"**Your bankroll (\${pb_formatted_error}) is less than minimum bet in this slot (\${mb_formatted_error}).**")
                 st.warning("Unfortunately, analysis is impossible. Please increase your bankroll.")
                 st.stop()
             game_config = config.get('game_config', {})
@@ -294,7 +295,7 @@ def run_single_slot_analysis(local_config_files):
             rl_formatted = risk_level.capitalize()
 
             st.header(f"🎰 Full Slot Analysis: {gn_formatted}", divider="rainbow")
-            st.markdown(f"### Your Parameters: Bankroll: ${pb_formatted} | Desired Win: +${dw_formatted} | Risk: **{rl_formatted}**")
+            st.markdown(f"### Your Parameters: Bankroll: \${pb_formatted} | Desired Win: +\${dw_formatted} | Risk: **{rl_formatted}**")
             
             goal_result = calculator.estimate_goal_chance(personal_bankroll, desired_win)
             strategy = calculator.generate_bankroll_strategy(personal_bankroll, risk_level)
@@ -305,7 +306,7 @@ def run_single_slot_analysis(local_config_files):
             col1, col2 = st.columns(2)
             with col1:
                 dw_label_formatted = f"{desired_win:,.2f}"
-                st.metric(label=f"Estimated chance to win ${dw_label_formatted}", value=f"{goal_result['probability']*100:.4f}%")
+                st.metric(label=f"Estimated chance to win \${dw_label_formatted}", value=f"{goal_result['probability']*100:.4f}%")
             with col2:
                 spins_str = f"{guaranteed_spins}" if guaranteed_spins != float('inf') else "∞"
                 st.metric(label="Guaranteed number of spins (at rec. bet)", value=spins_str)
@@ -315,8 +316,8 @@ def run_single_slot_analysis(local_config_files):
                 #### Win chance
                 This is your mathematical probability to reach goal **before casino advantage (RTP < 100%) depletes your bankroll**.
                 #### Guaranteed number of spins
-                This is **real number of spins** you can make with your bankroll playing at **Recommended bet** (${bet_per_spin:.2f}).
-                - **How is bet determined?** We multiply slot's minimum bet (**${calculator.min_bet:.2f}**) by risk coefficient (x1-x5) and by non-linear bankroll coefficient. Then result is **rounded and adjusted** to fit slot's real limits.
+                This is **real number of spins** you can make with your bankroll playing at **Recommended bet** (\${bet_per_spin:.2f}).
+                - **How is bet determined?** We multiply slot's minimum bet (**\${calculator.min_bet:.2f}**) by risk coefficient (x1-x5) and by non-linear bankroll coefficient. Then result is **rounded and adjusted** to fit slot's real limits.
                 - **This is your real 'safety margin'**: The bigger it is, the longer your play time to reach goal.
                 """)
             
@@ -334,15 +335,15 @@ def run_single_slot_analysis(local_config_files):
                 st.subheader("2. Minimum Bankroll Calculation & Rationale")
                 st.markdown("For strategy to make sense, your bankroll must withstand losing streaks characteristic of this volatility.")
                 st.markdown("\n**Calculation source data:**")
-                st.markdown(f" • **Minimum bet**: ${calculator.min_bet:.2f}")
-                st.markdown(f" • **Max win at min bet**: ${calculator.max_win_at_min_bet:,.2f}")
-                st.markdown(f" • **Average significant win (at min bet)**: ${calculator.avg_win:,.2f}")
+                st.markdown(f" • **Minimum bet**: \${calculator.min_bet:.2f}")
+                st.markdown(f" • **Max win at min bet**: \${calculator.max_win_at_min_bet:,.2f}")
+                st.markdown(f" • **Average significant win (at min bet)**: \${calculator.avg_win:,.2f}")
                 st.markdown(f" • **Volatility**: {calculator.volatility.capitalize()}")
                 st.markdown("\n**Calculation process:**")
                 st.markdown(f"1. **Formula** (for {calculator.volatility.capitalize()} volatility): `{calculator.min_bankroll_formula}`")
                 st.markdown(f"2. **Substitute values**: `{calculator.min_bankroll_calculation}`")
                 min_bankroll_final_str = ''.join(filter(lambda char: char.isdigit() or char in '.,', strategy['min_bank_advice'][0].split('$')[-1]))
-                st.success(f"**Result**: Final recommended minimum is **${min_bankroll_final_str}**")
+                st.success(f"**Result**: Final recommended minimum is **\${min_bankroll_final_str}**")
             with st.container(border=True):
                 st.subheader("3. Hard Truth About Odds (no sugarcoating)")
                 for truth in strategy['harsh_truths']: 
@@ -410,7 +411,7 @@ def run_batch_analysis(local_config_files):
                         "spins for 99% probability (min - max)": spins_99_range,
                         "Bankroll Verdict": bankroll_verdict,
                         "Probability of any win per spin": f"{any_win_prob * 100:.1f}%",
-                        "Minimum bet": f"${min_bet:.2f}"
+                        "Minimum bet": f"\${min_bet:.2f}"
                     })
 
                 except Exception as e:
