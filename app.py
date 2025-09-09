@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - UNIVERSAL SLOT ANALYZER V9.5 (Fixed Column Format Syntax)
+#  app.py - UNIVERSAL SLOT ANALYZER V9.6 (Corrected Display Formatting)
 # ==============================================================================
 import json
 import math
@@ -430,8 +430,8 @@ def run_batch_analysis(local_config_files):
                     column_config={
                         "Minimum bet $": st.column_config.NumberColumn(format="$%.2f"),
                         "Recommended bet $": st.column_config.NumberColumn(format="$%.2f"),
-                        "Max win at min bet $": st.column_config.NumberColumn(format="$ ,.2f"),
-                        "Max win at rec bet $": st.column_config.NumberColumn(format="$ ,.2f"),
+                        "Max win at min bet $": st.column_config.NumberColumn(format="$%.2f"),
+                        "Max win at rec bet $": st.column_config.NumberColumn(format="$%.2f"),
                     },
                     use_container_width=True
                 )
