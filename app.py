@@ -1,5 +1,5 @@
 # ==============================================================================
-#  app.py - UNIVERSAL SLOT ANALYZER V8.0 (with batch analysis mode)
+#  app.py - UNIVERSAL SLOT ANALYZER V8.1 (with batch analysis bugfix)
 # ==============================================================================
 import json
 import math
@@ -221,14 +221,12 @@ def main():
     st.title("Universal Slot Probability Analyzer")
     st.markdown("Этот инструмент помогает понять реальные шансы и разработать стратегию для любого слота на основе его математических параметров.")
     
-    # --- NEW: Analysis Mode Selection ---
     analysis_mode = st.radio(
         "Выберите режим анализа:",
         ("Анализ одного слота", "Анализ всех слотов в папке"),
         horizontal=True,
     )
     
-    # --- Get list of local files ---
     local_config_files = get_local_config_files(CONFIGS_FOLDER)
     
     if analysis_mode == "Анализ одного слота":
@@ -328,7 +326,6 @@ def run_single_slot_analysis(local_config_files):
             st.dataframe(calculator.get_results_table(), use_container_width=True)
             
             st.header("♟️ Персональная стратегия игры", divider="rainbow")
-            # ... (rest of the detailed single slot analysis UI)
             with st.container(border=True):
                 st.subheader("1. Вердикт по вашему банкроллу")
                 for advice in strategy['min_bank_advice']: 
@@ -395,7 +392,17 @@ def run_batch_analysis(local_config_files):
                     bet_per_spin = strategy.get('bet_per_spin', calculator.min_bet)
                     guaranteed_spins = int(personal_bankroll / bet_per_spin) if bet_per_spin > 0 else 0
                     spins_99_range = calculator.get_spins_for_99_range()
-                    bankroll_verdict = strategy['min_bank_advice'][0].split('**')[1] # Extract the core message
+                    
+                    # === BUG FIX AREA: More robust way to determine the verdict ===
+                    full_verdict_message = strategy['min_bank_advice'][0]
+                    if "КРИТИЧЕСКИЙ РИСК" in full_verdict_message:
+                        bankroll_verdict = "Критический риск"
+                    elif "достаточен" in full_verdict_message:
+                        bankroll_verdict = "Достаточный"
+                    else:
+                        bankroll_verdict = "N/A" # Fallback
+                    # === END OF BUG FIX ===
+                        
                     any_win_prob = config.get('probabilities', {}).get('base_win_probability', 0)
                     min_bet = calculator.min_bet
                     
